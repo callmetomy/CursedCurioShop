@@ -26,3 +26,10 @@ python -m tools.asset_pipeline.generate_sample_item --root . --item-id oddity_00
 python -m tools.asset_pipeline.tripo_smoke_test --root .
 python -m tools.asset_pipeline.tripo_smoke_test --root . --submit
 ```
+
+`status.py` reports which generated outputs exist for an item.
+
+```powershell
+python -m tools.asset_pipeline.status --root . --item-id oddity_0001
+python -m tools.asset_pipeline.status --root . --item-id oddity_0001 --json
+```

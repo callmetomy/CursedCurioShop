@@ -65,6 +65,12 @@ Preview the Tripo text-to-3D API payload without spending credits:
 python -m tools.asset_pipeline.tripo_smoke_test --root .
 ```
 
+Check which outputs exist for an oddity:
+
+```powershell
+python -m tools.asset_pipeline.status --root . --item-id oddity_0001
+```
+
 Submit one Tripo text-to-3D smoke test:
 
 ```powershell
