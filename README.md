@@ -42,6 +42,18 @@ Do not commit API keys or downloaded private assets unless intentionally cleared
 
 ## Local Commands
 
+Print the current project dashboard:
+
+```powershell
+python -m tools.project_status --root . --run-tests
+```
+
+Use JSON output for automation or agent handoff:
+
+```powershell
+python -m tools.project_status --root . --run-tests --json
+```
+
 Run tests:
 
 ```powershell
