@@ -17,6 +17,7 @@ assets/models_processed/*
 assets/audio/*
 assets/review/*
 assets/steam/generated/*
+!assets/review/*_review.md
 
 # Keep directory placeholders
 !assets/concepts/.gitkeep
