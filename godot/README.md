@@ -1,15 +1,17 @@
 # Godot Project
 
-The Godot project will live here.
+This folder contains the Godot 4.x project for Cursed Curio Shop.
 
-Recommended next step:
+## Model Viewer
 
-1. Create a Godot 4.x project in this folder.
-2. Add initial folders:
-   - `scenes/`
-   - `scripts/`
-   - `resources/`
-   - `ui/`
-   - `addons/`
-3. Add a first-person test scene.
-4. Import one approved oddity model.
+The main scene is `res://scenes/model_viewer.tscn`.
+
+It loads the tracked asset pipeline model from:
+
+```text
+../assets/models_raw/oddity_0001.glb
+```
+
+That path points outside the Godot project folder and into the repository-level asset pipeline output. The GLB is intentionally ignored by git, while its generation history is tracked in `../data/manifests/oddity_0001_manifest.json`.
+
+Use this scene for a first manual quality check before creating processed models, collision, review screenshots, or item scenes.

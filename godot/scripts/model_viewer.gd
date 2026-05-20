@@ -2,13 +2,14 @@ extends Node3D
 
 @onready var model_root: Node3D = $ModelRoot
 
-const MODEL_PATH := "res://assets/models_raw/tripo_teacup.glb"
+const MODEL_PATH := "../assets/models_raw/oddity_0001.glb"
 
 var rotation_speed := 0.6
 
 
 func _ready() -> void:
-	var model: Node3D = _load_gltf_scene(MODEL_PATH)
+	var model_path: String = _resolve_model_path(MODEL_PATH)
+	var model: Node3D = _load_gltf_scene(model_path)
 	if model == null:
 		return
 	model_root.add_child(model)
@@ -17,6 +18,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	model_root.rotate_y(rotation_speed * delta)
+
+
+func _resolve_model_path(path: String) -> String:
+	if path.begins_with("res://") or path.is_absolute_path():
+		return path
+	return ProjectSettings.globalize_path("res://" + path)
 
 
 func _load_gltf_scene(path: String) -> Node3D:
