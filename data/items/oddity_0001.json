@@ -14,10 +14,24 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "",
-    "clues": [],
+    "description": "A white porcelain teacup that stays unnaturally cold even under bright shop lamps.",
+    "clues": [
+      {
+        "tool": "magnifier",
+        "result": "Hairline cracks form a faint spiral around the bowl."
+      },
+      {
+        "tool": "uv_lamp",
+        "result": "A hidden ring-shaped mark glows blue near the rim."
+      },
+      {
+        "tool": "thermometer",
+        "result": "The cup reads far below room temperature.",
+        "temperature_c": -7.4
+      }
+    ],
     "correct_handling": "seal",
-    "wrong_handling_consequence": ""
+    "wrong_handling_consequence": "If sold, the buyer returns with frostbite and the shop loses reputation."
   },
   "economy": {
     "base_value": 50,

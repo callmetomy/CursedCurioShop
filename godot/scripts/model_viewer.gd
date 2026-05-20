@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var model_root: Node3D = $ModelRoot
 
-const MODEL_PATH := "../assets/models_raw/oddity_0001.glb"
+const MODEL_PATH := "res://assets/models_processed/oddity_0001.glb"
 
 var rotation_speed := 0.6
 

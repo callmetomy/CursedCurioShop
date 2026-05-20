@@ -1,0 +1,49 @@
+{
+  "id": "oddity_0002",
+  "display_name": "Mirror Coin",
+  "rarity": "common",
+  "danger_level": 1,
+  "visual_theme": [
+    "antique",
+    "cursed",
+    "shop_prop"
+  ],
+  "model": {
+    "raw_path": "assets/models_raw/oddity_0002.glb",
+    "processed_path": "assets/models_processed/oddity_0002.glb",
+    "scale_meters": 0.35
+  },
+  "appraisal": {
+    "description": "A local prototype oddity: Mirror Coin.",
+    "clues": [
+      {
+        "tool": "magnifier",
+        "result": "Fine scratches form a deliberate appraisal mark."
+      },
+      {
+        "tool": "uv_lamp",
+        "result": "A hidden blue mark appears under UV light."
+      },
+      {
+        "tool": "thermometer",
+        "result": "The reading is inconsistent with the room.",
+        "temperature_c": -2.1
+      }
+    ],
+    "correct_handling": "seal",
+    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+  },
+  "economy": {
+    "base_value": 50,
+    "sell_value": 75,
+    "seal_cost": 20
+  },
+  "generation": {
+    "status": "local_prototype",
+    "concept_prompt": "Local prototype concept for Mirror Coin.",
+    "model_prompt": "Local procedural prototype model for Mirror Coin.",
+    "attempts": 1,
+    "approved": true
+  },
+  "local_shape": "coin"
+}

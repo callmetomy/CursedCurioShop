@@ -1,0 +1,269 @@
+[gd_scene load_steps=9 format=3 uid="uid://inspection_table_scene"]
+
+[ext_resource type="Script" path="res://scripts/inspection_table.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/items/oddity_0001.tscn" id="2_item"]
+
+[sub_resource type="Environment" id="Environment_table"]
+background_mode = 1
+background_color = Color(0.055, 0.05, 0.048, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.52, 0.48, 0.43, 1)
+ambient_light_energy = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_table"]
+size = Vector3(3.2, 0.12, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="Material_table"]
+albedo_color = Color(0.22, 0.17, 0.13, 1)
+roughness = 0.82
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_tool_button"]
+bg_color = Color(0.12, 0.105, 0.095, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.42, 0.34, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="TorusMesh" id="TorusMesh_uv_marker"]
+inner_radius = 0.018
+outer_radius = 0.105
+ring_segments = 48
+sides = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_uv_marker"]
+albedo_color = Color(0.28, 0.86, 1, 1)
+emission_enabled = true
+emission = Color(0.14, 0.62, 1, 1)
+emission_energy_multiplier = 1.8
+
+[node name="InspectionTable" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_table")
+
+[node name="TableTop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0)
+mesh = SubResource("BoxMesh_table")
+surface_material_override/0 = SubResource("Material_table")
+
+[node name="ItemPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0.08, 0)
+
+[node name="Oddity0001" parent="ItemPivot" instance=ExtResource("2_item")]
+
+[node name="UVClueMarker" type="MeshInstance3D" parent="ItemPivot"]
+visible = false
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.09, 0.03, 0.0)
+mesh = SubResource("TorusMesh_uv_marker")
+surface_material_override/0 = SubResource("Material_uv_marker")
+
+[node name="InspectionCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.55, 2.7)
+current = true
+fov = 42.0
+
+[node name="KeyLight" type="SpotLight3D" parent="."]
+transform = Transform3D(0.819152, -0.219846, 0.53033, 0, 0.92388, 0.382683, -0.573576, -0.313476, 0.756797, -1.2, 1.8, 1.7)
+light_energy = 880.0
+spot_range = 5.0
+spot_angle = 42.0
+
+[node name="FillLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.9, 1.4)
+light_energy = 120.0
+omni_range = 3.5
+
+[node name="UVLamp" type="SpotLight3D" parent="."]
+visible = false
+transform = Transform3D(0.906308, -0.178606, 0.383022, 0, 0.906308, 0.422618, -0.422618, -0.383022, 0.821394, 0.0, 1.35, 1.35)
+light_color = Color(0.42, 0.58, 1, 1)
+light_energy = 0.0
+spot_range = 3.0
+spot_angle = 34.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="BackToShopButton" type="Button" parent="HUD"]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 160.0
+offset_bottom = 68.0
+text = "Back to Shop"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="ToolPanel" type="HBoxContainer" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -72.0
+offset_right = 472.0
+offset_bottom = -24.0
+theme_override_constants/separation = 8
+
+[node name="MagnifierButton" type="Button" parent="HUD/ToolPanel"]
+custom_minimum_size = Vector2(136, 44)
+toggle_mode = true
+text = "Magnifier"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="ThermometerButton" type="Button" parent="HUD/ToolPanel"]
+custom_minimum_size = Vector2(136, 44)
+toggle_mode = true
+text = "Thermometer"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="ThermometerReadout" type="Label" parent="HUD"]
+visible = false
+anchors_preset = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 24.0
+offset_right = 130.0
+offset_bottom = 58.0
+horizontal_alignment = 1
+text = "Temperature: -7.4 C"
+
+[node name="UVLampButton" type="Button" parent="HUD/ToolPanel"]
+custom_minimum_size = Vector2(136, 44)
+toggle_mode = true
+text = "UV Lamp"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="DecisionPanel" type="HBoxContainer" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -72.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_constants/separation = 8
+
+[node name="SellButton" type="Button" parent="HUD/DecisionPanel"]
+custom_minimum_size = Vector2(120, 44)
+text = "Sell"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="SealButton" type="Button" parent="HUD/DecisionPanel"]
+custom_minimum_size = Vector2(120, 44)
+text = "Seal"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="DiscardButton" type="Button" parent="HUD/DecisionPanel"]
+custom_minimum_size = Vector2(120, 44)
+text = "Discard"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="DecisionResult" type="Label" parent="HUD"]
+visible = false
+anchors_preset = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 72.0
+offset_right = 280.0
+offset_bottom = 108.0
+horizontal_alignment = 1
+text = "Decision pending"
+
+[node name="DayResultPanel" type="VBoxContainer" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = 90.0
+theme_override_constants/separation = 10
+
+[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel"]
+horizontal_alignment = 1
+text = "Outcome"
+
+[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel"]
+horizontal_alignment = 1
+text = "Cash: +0"
+
+[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel"]
+horizontal_alignment = 1
+text = "Reputation: +0"
+
+[node name="NextDayButton" type="Button" parent="HUD/DayResultPanel"]
+custom_minimum_size = Vector2(180, 42)
+text = "Next Day"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")
+
+[node name="AbnormalEventPanel" type="VBoxContainer" parent="HUD"]
+visible = false
+anchors_preset = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 178.0
+theme_override_constants/separation = 6
+
+[node name="EventLabel" type="Label" parent="HUD/AbnormalEventPanel"]
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "Abnormal event"
+
+[node name="BadEndingPanel" type="VBoxContainer" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -150.0
+offset_right = 220.0
+offset_bottom = 150.0
+theme_override_constants/separation = 12
+
+[node name="EndingTitle" type="Label" parent="HUD/BadEndingPanel"]
+horizontal_alignment = 1
+text = "Bad Ending: Frost Sale"
+
+[node name="EndingBody" type="Label" parent="HUD/BadEndingPanel"]
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "The buyer carries the whispering teacup into town. By morning, every window on the street is iced from the inside."
+
+[node name="ReturnToMenuButton" type="Button" parent="HUD/BadEndingPanel"]
+custom_minimum_size = Vector2(180, 42)
+text = "Return to Menu"
+theme_override_styles/normal = SubResource("StyleBox_tool_button")
+theme_override_styles/hover = SubResource("StyleBox_tool_button")
+theme_override_styles/pressed = SubResource("StyleBox_tool_button")

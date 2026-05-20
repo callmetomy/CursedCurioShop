@@ -2,37 +2,37 @@
 
 ## Phase 1: Project Foundation
 
-- Create workspace structure.
-- Add API key template.
-- Define item schema.
-- Define prompt templates.
-- Choose Godot version.
-- Create minimal Godot project.
+- Done: Create workspace structure.
+- Done: Add API key template.
+- Done: Define item schema.
+- Done: Define prompt templates.
+- Done: Choose Godot version.
+- Done: Create minimal Godot project.
 
 ## Phase 2: Asset Factory Prototype
 
-- Generate one structured oddity definition.
-- Generate one concept image.
-- Generate one Meshy model.
-- Download raw model.
-- Process model through Blender script.
-- Create a Godot item scene.
-- Render review screenshots.
+- Done: Generate one structured oddity definition.
+- Done: Generate one concept image.
+- Done: Generate one Tripo model.
+- Done: Download raw model.
+- Done: Process model through Blender script.
+- Done: Create a Godot item scene.
+- Done: Render review screenshots.
 
 ## Phase 3: Gameplay Prototype
 
-- First-person controller.
-- Inspectable item pickup and rotation.
-- Inspection table.
-- Three tools: magnifier, UV lamp, thermometer.
-- Item decision UI.
-- Day result screen.
+- Done: First-person controller.
+- Done: Inspectable item pickup and rotation.
+- Done: Inspection table.
+- Done: Three tools: magnifier, UV lamp, thermometer.
+- Done: Item decision UI.
+- Done: Day result screen.
 
 ## Phase 4: Demo Slice
 
-- Ten approved oddities.
-- Three-day loop.
-- One scripted abnormal event.
-- One bad ending.
-- Main menu.
-- Windows export.
+- Done: Ten approved oddities.
+- Done: Three-day loop.
+- Done: One scripted abnormal event.
+- Done: One bad ending.
+- Done: Main menu.
+- Done: Windows export.

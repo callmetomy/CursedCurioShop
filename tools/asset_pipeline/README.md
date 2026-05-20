@@ -34,6 +34,34 @@ python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_00
 python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_0001 --submit --wait --download
 ```
 
+`process_model_blender.py` runs Blender in background mode to normalize a tracked raw GLB and export the processed GLB.
+
+```powershell
+python -m tools.asset_pipeline.process_model_blender --root . --item-id oddity_0001 --dry-run
+python -m tools.asset_pipeline.process_model_blender --root . --item-id oddity_0001
+```
+
+It finds Blender from `--blender`, `BLENDER_PATH`, `PATH`, or common Windows install paths.
+
+`render_review_blender.py` renders four standard PNG review angles from the processed GLB.
+
+```powershell
+python -m tools.asset_pipeline.render_review_blender --root . --item-id oddity_0001 --dry-run
+python -m tools.asset_pipeline.render_review_blender --root . --item-id oddity_0001
+```
+
+`generate_local_oddities.py` creates the local prototype roster metadata, concept placeholders, reviews, and manifests for `oddity_0002` through `oddity_0010`.
+
+```powershell
+python -m tools.asset_pipeline.generate_local_oddities --root .
+```
+
+Generate their local procedural GLBs through Blender:
+
+```powershell
+blender --background --factory-startup --python tools/asset_pipeline/blender_generate_local_oddities.py -- --root .
+```
+
 `status.py` reports which generated outputs exist for an item.
 
 ```powershell

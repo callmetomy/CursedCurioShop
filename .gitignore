@@ -6,7 +6,9 @@
 # Godot
 .godot/
 godot/.godot/
-godot/assets/models_raw/*.glb
+godot/assets/models_raw/*
+!godot/assets/models_raw/.gitkeep
+godot/assets/models_processed/*.glb
 *.translation
 
 # Exports and generated files

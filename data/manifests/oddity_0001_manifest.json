@@ -28,6 +28,34 @@
       "status": "accepted_for_processing",
       "output_path": "assets/review/oddity_0001_review.md",
       "created_at": "2026-05-20T09:09:28.246456+00:00"
+    },
+    {
+      "item_id": "oddity_0001",
+      "stage": "concept_image",
+      "status": "created_locally",
+      "output_path": "assets/concepts/oddity_0001.png",
+      "created_at": "2026-05-20T11:39:53.016768+00:00"
+    },
+    {
+      "item_id": "oddity_0001",
+      "stage": "model_processing",
+      "status": "pass_through_processed",
+      "output_path": "assets/models_processed/oddity_0001.glb",
+      "created_at": "2026-05-20T11:39:53.016768+00:00"
+    },
+    {
+      "item_id": "oddity_0001",
+      "stage": "model_processing",
+      "status": "blender_normalized",
+      "output_path": "assets/models_processed/oddity_0001.glb",
+      "created_at": "2026-05-20T12:07:26.741787+00:00"
+    },
+    {
+      "item_id": "oddity_0001",
+      "stage": "review_render",
+      "status": "rendered_blender_turntable",
+      "output_path": "assets/review/oddity_0001_front.png;assets/review/oddity_0001_right.png;assets/review/oddity_0001_back.png;assets/review/oddity_0001_left.png",
+      "created_at": "2026-05-20T12:17:11.179026+00:00"
     }
   ]
 }
