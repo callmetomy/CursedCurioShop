@@ -27,6 +27,13 @@ python -m tools.asset_pipeline.tripo_smoke_test --root .
 python -m tools.asset_pipeline.tripo_smoke_test --root . --submit
 ```
 
+`generate_tripo_model.py` uses an item's `generation.model_prompt`, submits it to Tripo when requested, and downloads the finished model to the item's tracked raw model path.
+
+```powershell
+python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_0001
+python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_0001 --submit --wait --download
+```
+
 `status.py` reports which generated outputs exist for an item.
 
 ```powershell

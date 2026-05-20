@@ -77,6 +77,12 @@ Preview the Tripo text-to-3D API payload without spending credits:
 python -m tools.asset_pipeline.tripo_smoke_test --root .
 ```
 
+Preview the tracked Tripo payload for a real oddity without spending credits:
+
+```powershell
+python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_0001
+```
+
 Check which outputs exist for an oddity:
 
 ```powershell
@@ -95,4 +101,10 @@ Poll and download an existing task if it is finished:
 
 ```powershell
 python -m tools.asset_pipeline.tripo_smoke_test --root . --task-id YOUR_TASK_ID --download
+```
+
+Submit, wait, and download a tracked oddity model after approving credit usage:
+
+```powershell
+python -m tools.asset_pipeline.generate_tripo_model --root . --item-id oddity_0001 --submit --wait --download
 ```
