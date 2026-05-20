@@ -1,0 +1,39 @@
+{
+  "id": "oddity_0001",
+  "display_name": "Example Oddity",
+  "rarity": "common",
+  "danger_level": 1,
+  "visual_theme": ["antique", "cursed", "shop_prop"],
+  "model": {
+    "raw_path": "assets/models_raw/oddity_0001.glb",
+    "processed_path": "assets/models_processed/oddity_0001.glb",
+    "scale_meters": 0.35
+  },
+  "appraisal": {
+    "description": "Short in-game object description.",
+    "clues": [
+      {
+        "tool": "magnifier",
+        "result": "A small hidden mark is visible."
+      },
+      {
+        "tool": "uv_lamp",
+        "result": "The mark glows faintly."
+      }
+    ],
+    "correct_handling": "seal",
+    "wrong_handling_consequence": "The shop reputation decreases and an abnormal event is queued."
+  },
+  "economy": {
+    "base_value": 50,
+    "sell_value": 75,
+    "seal_cost": 20
+  },
+  "generation": {
+    "status": "draft",
+    "concept_prompt": "",
+    "model_prompt": "",
+    "attempts": 0,
+    "approved": false
+  }
+}

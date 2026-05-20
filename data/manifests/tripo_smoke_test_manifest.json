@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "attempts": [
+    {
+      "item_id": "tripo_smoke_test",
+      "stage": "tripo_text_to_model",
+      "status": "submitted",
+      "output_path": "tripo:ec4bc74e-037c-49af-8044-94e67401813f",
+      "created_at": "2026-05-19T10:36:36.429904+00:00"
+    },
+    {
+      "item_id": "tripo_smoke_test",
+      "stage": "tripo_download",
+      "status": "downloaded",
+      "output_path": "assets/models_raw/tripo_ec4bc74e-037c-49af-8044-94e67401813f.glb",
+      "created_at": "2026-05-19T10:38:22.719367+00:00"
+    }
+  ]
+}

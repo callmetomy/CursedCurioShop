@@ -1,0 +1,41 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Godot
+.godot/
+godot/.godot/
+godot/assets/models_raw/*.glb
+*.translation
+
+# Exports and generated files
+exports/
+assets/concepts/*
+assets/models_raw/*
+assets/models_processed/*
+assets/audio/*
+assets/review/*
+assets/steam/generated/*
+
+# Keep directory placeholders
+!assets/concepts/.gitkeep
+!assets/models_raw/.gitkeep
+!assets/models_processed/.gitkeep
+!assets/audio/.gitkeep
+!assets/review/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/settings.json

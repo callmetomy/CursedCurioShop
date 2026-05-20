@@ -1,0 +1,34 @@
+{
+  "id": "oddity_0001",
+  "display_name": "Whispering Teacup",
+  "rarity": "common",
+  "danger_level": 1,
+  "visual_theme": [
+    "antique",
+    "cursed",
+    "shop_prop"
+  ],
+  "model": {
+    "raw_path": "assets/models_raw/oddity_0001.glb",
+    "processed_path": "assets/models_processed/oddity_0001.glb",
+    "scale_meters": 0.35
+  },
+  "appraisal": {
+    "description": "",
+    "clues": [],
+    "correct_handling": "seal",
+    "wrong_handling_consequence": ""
+  },
+  "economy": {
+    "base_value": 50,
+    "sell_value": 75,
+    "seal_cost": 20
+  },
+  "generation": {
+    "status": "draft",
+    "concept_prompt": "A cracked porcelain teacup for a first-person cursed antique shop game, dark tea stain, faint hairline fractures, readable silhouette, no text.",
+    "model_prompt": "A cursed porcelain teacup game prop, cracked white ceramic, dark stain, asymmetrical worn details, game-ready PBR texture, no text, no logo.",
+    "attempts": 0,
+    "approved": false
+  }
+}
