@@ -6,6 +6,7 @@ Use this checklist for manual Windows demo passes. Record concrete observations,
 
 - Commit:
 - Export path: `exports/windows/CursedCurioShop.exe`
+- Automated smoke command: `godot --headless --path godot --script res://tools/smoke_three_day_flow.gd`
 - Tester:
 - Date:
 

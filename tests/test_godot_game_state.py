@@ -57,6 +57,20 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("GameState.is_run_complete", inspection)
         self.assertIn("GameState.get_current_item_scene_path", inspection)
 
+    def test_three_day_demo_smoke_script_exercises_core_flow(self):
+        script_path = ROOT / "godot" / "tools" / "smoke_three_day_flow.gd"
+        self.assertTrue(script_path.exists())
+
+        script = script_path.read_text(encoding="utf-8")
+        self.assertIn('load("res://scenes/inspection_table.tscn") as PackedScene', script)
+        self.assertIn('const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003"]', script)
+        self.assertIn("_resolve_decision", script)
+        self.assertIn("_on_next_day_pressed", script)
+        self.assertIn('_game_state().get("current_day")', script)
+        self.assertIn("HUD/AbnormalEventPanel", script)
+        self.assertIn("HUD/BadEndingPanel", script)
+        self.assertIn("quit(0)", script)
+
 
 if __name__ == "__main__":
     unittest.main()

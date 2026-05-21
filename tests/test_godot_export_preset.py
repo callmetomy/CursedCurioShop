@@ -12,7 +12,7 @@ class GodotExportPresetTests(unittest.TestCase):
         self.assertIn('name="Windows Desktop"', preset)
         self.assertIn('platform="Windows Desktop"', preset)
         self.assertIn('export_path="../exports/windows/CursedCurioShop.exe"', preset)
-        self.assertIn('exclude_filter="assets/models_raw/*"', preset)
+        self.assertIn('exclude_filter="assets/models_raw/*,tools/*"', preset)
         self.assertIn("application/file_version", preset)
         self.assertIn("application/product_name", preset)
 
