@@ -1,17 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://oddity_0002_item_scene"]
+[gd_scene load_steps=2 format=3 uid="uid://oddity_0006_item_scene"]
 
 [ext_resource type="Script" path="res://scripts/inspectable_item.gd" id="1_script"]
 
-[node name="Oddity0002" type="Node3D"]
+[node name="Oddity0006" type="Node3D"]
 script = ExtResource("1_script")
-item_id = "oddity_0002"
-display_name = "Mirror Coin"
-model_path = "res://assets/models_processed/oddity_0002.glb"
-correct_handling = "seal"
+item_id = "oddity_0006"
+display_name = "Black Wax Candle"
+model_path = "res://assets/models_processed/oddity_0006.glb"
+correct_handling = "discard"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."
 uv_clue = "A hidden blue mark appears under UV light."
 thermometer_clue = "The reading is inconsistent with the room."
-thermometer_c = -2.1
+thermometer_c = 38.6
 sell_value = 75
 seal_cost = 20
 wrong_event_text = "A minor abnormal event is queued for the shop."

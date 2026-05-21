@@ -14,7 +14,7 @@ thermometer_clue = "The cup reads far below room temperature."
 thermometer_c = -7.4
 sell_value = 75
 seal_cost = 20
-wrong_event_text = "Frost blooms across the counter. The cup has started whispering names."
+wrong_event_text = "If sold, the buyer returns with frostbite and the shop loses reputation."
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

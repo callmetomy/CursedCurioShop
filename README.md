@@ -96,6 +96,12 @@ Generate the local MVP UI and material asset pack:
 python -m tools.art.generate_mvp_visual_assets --root .
 ```
 
+Sync item JSON and processed models into Godot runtime item scenes:
+
+```powershell
+python -m tools.godot.sync_item_scenes --root .
+```
+
 Submit one Tripo text-to-3D smoke test:
 
 ```powershell

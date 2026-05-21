@@ -29,6 +29,12 @@ Day 2: res://scenes/items/oddity_0002.tscn
 Day 3: res://scenes/items/oddity_0003.tscn
 ```
 
+All ten MVP oddity scenes can be regenerated from `data/items/*.json` with:
+
+```powershell
+python -m tools.godot.sync_item_scenes --root .
+```
+
 Drag with the left mouse button to rotate the item. Use the mouse wheel to adjust inspection distance. Press `1` or click `Magnifier` to toggle the close inspection tool. Press `2` or click `UV Lamp` to dim the room light and reveal UV-only markings. Press `3` or click `Thermometer` to show the object's temperature clue.
 
 Use `Sell`, `Seal`, or `Discard` to resolve the current appraisal. The first oddity's correct handling is `Seal`. After a decision, the day result panel shows the outcome, cash change, and reputation change.
