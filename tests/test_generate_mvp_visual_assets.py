@@ -33,6 +33,7 @@ class GenerateMvpVisualAssetsTests(unittest.TestCase):
             for relative_path in [
                 "textures/cursed_teacup_decal.png",
                 "textures/mirror_coin_decal.png",
+                "textures/music_box_ash_decal.png",
                 "textures/uv_ring_mark.png",
             ]:
                 with Image.open(root / "godot" / "assets" / relative_path) as image:
@@ -63,6 +64,18 @@ class GenerateMvpVisualAssetsTests(unittest.TestCase):
                 self.assertGreater(alpha.getextrema()[1], 180)
                 visible_pixels = sum(count for value, count in enumerate(alpha.histogram()) if value > 96)
                 self.assertGreater(visible_pixels, 12000)
+
+    def test_music_box_decal_has_visible_ash_and_notches(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            generate_assets(root)
+
+            with Image.open(root / "godot" / "assets" / "textures" / "music_box_ash_decal.png") as image:
+                image = image.convert("RGBA")
+                alpha = image.getchannel("A")
+                self.assertGreater(alpha.getextrema()[1], 180)
+                visible_pixels = sum(count for value, count in enumerate(alpha.histogram()) if value > 96)
+                self.assertGreater(visible_pixels, 14000)
 
 
 if __name__ == "__main__":

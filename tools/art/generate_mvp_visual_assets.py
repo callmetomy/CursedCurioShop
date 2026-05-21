@@ -20,6 +20,7 @@ ASSET_SPECS = {
     "textures/shop_wallpaper.png": (1024, 1024),
     "textures/cursed_teacup_decal.png": (1024, 1024),
     "textures/mirror_coin_decal.png": (1024, 1024),
+    "textures/music_box_ash_decal.png": (1024, 1024),
     "textures/uv_ring_mark.png": (1024, 1024),
 }
 
@@ -263,6 +264,48 @@ def _draw_mirror_coin_decal(path: Path) -> None:
     _save(path, image)
 
 
+def _draw_music_box_ash_decal(path: Path) -> None:
+    width, height = ASSET_SPECS["textures/music_box_ash_decal.png"]
+    image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image, "RGBA")
+    rng = random.Random(626)
+
+    for y in range(210, 820, 86):
+        draw.line((170, y, 850, y + rng.randint(-24, 24)), fill=(22, 17, 14, 128), width=8)
+    for x in range(230, 820, 110):
+        draw.rectangle((x, 184, x + 24, 844), fill=(28, 20, 16, 78))
+
+    for i in range(48):
+        x = rng.randint(150, 880)
+        y = rng.randint(160, 860)
+        length = rng.randint(28, 130)
+        angle = rng.uniform(-0.85, 0.85)
+        draw.line(
+            (
+                x,
+                y,
+                x + int(math.cos(angle) * length),
+                y + int(math.sin(angle) * length),
+            ),
+            fill=(16, 12, 10, rng.randint(115, 210)),
+            width=rng.randint(4, 10),
+        )
+
+    for i in range(18):
+        x = rng.randint(210, 830)
+        y = rng.randint(220, 790)
+        radius = rng.randint(18, 62)
+        draw.ellipse((x - radius, y - radius // 2, x + radius, y + radius // 2), fill=(36, 31, 28, rng.randint(80, 150)))
+
+    for i in range(9):
+        x = 230 + i * 70
+        draw.arc((x, 330, x + 92, 470), 210, 330, fill=(128, 81, 42, 130), width=8)
+        draw.line((x + 46, 470, x + 46, 560), fill=(118, 73, 38, 110), width=5)
+
+    image = image.filter(ImageFilter.GaussianBlur(0.45))
+    _save(path, image)
+
+
 def _draw_uv_ring_mark(path: Path) -> None:
     width, height = ASSET_SPECS["textures/uv_ring_mark.png"]
     image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -292,6 +335,7 @@ DRAWERS = {
     "textures/shop_wallpaper.png": _draw_shop_wallpaper,
     "textures/cursed_teacup_decal.png": _draw_cursed_teacup_decal,
     "textures/mirror_coin_decal.png": _draw_mirror_coin_decal,
+    "textures/music_box_ash_decal.png": _draw_music_box_ash_decal,
     "textures/uv_ring_mark.png": _draw_uv_ring_mark,
 }
 

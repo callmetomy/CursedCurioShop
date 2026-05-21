@@ -106,7 +106,7 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertNotIn("wear_marker_enabled = true", scene)
 
     def test_remaining_prototype_item_scenes_have_readability_markers(self):
-        scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0003.tscn").read_text(
+        scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0004.tscn").read_text(
             encoding="utf-8"
         )
 
@@ -129,6 +129,26 @@ class GodotItemSceneTests(unittest.TestCase):
             scene,
         )
         self.assertIn("wear_decal_size = Vector3(0.26, 0.05, 0.26)", scene)
+
+    def test_ashen_music_box_uses_surface_decal_instead_of_debug_marker(self):
+        scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0003.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn(
+            'description = "A scorched music box whose cylinder clicks even when the lid is shut."',
+            scene,
+        )
+        self.assertIn("fallback_material_color = Color(0.26, 0.18, 0.14, 1.0)", scene)
+        self.assertIn("fallback_material_metallic = 0.08", scene)
+        self.assertIn("fallback_material_roughness = 0.86", scene)
+        self.assertIn("accent_marker_enabled = false", scene)
+        self.assertIn("wear_decal_enabled = true", scene)
+        self.assertIn(
+            'wear_decal_texture_path = "res://assets/textures/music_box_ash_decal.png"',
+            scene,
+        )
+        self.assertIn("wear_decal_size = Vector3(0.3, 0.08, 0.22)", scene)
 
 
 if __name__ == "__main__":

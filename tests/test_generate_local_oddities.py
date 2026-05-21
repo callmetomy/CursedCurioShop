@@ -38,6 +38,22 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
         self.assertEqual(clue_tools, {"magnifier", "uv_lamp", "thermometer"})
         self.assertTrue(item["appraisal"]["description"])
 
+    def test_build_local_item_preserves_visual_overrides(self):
+        item = build_local_item(LOCAL_ODDITY_SPECS[0])
+
+        self.assertEqual(
+            item["appraisal"]["description"],
+            "A tarnished silver coin whose face reflects a room one second out of sync.",
+        )
+        self.assertEqual(item["fallback_material_metallic"], 0.72)
+        self.assertEqual(item["fallback_material_roughness"], 0.42)
+        self.assertEqual(item["accent_marker_enabled"], False)
+        self.assertEqual(item["wear_decal_enabled"], True)
+        self.assertEqual(
+            item["wear_decal_texture_path"],
+            "res://assets/textures/mirror_coin_decal.png",
+        )
+
     def test_runtime_local_oddity_glbs_export_non_default_material_colors(self):
         for spec in LOCAL_ODDITY_SPECS:
             gltf = _read_glb_json(

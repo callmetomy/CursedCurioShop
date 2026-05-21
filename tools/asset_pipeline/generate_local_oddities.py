@@ -14,8 +14,15 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0002",
         "display_name": "Mirror Coin",
         "shape": "coin",
-        "material_color": [0.52, 0.50, 0.62, 1.0],
+        "description": "A tarnished silver coin whose face reflects a room one second out of sync.",
+        "material_color": [0.36, 0.35, 0.40, 1.0],
+        "fallback_material_metallic": 0.72,
+        "fallback_material_roughness": 0.42,
+        "accent_marker_enabled": False,
         "accent_marker_color": [0.25, 0.85, 1.0, 1.0],
+        "wear_decal_enabled": True,
+        "wear_decal_texture_path": "res://assets/textures/mirror_coin_decal.png",
+        "wear_decal_size": [0.26, 0.05, 0.26],
         "temperature_c": -2.1,
         "handling": "seal",
     },
@@ -23,8 +30,15 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0003",
         "display_name": "Ashen Music Box",
         "shape": "box",
-        "material_color": [0.42, 0.28, 0.22, 1.0],
+        "description": "A scorched music box whose cylinder clicks even when the lid is shut.",
+        "material_color": [0.26, 0.18, 0.14, 1.0],
+        "fallback_material_metallic": 0.08,
+        "fallback_material_roughness": 0.86,
+        "accent_marker_enabled": False,
         "accent_marker_color": [1.0, 0.45, 0.18, 1.0],
+        "wear_decal_enabled": True,
+        "wear_decal_texture_path": "res://assets/textures/music_box_ash_decal.png",
+        "wear_decal_size": [0.30, 0.08, 0.22],
         "temperature_c": 13.4,
         "handling": "discard",
     },
@@ -102,7 +116,7 @@ def build_local_item(spec: dict[str, Any]) -> dict[str, Any]:
         model_prompt=f"Local procedural prototype model for {spec['display_name']}.",
     )
     item["appraisal"] = {
-        "description": f"A local prototype oddity: {spec['display_name']}.",
+        "description": spec.get("description", f"A local prototype oddity: {spec['display_name']}."),
         "clues": [
             {
                 "tool": "magnifier",
@@ -127,7 +141,19 @@ def build_local_item(spec: dict[str, Any]) -> dict[str, Any]:
     item["local_shape"] = spec["shape"]
     item["local_material_color"] = spec["material_color"]
     item["use_fallback_material"] = True
+    if "fallback_material_metallic" in spec:
+        item["fallback_material_metallic"] = spec["fallback_material_metallic"]
+    if "fallback_material_roughness" in spec:
+        item["fallback_material_roughness"] = spec["fallback_material_roughness"]
+    if "accent_marker_enabled" in spec:
+        item["accent_marker_enabled"] = spec["accent_marker_enabled"]
     item["accent_marker_color"] = spec["accent_marker_color"]
+    if "wear_decal_enabled" in spec:
+        item["wear_decal_enabled"] = spec["wear_decal_enabled"]
+    if "wear_decal_texture_path" in spec:
+        item["wear_decal_texture_path"] = spec["wear_decal_texture_path"]
+    if "wear_decal_size" in spec:
+        item["wear_decal_size"] = spec["wear_decal_size"]
     return item
 
 

@@ -14,7 +14,7 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Ashen Music Box.",
+    "description": "A scorched music box whose cylinder clicks even when the lid is shut.",
     "clues": [
       {
         "tool": "magnifier",
@@ -47,16 +47,26 @@
   },
   "local_shape": "box",
   "local_material_color": [
-    0.42,
-    0.28,
-    0.22,
+    0.26,
+    0.18,
+    0.14,
     1.0
   ],
+  "fallback_material_metallic": 0.08,
+  "fallback_material_roughness": 0.86,
   "use_fallback_material": true,
+  "accent_marker_enabled": false,
   "accent_marker_color": [
     1.0,
     0.45,
     0.18,
     1.0
+  ],
+  "wear_decal_enabled": true,
+  "wear_decal_texture_path": "res://assets/textures/music_box_ash_decal.png",
+  "wear_decal_size": [
+    0.3,
+    0.08,
+    0.22
   ]
 }
