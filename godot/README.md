@@ -10,6 +10,13 @@ Use `Start Day` to enter the first-person shop prototype.
 
 Starting a day resets the current prototype run to Day 1, Cash 100, Reputation 50.
 
+The local MVP UI and material asset pack is generated under:
+
+```text
+res://assets/ui/
+res://assets/textures/
+```
+
 ## Inspection Table
 
 The inspection scene is `res://scenes/inspection_table.tscn`.

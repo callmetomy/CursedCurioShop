@@ -1,5 +1,7 @@
 # Game Direction
 
+Formal gameplay, content, UI, and asset decisions are tracked in `docs/design/gdd.md`. This file remains the short direction summary.
+
 ## Working Title
 
 Cursed Curio Shop

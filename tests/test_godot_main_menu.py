@@ -17,6 +17,8 @@ class GodotMainMenuTests(unittest.TestCase):
         )
 
         self.assertIn('path="res://scripts/main_menu.gd"', scene)
+        self.assertIn('path="res://assets/ui/main_menu_background.png"', scene)
+        self.assertIn('[node name="Background" type="TextureRect" parent="."]', scene)
         self.assertIn('[node name="StartButton" type="Button" parent="MenuPanel"]', scene)
         self.assertIn('[node name="QuitButton" type="Button" parent="MenuPanel"]', scene)
         self.assertIn('text = "Start Day"', scene)

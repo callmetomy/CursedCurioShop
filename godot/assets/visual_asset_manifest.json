@@ -1,0 +1,76 @@
+{
+  "status": "local_generated",
+  "source": "tools.art.generate_mvp_visual_assets",
+  "assets": [
+    {
+      "path": "godot/assets/ui/main_menu_background.png",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "godot/assets/ui/panel_ledger.png",
+      "size": [
+        512,
+        256
+      ]
+    },
+    {
+      "path": "godot/assets/ui/button_brass.png",
+      "size": [
+        512,
+        128
+      ]
+    },
+    {
+      "path": "godot/assets/ui/tool_magnifier.png",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "godot/assets/ui/tool_uv_lamp.png",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "godot/assets/ui/tool_thermometer.png",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "godot/assets/textures/workbench_walnut.png",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "godot/assets/textures/shop_wallpaper.png",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "godot/assets/textures/cursed_teacup_decal.png",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "godot/assets/textures/uv_ring_mark.png",
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ]
+}

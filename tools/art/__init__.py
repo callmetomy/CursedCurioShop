@@ -1,0 +1,1 @@
+"""Art asset generation helpers."""

@@ -9,6 +9,7 @@ Single-player 3D oddity appraisal shop game prototype built with Godot and an AI
 - Business model: paid game, optional future DLC
 - Production style: AI-generated concepts, 3D props, text drafts, and audio drafts with human approval
 - Core loop: receive cursed objects, inspect clues, choose a handling decision, survive consequences, upgrade the shop
+- Design baseline: `docs/design/gdd.md`
 
 ## Workspace Layout
 
@@ -87,6 +88,12 @@ Check which outputs exist for an oddity:
 
 ```powershell
 python -m tools.asset_pipeline.status --root . --item-id oddity_0001
+```
+
+Generate the local MVP UI and material asset pack:
+
+```powershell
+python -m tools.art.generate_mvp_visual_assets --root .
 ```
 
 Submit one Tripo text-to-3D smoke test:

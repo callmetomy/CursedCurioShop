@@ -19,6 +19,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn('path="res://scenes/items/oddity_0001.tscn"', scene)
+        self.assertIn('path="res://assets/textures/workbench_walnut.png"', scene)
+        self.assertIn("albedo_texture = ExtResource", scene)
         self.assertIn('[node name="ItemPivot" type="Node3D" parent="."]', scene)
         self.assertIn('[node name="Oddity0001" parent="ItemPivot" instance=ExtResource("2_item")]', scene)
         self.assertIn('[node name="InspectionCamera" type="Camera3D" parent="."]', scene)
@@ -42,6 +44,7 @@ class GodotInspectionTableTests(unittest.TestCase):
 
         self.assertIn('[node name="HUD" type="CanvasLayer" parent="."]', scene)
         self.assertIn('[node name="MagnifierButton" type="Button" parent="HUD/ToolPanel"]', scene)
+        self.assertIn('path="res://assets/ui/tool_magnifier.png"', scene)
         self.assertIn('text = "Magnifier"', scene)
 
     def test_inspection_table_script_supports_magnifier_tool(self):
@@ -63,6 +66,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn('[node name="UVLampButton" type="Button" parent="HUD/ToolPanel"]', scene)
+        self.assertIn('path="res://assets/ui/tool_uv_lamp.png"', scene)
         self.assertIn('text = "UV Lamp"', scene)
         self.assertIn('[node name="UVLamp" type="SpotLight3D" parent="."]', scene)
         self.assertIn('[node name="UVClueMarker" type="MeshInstance3D" parent="ItemPivot"]', scene)
@@ -88,6 +92,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn('[node name="ThermometerButton" type="Button" parent="HUD/ToolPanel"]', scene)
+        self.assertIn('path="res://assets/ui/tool_thermometer.png"', scene)
         self.assertIn('text = "Thermometer"', scene)
         self.assertIn('[node name="ThermometerReadout" type="Label" parent="HUD"]', scene)
         self.assertIn("visible = false", scene)

@@ -1,7 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://inspection_table_scene"]
+[gd_scene load_steps=13 format=3 uid="uid://inspection_table_scene"]
 
 [ext_resource type="Script" path="res://scripts/inspection_table.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/items/oddity_0001.tscn" id="2_item"]
+[ext_resource type="Texture2D" path="res://assets/textures/workbench_walnut.png" id="3_table_texture"]
+[ext_resource type="Texture2D" path="res://assets/ui/tool_magnifier.png" id="4_magnifier_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/tool_uv_lamp.png" id="5_uv_lamp_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/tool_thermometer.png" id="6_thermometer_icon"]
 
 [sub_resource type="Environment" id="Environment_table"]
 background_mode = 1
@@ -15,6 +19,7 @@ size = Vector3(3.2, 0.12, 2.2)
 
 [sub_resource type="StandardMaterial3D" id="Material_table"]
 albedo_color = Color(0.22, 0.17, 0.13, 1)
+albedo_texture = ExtResource("3_table_texture")
 roughness = 0.82
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_tool_button"]
@@ -114,6 +119,8 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(136, 44)
 toggle_mode = true
 text = "Magnifier"
+icon = ExtResource("4_magnifier_icon")
+expand_icon = true
 theme_override_styles/normal = SubResource("StyleBox_tool_button")
 theme_override_styles/hover = SubResource("StyleBox_tool_button")
 theme_override_styles/pressed = SubResource("StyleBox_tool_button")
@@ -122,6 +129,8 @@ theme_override_styles/pressed = SubResource("StyleBox_tool_button")
 custom_minimum_size = Vector2(136, 44)
 toggle_mode = true
 text = "Thermometer"
+icon = ExtResource("6_thermometer_icon")
+expand_icon = true
 theme_override_styles/normal = SubResource("StyleBox_tool_button")
 theme_override_styles/hover = SubResource("StyleBox_tool_button")
 theme_override_styles/pressed = SubResource("StyleBox_tool_button")
@@ -142,6 +151,8 @@ text = "Temperature: -7.4 C"
 custom_minimum_size = Vector2(136, 44)
 toggle_mode = true
 text = "UV Lamp"
+icon = ExtResource("5_uv_lamp_icon")
+expand_icon = true
 theme_override_styles/normal = SubResource("StyleBox_tool_button")
 theme_override_styles/hover = SubResource("StyleBox_tool_button")
 theme_override_styles/pressed = SubResource("StyleBox_tool_button")
