@@ -41,6 +41,7 @@ const FALLBACK_TEMPERATURE_C := -7.4
 const FALLBACK_CORRECT_HANDLING := "seal"
 const FALLBACK_SELL_VALUE := 75
 const FALLBACK_SEAL_COST := 20
+const TEACUP_INITIAL_ROTATION_DEGREES := Vector3(0.0, -32.0, 0.0)
 const shop_scene_path := "res://scenes/shop_prototype.tscn"
 const main_menu_scene_path := "res://scenes/main_menu.tscn"
 const TOOL_NONE := "none"
@@ -120,6 +121,8 @@ func _load_current_day_item() -> void:
 	if current_item == null:
 		push_error("Current oddity scene is not a Node3D: %s" % item_scene_path)
 		return
+	if current_item.get("item_id") == "oddity_0001":
+		current_item.rotation_degrees = TEACUP_INITIAL_ROTATION_DEGREES
 	item_pivot.add_child(current_item)
 	_update_item_labels()
 

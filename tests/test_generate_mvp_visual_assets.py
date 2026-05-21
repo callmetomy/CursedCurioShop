@@ -36,6 +36,18 @@ class GenerateMvpVisualAssetsTests(unittest.TestCase):
                     self.assertLess(alpha.getextrema()[0], 10)
                     self.assertGreater(alpha.getextrema()[1], 100)
 
+    def test_teacup_decal_has_dense_visible_cracks_and_stains(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            generate_assets(root)
+
+            with Image.open(root / "godot" / "assets" / "textures" / "cursed_teacup_decal.png") as image:
+                image = image.convert("RGBA")
+                alpha = image.getchannel("A")
+                self.assertGreater(alpha.getextrema()[1], 210)
+                visible_pixels = sum(count for value, count in enumerate(alpha.histogram()) if value > 120)
+                self.assertGreater(visible_pixels, 18000)
+
 
 if __name__ == "__main__":
     unittest.main()

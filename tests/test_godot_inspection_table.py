@@ -28,6 +28,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("var current_item: Node3D", script)
         self.assertIn("_load_current_day_item", script)
         self.assertIn("GameState.get_current_item_scene_path", script)
+        self.assertIn("const TEACUP_INITIAL_ROTATION_DEGREES := Vector3(0.0, -32.0, 0.0)", script)
+        self.assertIn("current_item.rotation_degrees = TEACUP_INITIAL_ROTATION_DEGREES", script)
         self.assertIn('[node name="ItemNameLabel" type="Label" parent="HUD"]', scene)
         self.assertIn('[node name="ItemDescriptionLabel" type="Label" parent="HUD"]', scene)
         self.assertIn("item_name_label", script)

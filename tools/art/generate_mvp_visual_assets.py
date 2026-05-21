@@ -184,21 +184,38 @@ def _draw_cursed_teacup_decal(path: Path) -> None:
     draw = ImageDraw.Draw(image, "RGBA")
     center = (width // 2, height // 2)
     rng = random.Random(606)
-    for i in range(26):
-        angle = i * 0.37
-        radius = 45 + i * 15
+    for i in range(44):
+        angle = i * 0.31
+        radius = 36 + i * 11
         x = center[0] + int(math.cos(angle) * radius)
         y = center[1] + int(math.sin(angle) * radius * 0.72)
         next_angle = angle + rng.uniform(0.18, 0.55)
-        next_radius = radius + rng.randint(25, 52)
+        next_radius = radius + rng.randint(22, 58)
         x2 = center[0] + int(math.cos(next_angle) * next_radius)
         y2 = center[1] + int(math.sin(next_angle) * next_radius * 0.72)
-        draw.line((x, y, x2, y2), fill=(78, 45, 35, 190), width=rng.randint(3, 7))
-        if i % 4 == 0:
-            draw.line((x2, y2, x2 + rng.randint(-70, 70), y2 + rng.randint(-40, 40)), fill=(67, 38, 31, 150), width=3)
-    for radius in [120, 190, 270]:
-        draw.ellipse((center[0] - radius, center[1] - radius // 2, center[0] + radius, center[1] + radius // 2), outline=(58, 33, 28, 75), width=6)
-    image = image.filter(ImageFilter.GaussianBlur(0.35))
+        draw.line((x, y, x2, y2), fill=(64, 34, 26, 238), width=rng.randint(4, 9))
+        if i % 3 == 0:
+            draw.line((x2, y2, x2 + rng.randint(-80, 80), y2 + rng.randint(-46, 46)), fill=(52, 28, 23, 205), width=4)
+        if i % 5 == 0:
+            draw.ellipse((x2 - 18, y2 - 10, x2 + 18, y2 + 10), fill=(63, 33, 22, 92))
+    for radius, alpha, thickness in [(98, 168, 8), (148, 150, 9), (220, 128, 10), (304, 112, 12)]:
+        draw.ellipse(
+            (center[0] - radius, center[1] - radius // 2, center[0] + radius, center[1] + radius // 2),
+            outline=(50, 27, 22, alpha),
+            width=thickness,
+        )
+    for offset_y, radius_x, radius_y, alpha in [(-330, 330, 34, 150), (330, 240, 28, 135)]:
+        draw.ellipse(
+            (
+                center[0] - radius_x,
+                center[1] + offset_y - radius_y,
+                center[0] + radius_x,
+                center[1] + offset_y + radius_y,
+            ),
+            outline=(76, 43, 25, alpha),
+            width=14,
+        )
+    image = image.filter(ImageFilter.GaussianBlur(0.25))
     _save(path, image)
 
 
