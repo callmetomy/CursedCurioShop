@@ -9,7 +9,7 @@ background_mode = 1
 background_color = Color(0.045, 0.041, 0.038, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.46, 0.42, 0.36, 1)
-ambient_light_energy = 0.35
+ambient_light_energy = 0.22
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape_player"]
 height = 1.65
@@ -52,7 +52,7 @@ shape = SubResource("CapsuleShape_player")
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 current = true
-fov = 68.0
+fov = 58.0
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_floor")
@@ -82,9 +82,9 @@ surface_material_override/0 = SubResource("Material_dark_wood")
 
 [node name="KeyLight" type="SpotLight3D" parent="."]
 transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, -1.5, 2.8, 1.8)
-light_energy = 900.0
-spot_range = 7.0
-spot_angle = 50.0
+light_energy = 260.0
+spot_range = 5.2
+spot_angle = 34.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

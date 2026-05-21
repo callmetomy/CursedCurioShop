@@ -16,6 +16,8 @@ extends Node3D
 @export var fallback_material_color := Color(0.48, 0.42, 0.36, 1.0)
 @export var accent_marker_enabled := true
 @export var accent_marker_color := Color(0.15, 0.75, 1.0, 1.0)
+@export var wear_marker_enabled := false
+@export var wear_marker_color := Color(0.12, 0.075, 0.035, 1.0)
 
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D
@@ -32,6 +34,7 @@ func _ready() -> void:
 	_apply_fallback_material(model)
 	_fit_collision_to_model(model)
 	_add_accent_marker(model)
+	_add_wear_marker(model)
 
 
 func _resolve_model_path(path: String) -> String:
@@ -109,6 +112,29 @@ func _add_accent_marker(model: Node3D) -> void:
 		bounds.size.x * 0.28,
 		bounds.size.y * 0.36,
 		bounds.size.z * 0.28
+	)
+
+
+func _add_wear_marker(model: Node3D) -> void:
+	if not wear_marker_enabled:
+		return
+	var bounds: AABB = _calculate_bounds(model)
+	if bounds.size == Vector3.ZERO:
+		return
+
+	var marker := MeshInstance3D.new()
+	marker.name = "AppraisalWearMarker"
+	var marker_mesh := SphereMesh.new()
+	marker_mesh.radius = max(bounds.size.length() * 0.06, 0.035)
+	marker_mesh.height = marker_mesh.radius * 0.5
+	marker.mesh = marker_mesh
+	marker.scale = Vector3(1.0, 0.22, 0.55)
+	marker.material_override = _make_readability_material(wear_marker_color)
+	model_root.add_child(marker)
+	marker.global_position = bounds.get_center() + Vector3(
+		-bounds.size.x * 0.2,
+		bounds.size.y * 0.12,
+		bounds.size.z * 0.18
 	)
 
 

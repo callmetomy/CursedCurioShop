@@ -35,6 +35,21 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_update_item_labels", script)
         self.assertIn("_get_current_description", script)
 
+    def test_inspection_table_scene_uses_readable_lighting(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("ambient_light_energy = 0.24", scene)
+        self.assertIn("light_energy = 260.0", scene)
+        self.assertIn("spot_angle = 32.0", scene)
+        self.assertIn("light_energy = 45.0", scene)
+        self.assertIn("const DEFAULT_KEY_LIGHT_ENERGY := 260.0", script)
+        self.assertIn("const UV_KEY_LIGHT_ENERGY := 80.0", script)
+
     def test_inspection_table_releases_mouse_for_hud_buttons(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"

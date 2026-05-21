@@ -70,6 +70,16 @@ def _accent_marker_color(item: dict[str, Any]) -> list[float]:
     return [0.16, 0.72, 1.0, 1.0]
 
 
+def _wear_marker_enabled(item: dict[str, Any]) -> bool:
+    return bool(item.get("wear_marker_enabled", False))
+
+
+def _wear_marker_color(item: dict[str, Any]) -> list[float]:
+    if "wear_marker_color" in item:
+        return item["wear_marker_color"]
+    return [0.12, 0.075, 0.035, 1.0]
+
+
 def build_item_scene_text(item: dict[str, Any]) -> str:
     item_id = item["id"]
     appraisal = item.get("appraisal", {})
@@ -97,6 +107,8 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         f"fallback_material_color = {_gd_color(_fallback_material_color(item), [0.48, 0.42, 0.36, 1.0])}",
         "accent_marker_enabled = true",
         f"accent_marker_color = {_gd_color(_accent_marker_color(item), [0.16, 0.72, 1.0, 1.0])}",
+        f"wear_marker_enabled = {_gd_bool(_wear_marker_enabled(item))}",
+        f"wear_marker_color = {_gd_color(_wear_marker_color(item), [0.12, 0.075, 0.035, 1.0])}",
         "",
         '[node name="ModelRoot" type="Node3D" parent="."]',
         "",
