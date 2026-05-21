@@ -27,6 +27,8 @@ class SyncGodotItemsTests(unittest.TestCase):
                 "wrong_handling_consequence": "The relic knocks from inside the drawer.",
             },
             "economy": {"sell_value": 88, "seal_cost": 33},
+            "fallback_material_color": [0.2, 0.3, 0.4, 1.0],
+            "accent_marker_color": [0.8, 0.1, 0.2, 1.0],
         }
 
         scene = build_item_scene_text(item)
@@ -42,6 +44,10 @@ class SyncGodotItemsTests(unittest.TestCase):
         self.assertIn("thermometer_c = -5.5", scene)
         self.assertIn("sell_value = 88", scene)
         self.assertIn("seal_cost = 33", scene)
+        self.assertIn("use_fallback_material = true", scene)
+        self.assertIn("fallback_material_color = Color(0.2, 0.3, 0.4, 1.0)", scene)
+        self.assertIn("accent_marker_enabled = true", scene)
+        self.assertIn("accent_marker_color = Color(0.8, 0.1, 0.2, 1.0)", scene)
 
     def test_sync_item_scene_writes_scene_and_runtime_model(self):
         with tempfile.TemporaryDirectory() as directory:

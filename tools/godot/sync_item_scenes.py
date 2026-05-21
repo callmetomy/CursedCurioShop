@@ -14,6 +14,17 @@ def _gd_string(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def _gd_bool(value: bool) -> str:
+    return "true" if value else "false"
+
+
+def _gd_color(values: Any, fallback: list[float]) -> str:
+    if not isinstance(values, list) or len(values) != 4:
+        values = fallback
+    channels = [str(float(channel)) for channel in values]
+    return f"Color({', '.join(channels)})"
+
+
 def _node_name(item_id: str) -> str:
     return "".join(part.capitalize() for part in item_id.split("_"))
 
@@ -35,6 +46,28 @@ def _thermometer_c(item: dict[str, Any]) -> float:
 def _model_res_path(item: dict[str, Any]) -> str:
     processed_path = Path(item["model"]["processed_path"])
     return f"res://assets/models_processed/{processed_path.name}"
+
+
+def _use_fallback_material(item: dict[str, Any]) -> bool:
+    if "use_fallback_material" in item:
+        return bool(item["use_fallback_material"])
+    if "fallback_material_color" in item:
+        return True
+    return item.get("generation", {}).get("status") == "local_prototype"
+
+
+def _fallback_material_color(item: dict[str, Any]) -> list[float]:
+    if "fallback_material_color" in item:
+        return item["fallback_material_color"]
+    if "local_material_color" in item:
+        return item["local_material_color"]
+    return [0.48, 0.42, 0.36, 1.0]
+
+
+def _accent_marker_color(item: dict[str, Any]) -> list[float]:
+    if "accent_marker_color" in item:
+        return item["accent_marker_color"]
+    return [0.16, 0.72, 1.0, 1.0]
 
 
 def build_item_scene_text(item: dict[str, Any]) -> str:
@@ -60,6 +93,10 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         f"sell_value = {int(economy.get('sell_value', 75))}",
         f"seal_cost = {int(economy.get('seal_cost', 20))}",
         f"wrong_event_text = {_gd_string(str(appraisal.get('wrong_handling_consequence', '')))}",
+        f"use_fallback_material = {_gd_bool(_use_fallback_material(item))}",
+        f"fallback_material_color = {_gd_color(_fallback_material_color(item), [0.48, 0.42, 0.36, 1.0])}",
+        "accent_marker_enabled = true",
+        f"accent_marker_color = {_gd_color(_accent_marker_color(item), [0.16, 0.72, 1.0, 1.0])}",
         "",
         '[node name="ModelRoot" type="Node3D" parent="."]',
         "",

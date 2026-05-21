@@ -21,6 +21,12 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("var seal_cost", script)
         self.assertIn("load(path) as PackedScene", script)
         self.assertIn("_load_imported_scene", script)
+        self.assertIn("var use_fallback_material", script)
+        self.assertIn("var fallback_material_color", script)
+        self.assertIn("var accent_marker_color", script)
+        self.assertIn("_apply_fallback_material", script)
+        self.assertIn("_add_accent_marker", script)
+        self.assertIn("AppraisalAccentMarker", script)
         self.assertIn("GLTFDocument", script)
         self.assertIn("_fit_collision_to_model", script)
         self.assertIn("BoxShape3D", script)
@@ -63,6 +69,20 @@ class GodotItemSceneTests(unittest.TestCase):
             self.assertIn("thermometer_c =", scene)
             self.assertIn("sell_value =", scene)
             self.assertIn("seal_cost =", scene)
+            self.assertIn("use_fallback_material = true", scene)
+            self.assertIn("fallback_material_color = Color(", scene)
+            self.assertIn("accent_marker_enabled = true", scene)
+            self.assertIn("accent_marker_color = Color(", scene)
+
+    def test_first_three_day_item_scenes_have_readability_markers(self):
+        for item_id in ("oddity_0001", "oddity_0002", "oddity_0003"):
+            scene = (ROOT / "godot" / "scenes" / "items" / f"{item_id}.tscn").read_text(
+                encoding="utf-8"
+            )
+
+            self.assertIn("fallback_material_color = Color(", scene)
+            self.assertIn("accent_marker_enabled = true", scene)
+            self.assertIn("accent_marker_color = Color(", scene)
 
 
 if __name__ == "__main__":

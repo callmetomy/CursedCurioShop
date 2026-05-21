@@ -16,6 +16,10 @@ thermometer_c = 38.6
 sell_value = 75
 seal_cost = 20
 wrong_event_text = "A minor abnormal event is queued for the shop."
+use_fallback_material = true
+fallback_material_color = Color(0.08, 0.07, 0.08, 1.0)
+accent_marker_enabled = true
+accent_marker_color = Color(0.95, 0.28, 0.12, 1.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

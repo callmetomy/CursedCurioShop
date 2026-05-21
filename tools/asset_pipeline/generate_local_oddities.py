@@ -15,6 +15,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Mirror Coin",
         "shape": "coin",
         "material_color": [0.52, 0.50, 0.62, 1.0],
+        "accent_marker_color": [0.25, 0.85, 1.0, 1.0],
         "temperature_c": -2.1,
         "handling": "seal",
     },
@@ -23,6 +24,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Ashen Music Box",
         "shape": "box",
         "material_color": [0.42, 0.28, 0.22, 1.0],
+        "accent_marker_color": [1.0, 0.45, 0.18, 1.0],
         "temperature_c": 13.4,
         "handling": "discard",
     },
@@ -31,6 +33,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Cold Brass Key",
         "shape": "key",
         "material_color": [0.74, 0.58, 0.28, 1.0],
+        "accent_marker_color": [0.2, 0.65, 1.0, 1.0],
         "temperature_c": -11.8,
         "handling": "seal",
     },
@@ -39,6 +42,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Glass Eye",
         "shape": "sphere",
         "material_color": [0.38, 0.62, 0.68, 1.0],
+        "accent_marker_color": [0.9, 0.18, 0.22, 1.0],
         "temperature_c": 4.2,
         "handling": "sell",
     },
@@ -47,6 +51,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Black Wax Candle",
         "shape": "candle",
         "material_color": [0.08, 0.07, 0.08, 1.0],
+        "accent_marker_color": [0.95, 0.28, 0.12, 1.0],
         "temperature_c": 38.6,
         "handling": "discard",
     },
@@ -55,6 +60,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Moth-Eaten Doll",
         "shape": "doll",
         "material_color": [0.46, 0.36, 0.52, 1.0],
+        "accent_marker_color": [0.2, 0.75, 0.95, 1.0],
         "temperature_c": 7.7,
         "handling": "seal",
     },
@@ -63,6 +69,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Silver Funeral Bell",
         "shape": "bell",
         "material_color": [0.70, 0.68, 0.58, 1.0],
+        "accent_marker_color": [0.16, 0.62, 1.0, 1.0],
         "temperature_c": 0.6,
         "handling": "seal",
     },
@@ -71,6 +78,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Cracked Hand Mirror",
         "shape": "mirror",
         "material_color": [0.34, 0.45, 0.52, 1.0],
+        "accent_marker_color": [0.85, 0.15, 0.22, 1.0],
         "temperature_c": 18.9,
         "handling": "discard",
     },
@@ -79,6 +87,7 @@ LOCAL_ODDITY_SPECS = [
         "display_name": "Red Thread Spool",
         "shape": "spool",
         "material_color": [0.70, 0.18, 0.20, 1.0],
+        "accent_marker_color": [0.95, 0.75, 0.18, 1.0],
         "temperature_c": 31.2,
         "handling": "sell",
     },
@@ -117,6 +126,8 @@ def build_local_item(spec: dict[str, Any]) -> dict[str, Any]:
     item["generation"]["attempts"] = 1
     item["local_shape"] = spec["shape"]
     item["local_material_color"] = spec["material_color"]
+    item["use_fallback_material"] = True
+    item["accent_marker_color"] = spec["accent_marker_color"]
     return item
 
 

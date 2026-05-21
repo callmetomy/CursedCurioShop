@@ -44,5 +44,18 @@
     "model_prompt": "A cursed porcelain teacup game prop, cracked white ceramic, dark stain, asymmetrical worn details, game-ready PBR texture, no text, no logo.",
     "attempts": 0,
     "approved": false
-  }
+  },
+  "use_fallback_material": true,
+  "fallback_material_color": [
+    0.72,
+    0.62,
+    0.48,
+    1.0
+  ],
+  "accent_marker_color": [
+    0.15,
+    0.72,
+    1.0,
+    1.0
+  ]
 }

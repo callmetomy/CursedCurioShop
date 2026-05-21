@@ -12,6 +12,10 @@ extends Node3D
 @export var sell_value := 75
 @export var seal_cost := 20
 @export var wrong_event_text := ""
+@export var use_fallback_material := false
+@export var fallback_material_color := Color(0.48, 0.42, 0.36, 1.0)
+@export var accent_marker_enabled := true
+@export var accent_marker_color := Color(0.15, 0.75, 1.0, 1.0)
 
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D
@@ -25,7 +29,9 @@ func _ready() -> void:
 
 	model_root.add_child(model)
 	_center_model(model)
+	_apply_fallback_material(model)
 	_fit_collision_to_model(model)
+	_add_accent_marker(model)
 
 
 func _resolve_model_path(path: String) -> String:
@@ -73,6 +79,44 @@ func _load_gltf_scene(path: String) -> Node3D:
 		scene.queue_free()
 		return null
 	return scene as Node3D
+
+
+func _apply_fallback_material(model: Node3D) -> void:
+	if not use_fallback_material:
+		return
+	var material := _make_readability_material(fallback_material_color)
+	for child: Node in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := child as MeshInstance3D
+		mesh_instance.material_override = material
+
+
+func _add_accent_marker(model: Node3D) -> void:
+	if not accent_marker_enabled:
+		return
+	var bounds: AABB = _calculate_bounds(model)
+	if bounds.size == Vector3.ZERO:
+		return
+
+	var marker := MeshInstance3D.new()
+	marker.name = "AppraisalAccentMarker"
+	var marker_mesh := SphereMesh.new()
+	marker_mesh.radius = max(bounds.size.length() * 0.045, 0.025)
+	marker_mesh.height = marker_mesh.radius * 2.0
+	marker.mesh = marker_mesh
+	marker.material_override = _make_readability_material(accent_marker_color)
+	model_root.add_child(marker)
+	marker.global_position = bounds.get_center() + Vector3(
+		bounds.size.x * 0.28,
+		bounds.size.y * 0.36,
+		bounds.size.z * 0.28
+	)
+
+
+func _make_readability_material(color: Color) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.78
+	return material
 
 
 func _center_model(model: Node3D) -> void:
