@@ -29,6 +29,9 @@ class SyncGodotItemsTests(unittest.TestCase):
             "economy": {"sell_value": 88, "seal_cost": 33},
             "fallback_material_color": [0.2, 0.3, 0.4, 1.0],
             "accent_marker_color": [0.8, 0.1, 0.2, 1.0],
+            "wear_decal_enabled": True,
+            "wear_decal_texture_path": "res://assets/textures/test_decal.png",
+            "wear_decal_size": [0.3, 0.2, 0.1],
         }
 
         scene = build_item_scene_text(item)
@@ -48,6 +51,9 @@ class SyncGodotItemsTests(unittest.TestCase):
         self.assertIn("fallback_material_color = Color(0.2, 0.3, 0.4, 1.0)", scene)
         self.assertIn("accent_marker_enabled = true", scene)
         self.assertIn("accent_marker_color = Color(0.8, 0.1, 0.2, 1.0)", scene)
+        self.assertIn("wear_decal_enabled = true", scene)
+        self.assertIn('wear_decal_texture_path = "res://assets/textures/test_decal.png"', scene)
+        self.assertIn("wear_decal_size = Vector3(0.3, 0.2, 0.1)", scene)
 
     def test_sync_item_scene_writes_scene_and_runtime_model(self):
         with tempfile.TemporaryDirectory() as directory:

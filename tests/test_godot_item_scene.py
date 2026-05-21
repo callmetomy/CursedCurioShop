@@ -24,12 +24,15 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("var use_fallback_material", script)
         self.assertIn("var fallback_material_color", script)
         self.assertIn("var accent_marker_color", script)
-        self.assertIn("var wear_marker_color", script)
+        self.assertIn("var wear_decal_texture_path", script)
+        self.assertIn("var wear_decal_size", script)
         self.assertIn("_apply_fallback_material", script)
         self.assertIn("_add_accent_marker", script)
-        self.assertIn("_add_wear_marker", script)
+        self.assertIn("_add_wear_decal", script)
         self.assertIn("AppraisalAccentMarker", script)
-        self.assertIn("AppraisalWearMarker", script)
+        self.assertIn("AppraisalWearDecal", script)
+        self.assertIn("Decal.new()", script)
+        self.assertNotIn("AppraisalWearMarker", script)
         self.assertIn("GLTFDocument", script)
         self.assertIn("_fit_collision_to_model", script)
         self.assertIn("BoxShape3D", script)
@@ -77,14 +80,19 @@ class GodotItemSceneTests(unittest.TestCase):
             self.assertIn("accent_marker_enabled = true", scene)
             self.assertIn("accent_marker_color = Color(", scene)
 
-    def test_teacup_scene_has_dark_wear_marker(self):
+    def test_teacup_scene_has_surface_wear_decal(self):
         scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0001.tscn").read_text(
             encoding="utf-8"
         )
 
         self.assertIn("accent_marker_enabled = false", scene)
-        self.assertIn("wear_marker_enabled = true", scene)
-        self.assertIn("wear_marker_color = Color(0.12, 0.075, 0.035, 1.0)", scene)
+        self.assertIn("wear_decal_enabled = true", scene)
+        self.assertIn(
+            'wear_decal_texture_path = "res://assets/textures/cursed_teacup_decal.png"',
+            scene,
+        )
+        self.assertIn("wear_decal_size = Vector3(", scene)
+        self.assertNotIn("wear_marker_enabled = true", scene)
 
     def test_first_three_day_item_scenes_have_readability_markers(self):
         for item_id in ("oddity_0002", "oddity_0003"):

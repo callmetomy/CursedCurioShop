@@ -59,11 +59,11 @@
     1.0
   ],
   "accent_marker_enabled": false,
-  "wear_marker_enabled": true,
-  "wear_marker_color": [
-    0.12,
-    0.075,
-    0.035,
-    1.0
+  "wear_decal_enabled": true,
+  "wear_decal_texture_path": "res://assets/textures/cursed_teacup_decal.png",
+  "wear_decal_size": [
+    0.28,
+    0.16,
+    0.18
   ]
 }

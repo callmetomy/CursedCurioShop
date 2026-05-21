@@ -25,6 +25,13 @@ def _gd_color(values: Any, fallback: list[float]) -> str:
     return f"Color({', '.join(channels)})"
 
 
+def _gd_vector3(values: Any, fallback: list[float]) -> str:
+    if not isinstance(values, list) or len(values) != 3:
+        values = fallback
+    channels = [str(float(channel)) for channel in values]
+    return f"Vector3({', '.join(channels)})"
+
+
 def _node_name(item_id: str) -> str:
     return "".join(part.capitalize() for part in item_id.split("_"))
 
@@ -74,14 +81,18 @@ def _accent_marker_enabled(item: dict[str, Any]) -> bool:
     return bool(item.get("accent_marker_enabled", True))
 
 
-def _wear_marker_enabled(item: dict[str, Any]) -> bool:
-    return bool(item.get("wear_marker_enabled", False))
+def _wear_decal_enabled(item: dict[str, Any]) -> bool:
+    return bool(item.get("wear_decal_enabled", False))
 
 
-def _wear_marker_color(item: dict[str, Any]) -> list[float]:
-    if "wear_marker_color" in item:
-        return item["wear_marker_color"]
-    return [0.12, 0.075, 0.035, 1.0]
+def _wear_decal_texture_path(item: dict[str, Any]) -> str:
+    return str(item.get("wear_decal_texture_path", ""))
+
+
+def _wear_decal_size(item: dict[str, Any]) -> list[float]:
+    if "wear_decal_size" in item:
+        return item["wear_decal_size"]
+    return [0.24, 0.16, 0.16]
 
 
 def build_item_scene_text(item: dict[str, Any]) -> str:
@@ -111,8 +122,9 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         f"fallback_material_color = {_gd_color(_fallback_material_color(item), [0.48, 0.42, 0.36, 1.0])}",
         f"accent_marker_enabled = {_gd_bool(_accent_marker_enabled(item))}",
         f"accent_marker_color = {_gd_color(_accent_marker_color(item), [0.16, 0.72, 1.0, 1.0])}",
-        f"wear_marker_enabled = {_gd_bool(_wear_marker_enabled(item))}",
-        f"wear_marker_color = {_gd_color(_wear_marker_color(item), [0.12, 0.075, 0.035, 1.0])}",
+        f"wear_decal_enabled = {_gd_bool(_wear_decal_enabled(item))}",
+        f"wear_decal_texture_path = {_gd_string(_wear_decal_texture_path(item))}",
+        f"wear_decal_size = {_gd_vector3(_wear_decal_size(item), [0.24, 0.16, 0.16])}",
         "",
         '[node name="ModelRoot" type="Node3D" parent="."]',
         "",

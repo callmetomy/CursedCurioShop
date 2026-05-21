@@ -16,8 +16,9 @@ extends Node3D
 @export var fallback_material_color := Color(0.48, 0.42, 0.36, 1.0)
 @export var accent_marker_enabled := true
 @export var accent_marker_color := Color(0.15, 0.75, 1.0, 1.0)
-@export var wear_marker_enabled := false
-@export var wear_marker_color := Color(0.12, 0.075, 0.035, 1.0)
+@export var wear_decal_enabled := false
+@export var wear_decal_texture_path := ""
+@export var wear_decal_size := Vector3(0.24, 0.16, 0.16)
 
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D
@@ -34,7 +35,7 @@ func _ready() -> void:
 	_apply_fallback_material(model)
 	_fit_collision_to_model(model)
 	_add_accent_marker(model)
-	_add_wear_marker(model)
+	_add_wear_decal(model)
 
 
 func _resolve_model_path(path: String) -> String:
@@ -115,27 +116,47 @@ func _add_accent_marker(model: Node3D) -> void:
 	)
 
 
-func _add_wear_marker(model: Node3D) -> void:
-	if not wear_marker_enabled:
+func _add_wear_decal(model: Node3D) -> void:
+	if not wear_decal_enabled:
 		return
 	var bounds: AABB = _calculate_bounds(model)
 	if bounds.size == Vector3.ZERO:
 		return
 
-	var marker := MeshInstance3D.new()
-	marker.name = "AppraisalWearMarker"
-	var marker_mesh := SphereMesh.new()
-	marker_mesh.radius = max(bounds.size.length() * 0.06, 0.035)
-	marker_mesh.height = marker_mesh.radius * 0.5
-	marker.mesh = marker_mesh
-	marker.scale = Vector3(1.0, 0.22, 0.55)
-	marker.material_override = _make_readability_material(wear_marker_color)
-	model_root.add_child(marker)
-	marker.global_position = bounds.get_center() + Vector3(
-		-bounds.size.x * 0.2,
-		bounds.size.y * 0.12,
-		bounds.size.z * 0.18
+	var decal_texture := load(wear_decal_texture_path) as Texture2D
+	if decal_texture == null:
+		push_error("Could not load item wear decal texture: %s" % wear_decal_texture_path)
+		return
+
+	var decal := Decal.new()
+	decal.name = "AppraisalWearDecal"
+	decal.texture_albedo = decal_texture
+	decal.size = _resolved_wear_decal_size(bounds)
+	decal.albedo_mix = 0.92
+	decal.upper_fade = 0.18
+	decal.lower_fade = 0.18
+	model_root.add_child(decal)
+
+	var target := bounds.get_center() + Vector3(
+		-bounds.size.x * 0.12,
+		bounds.size.y * 0.08,
+		bounds.size.z * 0.05
 	)
+	decal.global_position = bounds.get_center() + Vector3(
+		-bounds.size.x * 0.24,
+		bounds.size.y * 0.1,
+		bounds.size.z * 0.62
+	)
+	decal.look_at(target, Vector3.UP)
+
+
+func _resolved_wear_decal_size(bounds: AABB) -> Vector3:
+	if wear_decal_size.x > 0.0 and wear_decal_size.y > 0.0 and wear_decal_size.z > 0.0:
+		return wear_decal_size
+	var width: float = max(bounds.size.x * 0.34, 0.12)
+	var height: float = max(bounds.size.y * 0.22, 0.08)
+	var depth: float = max(bounds.size.z * 0.3, 0.08)
+	return Vector3(width, height, depth)
 
 
 func _make_readability_material(color: Color) -> StandardMaterial3D:

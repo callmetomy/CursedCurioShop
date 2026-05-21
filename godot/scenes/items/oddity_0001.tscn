@@ -20,8 +20,9 @@ use_fallback_material = true
 fallback_material_color = Color(0.72, 0.62, 0.48, 1.0)
 accent_marker_enabled = false
 accent_marker_color = Color(0.15, 0.72, 1.0, 1.0)
-wear_marker_enabled = true
-wear_marker_color = Color(0.12, 0.075, 0.035, 1.0)
+wear_decal_enabled = true
+wear_decal_texture_path = "res://assets/textures/cursed_teacup_decal.png"
+wear_decal_size = Vector3(0.28, 0.16, 0.18)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 
