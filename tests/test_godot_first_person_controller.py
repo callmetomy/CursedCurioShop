@@ -31,6 +31,17 @@ class GodotFirstPersonControllerTests(unittest.TestCase):
         self.assertIn('[node name="InspectionTableProxy" type="StaticBody3D" parent="."]', scene)
         self.assertIn('[node name="Prompt" type="Label" parent="HUD"]', scene)
 
+    def test_shop_prototype_scene_uses_mvp_material_assets(self):
+        scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('path="res://assets/textures/workbench_walnut.png"', scene)
+        self.assertIn('path="res://assets/textures/shop_wallpaper.png"', scene)
+        self.assertIn('[node name="BackWall" type="MeshInstance3D" parent="."]', scene)
+        self.assertIn('[node name="LeftWall" type="MeshInstance3D" parent="."]', scene)
+        self.assertIn('[node name="RightWall" type="MeshInstance3D" parent="."]', scene)
+
     def test_project_defines_first_person_input_actions(self):
         project = (ROOT / "godot" / "project.godot").read_text(encoding="utf-8")
 
