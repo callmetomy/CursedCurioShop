@@ -82,11 +82,12 @@ class GodotItemSceneTests(unittest.TestCase):
             encoding="utf-8"
         )
 
+        self.assertIn("accent_marker_enabled = false", scene)
         self.assertIn("wear_marker_enabled = true", scene)
         self.assertIn("wear_marker_color = Color(0.12, 0.075, 0.035, 1.0)", scene)
 
     def test_first_three_day_item_scenes_have_readability_markers(self):
-        for item_id in ("oddity_0001", "oddity_0002", "oddity_0003"):
+        for item_id in ("oddity_0002", "oddity_0003"):
             scene = (ROOT / "godot" / "scenes" / "items" / f"{item_id}.tscn").read_text(
                 encoding="utf-8"
             )

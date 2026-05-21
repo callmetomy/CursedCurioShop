@@ -58,6 +58,7 @@
     1.0,
     1.0
   ],
+  "accent_marker_enabled": false,
   "wear_marker_enabled": true,
   "wear_marker_color": [
     0.12,

@@ -47,9 +47,12 @@ class GodotFirstPersonControllerTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn("ambient_light_energy = 0.22", scene)
+        self.assertIn("ambient_light_energy = 0.3", scene)
         self.assertIn("light_energy = 260.0", scene)
         self.assertIn("spot_angle = 34.0", scene)
+        self.assertIn('[node name="FillLight" type="OmniLight3D" parent="."]', scene)
+        self.assertIn("light_energy = 85.0", scene)
+        self.assertIn("omni_range = 4.2", scene)
         self.assertIn("fov = 58.0", scene)
 
     def test_project_defines_first_person_input_actions(self):
