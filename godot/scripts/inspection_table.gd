@@ -25,6 +25,8 @@ extends Node3D
 @onready var return_to_menu_button: Button = $HUD/BadEndingPanel/ReturnToMenuButton
 @onready var uv_lamp: SpotLight3D = $UVLamp
 @onready var uv_clue_marker: MeshInstance3D = $ItemPivot/UVClueMarker
+@onready var item_name_label: Label = $HUD/ItemNameLabel
+@onready var item_description_label: Label = $HUD/ItemDescriptionLabel
 
 const MIN_CAMERA_Z := 1.8
 const MAX_CAMERA_Z := 4.2
@@ -117,6 +119,7 @@ func _load_current_day_item() -> void:
 		push_error("Current oddity scene is not a Node3D: %s" % item_scene_path)
 		return
 	item_pivot.add_child(current_item)
+	_update_item_labels()
 
 
 func _on_magnifier_pressed() -> void:
@@ -256,6 +259,15 @@ func _get_current_display_name() -> String:
 	if item_display_name is String and not item_display_name.is_empty():
 		return item_display_name
 	return GameState.get_current_item_id()
+
+
+func _get_current_description() -> String:
+	return _get_current_string_property("description", "")
+
+
+func _update_item_labels() -> void:
+	item_name_label.text = _get_current_display_name()
+	item_description_label.text = _get_current_description()
 
 
 func _update_tool_readouts() -> void:

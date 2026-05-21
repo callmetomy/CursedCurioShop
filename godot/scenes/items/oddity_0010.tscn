@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0010"
 display_name = "Red Thread Spool"
+description = "A local prototype oddity: Red Thread Spool."
 model_path = "res://assets/models_processed/oddity_0010.glb"
 correct_handling = "sell"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

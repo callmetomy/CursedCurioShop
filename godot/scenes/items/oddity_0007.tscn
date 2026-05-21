@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0007"
 display_name = "Moth-Eaten Doll"
+description = "A local prototype oddity: Moth-Eaten Doll."
 model_path = "res://assets/models_processed/oddity_0007.glb"
 correct_handling = "seal"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

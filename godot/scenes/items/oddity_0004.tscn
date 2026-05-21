@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0004"
 display_name = "Cold Brass Key"
+description = "A local prototype oddity: Cold Brass Key."
 model_path = "res://assets/models_processed/oddity_0004.glb"
 correct_handling = "seal"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

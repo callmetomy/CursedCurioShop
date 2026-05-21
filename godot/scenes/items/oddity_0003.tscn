@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0003"
 display_name = "Ashen Music Box"
+description = "A local prototype oddity: Ashen Music Box."
 model_path = "res://assets/models_processed/oddity_0003.glb"
 correct_handling = "discard"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

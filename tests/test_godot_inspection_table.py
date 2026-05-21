@@ -28,6 +28,12 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("var current_item: Node3D", script)
         self.assertIn("_load_current_day_item", script)
         self.assertIn("GameState.get_current_item_scene_path", script)
+        self.assertIn('[node name="ItemNameLabel" type="Label" parent="HUD"]', scene)
+        self.assertIn('[node name="ItemDescriptionLabel" type="Label" parent="HUD"]', scene)
+        self.assertIn("item_name_label", script)
+        self.assertIn("item_description_label", script)
+        self.assertIn("_update_item_labels", script)
+        self.assertIn("_get_current_description", script)
 
     def test_inspection_table_script_supports_rotation_and_zoom(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(

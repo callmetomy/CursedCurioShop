@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0006"
 display_name = "Black Wax Candle"
+description = "A local prototype oddity: Black Wax Candle."
 model_path = "res://assets/models_processed/oddity_0006.glb"
 correct_handling = "discard"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

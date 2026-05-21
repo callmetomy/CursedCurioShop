@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0001"
 display_name = "Whispering Teacup"
+description = "A white porcelain teacup that stays unnaturally cold even under bright shop lamps."
 model_path = "res://assets/models_processed/oddity_0001.glb"
 correct_handling = "seal"
 magnifier_clue = "Hairline cracks form a faint spiral around the bowl."

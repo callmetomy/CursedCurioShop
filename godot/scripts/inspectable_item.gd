@@ -2,6 +2,7 @@ extends Node3D
 
 @export var item_id := ""
 @export var display_name := ""
+@export var description := ""
 @export var model_path := ""
 @export var correct_handling := "seal"
 @export var magnifier_clue := ""

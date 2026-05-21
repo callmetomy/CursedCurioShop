@@ -12,6 +12,7 @@ class GodotItemSceneTests(unittest.TestCase):
         )
 
         self.assertIn("var model_path", script)
+        self.assertIn("var description", script)
         self.assertIn("var magnifier_clue", script)
         self.assertIn("var uv_clue", script)
         self.assertIn("var thermometer_clue", script)
@@ -29,6 +30,7 @@ class GodotItemSceneTests(unittest.TestCase):
 
         self.assertIn('item_id = "oddity_0001"', scene)
         self.assertIn('display_name = "Whispering Teacup"', scene)
+        self.assertIn("description =", scene)
         self.assertIn('model_path = "res://assets/models_processed/oddity_0001.glb"', scene)
         self.assertIn('[node name="ModelRoot" type="Node3D" parent="."]', scene)
         self.assertIn('[node name="CollisionBody" type="StaticBody3D" parent="."]', scene)
@@ -50,6 +52,7 @@ class GodotItemSceneTests(unittest.TestCase):
             scene = scene_path.read_text(encoding="utf-8")
             self.assertIn(f'item_id = "{item_id}"', scene)
             self.assertIn(f'display_name = "{display_name}"', scene)
+            self.assertIn("description =", scene)
             self.assertIn(f'model_path = "res://assets/models_processed/{item_id}.glb"', scene)
             self.assertIn(f'correct_handling = "{correct_handling}"', scene)
             self.assertIn("magnifier_clue =", scene)

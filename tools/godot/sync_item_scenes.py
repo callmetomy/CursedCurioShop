@@ -50,6 +50,7 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         'script = ExtResource("1_script")',
         f"item_id = {_gd_string(item_id)}",
         f"display_name = {_gd_string(str(item.get('display_name', item_id)))}",
+        f"description = {_gd_string(str(appraisal.get('description', '')))}",
         f"model_path = {_gd_string(_model_res_path(item))}",
         f"correct_handling = {_gd_string(str(appraisal.get('correct_handling', 'seal')))}",
         f"magnifier_clue = {_gd_string(_clue_result(item, 'magnifier'))}",

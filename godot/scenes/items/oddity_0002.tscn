@@ -6,6 +6,7 @@
 script = ExtResource("1_script")
 item_id = "oddity_0002"
 display_name = "Mirror Coin"
+description = "A local prototype oddity: Mirror Coin."
 model_path = "res://assets/models_processed/oddity_0002.glb"
 correct_handling = "seal"
 magnifier_clue = "Fine scratches form a deliberate appraisal mark."

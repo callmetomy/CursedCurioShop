@@ -13,6 +13,7 @@ class SyncGodotItemsTests(unittest.TestCase):
             "display_name": "Test Relic",
             "model": {"processed_path": "assets/models_processed/oddity_0099.glb"},
             "appraisal": {
+                "description": "A relic used by tests.",
                 "clues": [
                     {"tool": "magnifier", "result": "Tiny teeth marks line the rim."},
                     {"tool": "uv_lamp", "result": "A violet sigil appears."},
@@ -32,6 +33,7 @@ class SyncGodotItemsTests(unittest.TestCase):
 
         self.assertIn('item_id = "oddity_0099"', scene)
         self.assertIn('display_name = "Test Relic"', scene)
+        self.assertIn('description = "A relic used by tests."', scene)
         self.assertIn('model_path = "res://assets/models_processed/oddity_0099.glb"', scene)
         self.assertIn('correct_handling = "seal"', scene)
         self.assertIn('magnifier_clue = "Tiny teeth marks line the rim."', scene)
