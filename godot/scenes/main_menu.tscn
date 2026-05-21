@@ -1,19 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://main_menu_scene"]
+[gd_scene load_steps=7 format=3 uid="uid://main_menu_scene"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/main_menu_background.png" id="2_background"]
+[ext_resource type="Texture2D" path="res://assets/ui/button_brass.png" id="3_button_brass"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_button"]
-bg_color = Color(0.12, 0.105, 0.095, 0.94)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.54, 0.44, 0.32, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="StyleBoxTexture" id="StyleBox_button"]
+texture = ExtResource("3_button_brass")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
 bg_color = Color(0.055, 0.048, 0.044, 0.96)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://inspection_table_scene"]
+[gd_scene load_steps=15 format=3 uid="uid://inspection_table_scene"]
 
 [ext_resource type="Script" path="res://scripts/inspection_table.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/items/oddity_0001.tscn" id="2_item"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" path="res://assets/ui/tool_magnifier.png" id="4_magnifier_icon"]
 [ext_resource type="Texture2D" path="res://assets/ui/tool_uv_lamp.png" id="5_uv_lamp_icon"]
 [ext_resource type="Texture2D" path="res://assets/ui/tool_thermometer.png" id="6_thermometer_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/button_brass.png" id="7_button_brass"]
+[ext_resource type="Texture2D" path="res://assets/ui/panel_ledger.png" id="8_panel_ledger"]
 
 [sub_resource type="Environment" id="Environment_table"]
 background_mode = 1
@@ -22,17 +24,12 @@ albedo_color = Color(0.22, 0.17, 0.13, 1)
 albedo_texture = ExtResource("3_table_texture")
 roughness = 0.82
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_tool_button"]
-bg_color = Color(0.12, 0.105, 0.095, 0.92)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.48, 0.42, 0.34, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="StyleBoxTexture" id="StyleBox_tool_button"]
+texture = ExtResource("7_button_brass")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_uv_marker"]
 inner_radius = 0.018
@@ -201,6 +198,21 @@ offset_right = 280.0
 offset_bottom = 108.0
 horizontal_alignment = 1
 text = "Decision pending"
+
+[node name="DayResultBackground" type="TextureRect" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -120.0
+offset_right = 210.0
+offset_bottom = 120.0
+texture = ExtResource("8_panel_ledger")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="DayResultPanel" type="VBoxContainer" parent="HUD"]
 visible = false

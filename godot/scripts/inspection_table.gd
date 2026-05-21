@@ -12,6 +12,7 @@ extends Node3D
 @onready var discard_button: Button = $HUD/DecisionPanel/DiscardButton
 @onready var decision_result: Label = $HUD/DecisionResult
 @onready var day_result_panel: VBoxContainer = $HUD/DayResultPanel
+@onready var day_result_background: TextureRect = $HUD/DayResultBackground
 @onready var outcome_label: Label = $HUD/DayResultPanel/OutcomeLabel
 @onready var value_label: Label = $HUD/DayResultPanel/ValueLabel
 @onready var reputation_label: Label = $HUD/DayResultPanel/ReputationLabel
@@ -63,6 +64,7 @@ func _ready() -> void:
 	thermometer_readout.text = "Temperature: %.1f C" % CURSED_TEMPERATURE_C
 	_set_active_tool(TOOL_NONE)
 	day_result_panel.visible = false
+	day_result_background.visible = false
 	abnormal_event_panel.visible = false
 	bad_ending_panel.visible = false
 
@@ -127,6 +129,7 @@ func _on_discard_pressed() -> void:
 func _on_next_day_pressed() -> void:
 	decision_result.visible = false
 	day_result_panel.visible = false
+	day_result_background.visible = false
 	abnormal_event_panel.visible = false
 	bad_ending_panel.visible = false
 	_set_active_tool(TOOL_NONE)
@@ -200,6 +203,7 @@ func _resolve_decision(decision: String) -> void:
 
 func _show_day_result(outcome: String, value_delta: int, reputation_delta: int) -> void:
 	GameState.apply_result(value_delta, reputation_delta)
+	day_result_background.visible = true
 	day_result_panel.visible = true
 	outcome_label.text = outcome
 	value_label.text = "Cash: %+d" % value_delta

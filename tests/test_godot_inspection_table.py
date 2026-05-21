@@ -154,6 +154,9 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn('[node name="DayResultPanel" type="VBoxContainer" parent="HUD"]', scene)
+        self.assertIn('path="res://assets/ui/panel_ledger.png"', scene)
+        self.assertIn('path="res://assets/ui/button_brass.png"', scene)
+        self.assertIn('[node name="DayResultBackground" type="TextureRect" parent="HUD"]', scene)
         self.assertIn('[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
@@ -166,6 +169,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn("day_result_panel", script)
+        self.assertIn("day_result_background", script)
         self.assertIn("outcome_label", script)
         self.assertIn("value_label", script)
         self.assertIn("reputation_label", script)
