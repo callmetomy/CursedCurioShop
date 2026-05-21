@@ -12,6 +12,12 @@ class GodotItemSceneTests(unittest.TestCase):
         )
 
         self.assertIn("var model_path", script)
+        self.assertIn("var magnifier_clue", script)
+        self.assertIn("var uv_clue", script)
+        self.assertIn("var thermometer_clue", script)
+        self.assertIn("var thermometer_c", script)
+        self.assertIn("var sell_value", script)
+        self.assertIn("var seal_cost", script)
         self.assertIn("GLTFDocument", script)
         self.assertIn("_fit_collision_to_model", script)
         self.assertIn("BoxShape3D", script)
@@ -46,6 +52,12 @@ class GodotItemSceneTests(unittest.TestCase):
             self.assertIn(f'display_name = "{display_name}"', scene)
             self.assertIn(f'model_path = "res://assets/models_processed/{item_id}.glb"', scene)
             self.assertIn(f'correct_handling = "{correct_handling}"', scene)
+            self.assertIn("magnifier_clue =", scene)
+            self.assertIn("uv_clue =", scene)
+            self.assertIn("thermometer_clue =", scene)
+            self.assertIn("thermometer_c =", scene)
+            self.assertIn("sell_value =", scene)
+            self.assertIn("seal_cost =", scene)
 
 
 if __name__ == "__main__":

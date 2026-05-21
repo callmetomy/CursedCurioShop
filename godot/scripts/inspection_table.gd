@@ -7,6 +7,7 @@ extends Node3D
 @onready var uv_lamp_button: Button = $HUD/ToolPanel/UVLampButton
 @onready var thermometer_button: Button = $HUD/ToolPanel/ThermometerButton
 @onready var thermometer_readout: Label = $HUD/ThermometerReadout
+@onready var tool_clue_readout: Label = $HUD/ToolClueReadout
 @onready var sell_button: Button = $HUD/DecisionPanel/SellButton
 @onready var seal_button: Button = $HUD/DecisionPanel/SealButton
 @onready var discard_button: Button = $HUD/DecisionPanel/DiscardButton
@@ -34,10 +35,10 @@ const MAGNIFIER_CAMERA_Z := 1.95
 const MAGNIFIER_FOV := 26.0
 const UV_KEY_LIGHT_ENERGY := 160.0
 const UV_LAMP_ENERGY := 920.0
-const CURSED_TEMPERATURE_C := -7.4
+const FALLBACK_TEMPERATURE_C := -7.4
 const FALLBACK_CORRECT_HANDLING := "seal"
-const SELL_VALUE := 75
-const SEAL_COST := 20
+const FALLBACK_SELL_VALUE := 75
+const FALLBACK_SEAL_COST := 20
 const shop_scene_path := "res://scenes/shop_prototype.tscn"
 const main_menu_scene_path := "res://scenes/main_menu.tscn"
 const TOOL_NONE := "none"
@@ -63,7 +64,7 @@ func _ready() -> void:
 	next_day_button.pressed.connect(_on_next_day_pressed)
 	back_to_shop_button.pressed.connect(_on_back_to_shop_pressed)
 	return_to_menu_button.pressed.connect(_on_return_to_menu_pressed)
-	thermometer_readout.text = "Temperature: %.1f C" % CURSED_TEMPERATURE_C
+	_update_tool_readouts()
 	_set_active_tool(TOOL_NONE)
 	day_result_panel.visible = false
 	day_result_background.visible = false
@@ -180,6 +181,8 @@ func _set_active_tool(tool_name: String) -> void:
 	uv_lamp.light_energy = UV_LAMP_ENERGY if active_tool == TOOL_UV_LAMP else 0.0
 	uv_clue_marker.visible = active_tool == TOOL_UV_LAMP
 	thermometer_readout.visible = active_tool == TOOL_THERMOMETER
+	tool_clue_readout.visible = active_tool != TOOL_NONE
+	_update_tool_readouts()
 	if active_tool == TOOL_MAGNIFIER:
 		camera.position.z = MAGNIFIER_CAMERA_Z
 		camera.fov = MAGNIFIER_FOV
@@ -204,14 +207,14 @@ func _resolve_decision(decision: String) -> void:
 	var display_name := _get_current_display_name()
 	if decision == correct_handling:
 		decision_result.text = "Correct: %s is handled safely." % display_name
-		_show_day_result("Correct handling", -SEAL_COST, 5)
+		_show_day_result("Correct handling", _get_decision_value_delta(decision), 5)
 		abnormal_event_panel.visible = false
 		bad_ending_panel.visible = false
 	else:
 		decision_result.text = "Wrong: %s should be %s, not %s." % [display_name, correct_handling, decision]
-		_show_abnormal_event("%s disturbs the shop after the bad appraisal." % display_name)
+		_show_abnormal_event(_get_current_wrong_event_text())
 		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
-			_show_day_result("Cursed sale", SELL_VALUE, -15)
+			_show_day_result("Cursed sale", _get_current_sell_value(), -15)
 			_show_bad_ending()
 		elif decision == "discard":
 			_show_day_result("Uncontained discard", 0, -8)
@@ -253,3 +256,79 @@ func _get_current_display_name() -> String:
 	if item_display_name is String and not item_display_name.is_empty():
 		return item_display_name
 	return GameState.get_current_item_id()
+
+
+func _update_tool_readouts() -> void:
+	thermometer_readout.text = "Temperature: %.1f C" % _get_current_temperature_c()
+	tool_clue_readout.text = _get_current_tool_clue(active_tool)
+
+
+func _get_current_tool_clue(tool_name: String) -> String:
+	if current_item == null:
+		return ""
+	var property_name := ""
+	if tool_name == TOOL_MAGNIFIER:
+		property_name = "magnifier_clue"
+	elif tool_name == TOOL_UV_LAMP:
+		property_name = "uv_clue"
+	elif tool_name == TOOL_THERMOMETER:
+		property_name = "thermometer_clue"
+	else:
+		return ""
+	return _get_current_string_property(property_name, "")
+
+
+func _get_current_temperature_c() -> float:
+	return _get_current_float_property("thermometer_c", FALLBACK_TEMPERATURE_C)
+
+
+func _get_current_sell_value() -> int:
+	return _get_current_int_property("sell_value", FALLBACK_SELL_VALUE)
+
+
+func _get_current_seal_cost() -> int:
+	return _get_current_int_property("seal_cost", FALLBACK_SEAL_COST)
+
+
+func _get_current_wrong_event_text() -> String:
+	return _get_current_string_property(
+		"wrong_event_text",
+		"%s disturbs the shop after the bad appraisal." % _get_current_display_name()
+	)
+
+
+func _get_decision_value_delta(decision: String) -> int:
+	if decision == "sell":
+		return _get_current_sell_value()
+	if decision == "seal":
+		return -_get_current_seal_cost()
+	return 0
+
+
+func _get_current_string_property(property_name: String, fallback: String) -> String:
+	if current_item == null:
+		return fallback
+	var value: Variant = current_item.get(property_name)
+	if value is String and not value.is_empty():
+		return value
+	return fallback
+
+
+func _get_current_float_property(property_name: String, fallback: float) -> float:
+	if current_item == null:
+		return fallback
+	var value: Variant = current_item.get(property_name)
+	if value is float or value is int:
+		return float(value)
+	return fallback
+
+
+func _get_current_int_property(property_name: String, fallback: int) -> int:
+	if current_item == null:
+		return fallback
+	var value: Variant = current_item.get(property_name)
+	if value is int:
+		return value
+	if value is float:
+		return int(value)
+	return fallback

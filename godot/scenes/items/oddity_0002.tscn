@@ -8,6 +8,13 @@ item_id = "oddity_0002"
 display_name = "Mirror Coin"
 model_path = "res://assets/models_processed/oddity_0002.glb"
 correct_handling = "seal"
+magnifier_clue = "Fine scratches form a deliberate appraisal mark."
+uv_clue = "A hidden blue mark appears under UV light."
+thermometer_clue = "The reading is inconsistent with the room."
+thermometer_c = -2.1
+sell_value = 75
+seal_cost = 20
+wrong_event_text = "The coin reflects the shop from a second too late."
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

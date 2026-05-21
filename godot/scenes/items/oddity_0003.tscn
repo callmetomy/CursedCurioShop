@@ -8,6 +8,13 @@ item_id = "oddity_0003"
 display_name = "Ashen Music Box"
 model_path = "res://assets/models_processed/oddity_0003.glb"
 correct_handling = "discard"
+magnifier_clue = "Fine scratches form a deliberate appraisal mark."
+uv_clue = "A hidden blue mark appears under UV light."
+thermometer_clue = "The reading is inconsistent with the room."
+thermometer_c = 13.4
+sell_value = 75
+seal_cost = 20
+wrong_event_text = "A thin tune leaks from the closed box after the bad appraisal."
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

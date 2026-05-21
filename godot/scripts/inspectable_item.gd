@@ -4,6 +4,13 @@ extends Node3D
 @export var display_name := ""
 @export var model_path := ""
 @export var correct_handling := "seal"
+@export var magnifier_clue := ""
+@export var uv_clue := ""
+@export var thermometer_clue := ""
+@export var thermometer_c := 20.0
+@export var sell_value := 75
+@export var seal_cost := 20
+@export var wrong_event_text := ""
 
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D

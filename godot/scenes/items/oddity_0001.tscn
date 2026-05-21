@@ -8,6 +8,13 @@ item_id = "oddity_0001"
 display_name = "Whispering Teacup"
 model_path = "res://assets/models_processed/oddity_0001.glb"
 correct_handling = "seal"
+magnifier_clue = "Hairline cracks form a faint spiral around the bowl."
+uv_clue = "A hidden ring-shaped mark glows blue near the rim."
+thermometer_clue = "The cup reads far below room temperature."
+thermometer_c = -7.4
+sell_value = 75
+seal_cost = 20
+wrong_event_text = "Frost blooms across the counter. The cup has started whispering names."
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

@@ -99,6 +99,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('path="res://assets/ui/tool_thermometer.png"', scene)
         self.assertIn('text = "Thermometer"', scene)
         self.assertIn('[node name="ThermometerReadout" type="Label" parent="HUD"]', scene)
+        self.assertIn('[node name="ToolClueReadout" type="Label" parent="HUD"]', scene)
         self.assertIn("visible = false", scene)
 
     def test_inspection_table_script_supports_thermometer_tool(self):
@@ -109,10 +110,13 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('const TOOL_THERMOMETER := "thermometer"', script)
         self.assertIn("thermometer_button", script)
         self.assertIn("thermometer_readout", script)
+        self.assertIn("tool_clue_readout", script)
         self.assertIn("_on_thermometer_pressed", script)
         self.assertIn("KEY_3", script)
-        self.assertIn("CURSED_TEMPERATURE_C", script)
+        self.assertIn("FALLBACK_TEMPERATURE_C", script)
         self.assertIn("thermometer_readout.visible = active_tool == TOOL_THERMOMETER", script)
+        self.assertIn("_get_current_temperature_c", script)
+        self.assertIn("_get_current_tool_clue", script)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
@@ -180,8 +184,10 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("reputation_label", script)
         self.assertIn("next_day_button", script)
         self.assertIn("back_to_shop_button", script)
-        self.assertIn("SEAL_COST", script)
-        self.assertIn("SELL_VALUE", script)
+        self.assertIn("FALLBACK_SEAL_COST", script)
+        self.assertIn("FALLBACK_SELL_VALUE", script)
+        self.assertIn("_get_current_seal_cost", script)
+        self.assertIn("_get_current_sell_value", script)
         self.assertIn("_show_day_result", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn("_on_back_to_shop_pressed", script)
