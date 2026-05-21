@@ -52,6 +52,14 @@
     0.48,
     1.0
   ],
+  "material_tint_enabled": true,
+  "material_tint_color": [
+    0.62,
+    0.52,
+    0.38,
+    1.0
+  ],
+  "material_tint_roughness": 0.94,
   "accent_marker_color": [
     0.15,
     0.72,

@@ -14,6 +14,9 @@ extends Node3D
 @export var wrong_event_text := ""
 @export var use_fallback_material := false
 @export var fallback_material_color := Color(0.48, 0.42, 0.36, 1.0)
+@export var material_tint_enabled := false
+@export var material_tint_color := Color(1.0, 1.0, 1.0, 1.0)
+@export var material_tint_roughness := 0.88
 @export var accent_marker_enabled := true
 @export var accent_marker_color := Color(0.15, 0.75, 1.0, 1.0)
 @export var wear_decal_enabled := false
@@ -33,6 +36,7 @@ func _ready() -> void:
 	model_root.add_child(model)
 	_center_model(model)
 	_apply_fallback_material(model)
+	_apply_material_tint(model)
 	_fit_collision_to_model(model)
 	_add_accent_marker(model)
 	_add_wear_decal(model)
@@ -92,6 +96,32 @@ func _apply_fallback_material(model: Node3D) -> void:
 	for child: Node in model.find_children("*", "MeshInstance3D", true, false):
 		var mesh_instance := child as MeshInstance3D
 		mesh_instance.material_override = material
+
+
+func _apply_material_tint(model: Node3D) -> void:
+	if not material_tint_enabled or use_fallback_material:
+		return
+	for child: Node in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := child as MeshInstance3D
+		if mesh_instance.mesh == null:
+			continue
+		for surface_index: int in mesh_instance.mesh.get_surface_count():
+			var material := _tinted_surface_material(mesh_instance, surface_index)
+			mesh_instance.set_surface_override_material(surface_index, material)
+
+
+func _tinted_surface_material(mesh_instance: MeshInstance3D, surface_index: int) -> BaseMaterial3D:
+	var source := mesh_instance.get_surface_override_material(surface_index)
+	if source == null and mesh_instance.mesh != null:
+		source = mesh_instance.mesh.surface_get_material(surface_index)
+	var material: BaseMaterial3D
+	if source is BaseMaterial3D:
+		material = (source as BaseMaterial3D).duplicate() as BaseMaterial3D
+	else:
+		material = StandardMaterial3D.new()
+	material.albedo_color = material_tint_color
+	material.roughness = clamp(material_tint_roughness, 0.0, 1.0)
+	return material
 
 
 func _add_accent_marker(model: Node3D) -> void:

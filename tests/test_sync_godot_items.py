@@ -28,6 +28,9 @@ class SyncGodotItemsTests(unittest.TestCase):
             },
             "economy": {"sell_value": 88, "seal_cost": 33},
             "fallback_material_color": [0.2, 0.3, 0.4, 1.0],
+            "material_tint_enabled": True,
+            "material_tint_color": [0.5, 0.45, 0.35, 1.0],
+            "material_tint_roughness": 0.91,
             "accent_marker_color": [0.8, 0.1, 0.2, 1.0],
             "wear_decal_enabled": True,
             "wear_decal_texture_path": "res://assets/textures/test_decal.png",
@@ -49,6 +52,9 @@ class SyncGodotItemsTests(unittest.TestCase):
         self.assertIn("seal_cost = 33", scene)
         self.assertIn("use_fallback_material = true", scene)
         self.assertIn("fallback_material_color = Color(0.2, 0.3, 0.4, 1.0)", scene)
+        self.assertIn("material_tint_enabled = true", scene)
+        self.assertIn("material_tint_color = Color(0.5, 0.45, 0.35, 1.0)", scene)
+        self.assertIn("material_tint_roughness = 0.91", scene)
         self.assertIn("accent_marker_enabled = true", scene)
         self.assertIn("accent_marker_color = Color(0.8, 0.1, 0.2, 1.0)", scene)
         self.assertIn("wear_decal_enabled = true", scene)

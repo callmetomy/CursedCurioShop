@@ -71,6 +71,20 @@ def _fallback_material_color(item: dict[str, Any]) -> list[float]:
     return [0.48, 0.42, 0.36, 1.0]
 
 
+def _material_tint_enabled(item: dict[str, Any]) -> bool:
+    return bool(item.get("material_tint_enabled", False))
+
+
+def _material_tint_color(item: dict[str, Any]) -> list[float]:
+    if "material_tint_color" in item:
+        return item["material_tint_color"]
+    return [1.0, 1.0, 1.0, 1.0]
+
+
+def _material_tint_roughness(item: dict[str, Any]) -> float:
+    return float(item.get("material_tint_roughness", 0.88))
+
+
 def _accent_marker_color(item: dict[str, Any]) -> list[float]:
     if "accent_marker_color" in item:
         return item["accent_marker_color"]
@@ -120,6 +134,9 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         f"wrong_event_text = {_gd_string(str(appraisal.get('wrong_handling_consequence', '')))}",
         f"use_fallback_material = {_gd_bool(_use_fallback_material(item))}",
         f"fallback_material_color = {_gd_color(_fallback_material_color(item), [0.48, 0.42, 0.36, 1.0])}",
+        f"material_tint_enabled = {_gd_bool(_material_tint_enabled(item))}",
+        f"material_tint_color = {_gd_color(_material_tint_color(item), [1.0, 1.0, 1.0, 1.0])}",
+        f"material_tint_roughness = {_material_tint_roughness(item):g}",
         f"accent_marker_enabled = {_gd_bool(_accent_marker_enabled(item))}",
         f"accent_marker_color = {_gd_color(_accent_marker_color(item), [0.16, 0.72, 1.0, 1.0])}",
         f"wear_decal_enabled = {_gd_bool(_wear_decal_enabled(item))}",
