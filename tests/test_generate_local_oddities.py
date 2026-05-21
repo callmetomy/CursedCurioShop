@@ -53,6 +53,9 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
             item["wear_decal_texture_path"],
             "res://assets/textures/mirror_coin_decal.png",
         )
+        self.assertEqual(item["wear_decal_size"], [0.34, 0.06, 0.34])
+        self.assertEqual(item["wear_decal_normal_axis"], "y")
+        self.assertEqual(item["initial_rotation_degrees"], [-90.0, 0.0, 0.0])
 
     def test_runtime_local_oddity_glbs_export_non_default_material_colors(self):
         for spec in LOCAL_ODDITY_SPECS:
@@ -68,6 +71,15 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
                 0.05,
                 spec["item_id"],
             )
+
+    def test_music_box_runtime_glb_has_readable_parts(self):
+        gltf = _read_glb_json(ROOT / "godot" / "assets" / "models_processed" / "oddity_0003.glb")
+        node_names = {node.get("name", "") for node in gltf.get("nodes", [])}
+
+        self.assertIn("oddity_0003_music_box_base", node_names)
+        self.assertIn("oddity_0003_music_box_lid", node_names)
+        self.assertIn("oddity_0003_music_box_cylinder", node_names)
+        self.assertIn("oddity_0003_music_box_crank", node_names)
 
 
 if __name__ == "__main__":

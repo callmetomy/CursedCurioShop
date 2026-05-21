@@ -166,8 +166,11 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("discovered_tools", script)
         self.assertIn("_remember_tool_clue", script)
         self.assertIn("_update_appraisal_notes", script)
+        self.assertIn("_short_note_for_tool", script)
         self.assertIn('discovered_tools[TOOL_MAGNIFIER] = true', script)
-        self.assertIn('"- Magnifier: %s"', script)
+        self.assertIn('"- Mag: %s"', script)
+        self.assertIn('"- UV: %s"', script)
+        self.assertIn('"- Temp: %s"', script)
 
     def test_appraisal_notes_are_small_and_low_priority(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
@@ -178,8 +181,10 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("offset_top = 118.0", scene)
         self.assertIn("offset_right = -28.0", scene)
         self.assertIn("offset_bottom = 222.0", scene)
-        self.assertIn("theme_override_font_sizes/font_size = 14", scene)
-        self.assertIn("modulate = Color(0.78, 0.71, 0.58, 0.82)", scene)
+        self.assertIn("theme_override_font_sizes/font_size = 13", scene)
+        self.assertIn("theme_override_colors/font_color = Color(0.18, 0.135, 0.085, 0.96)", scene)
+        self.assertIn("theme_override_constants/line_spacing = 2", scene)
+        self.assertIn("modulate = Color(0.86, 0.78, 0.62, 0.72)", scene)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(

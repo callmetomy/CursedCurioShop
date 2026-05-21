@@ -22,7 +22,9 @@ LOCAL_ODDITY_SPECS = [
         "accent_marker_color": [0.25, 0.85, 1.0, 1.0],
         "wear_decal_enabled": True,
         "wear_decal_texture_path": "res://assets/textures/mirror_coin_decal.png",
-        "wear_decal_size": [0.26, 0.05, 0.26],
+        "wear_decal_size": [0.34, 0.06, 0.34],
+        "wear_decal_normal_axis": "y",
+        "initial_rotation_degrees": [-90.0, 0.0, 0.0],
         "temperature_c": -2.1,
         "handling": "seal",
     },
@@ -154,6 +156,10 @@ def build_local_item(spec: dict[str, Any]) -> dict[str, Any]:
         item["wear_decal_texture_path"] = spec["wear_decal_texture_path"]
     if "wear_decal_size" in spec:
         item["wear_decal_size"] = spec["wear_decal_size"]
+    if "wear_decal_normal_axis" in spec:
+        item["wear_decal_normal_axis"] = spec["wear_decal_normal_axis"]
+    if "initial_rotation_degrees" in spec:
+        item["initial_rotation_degrees"] = spec["initial_rotation_degrees"]
     return item
 
 

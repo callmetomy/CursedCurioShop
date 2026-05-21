@@ -117,6 +117,16 @@ def _wear_decal_size(item: dict[str, Any]) -> list[float]:
     return [0.24, 0.16, 0.16]
 
 
+def _wear_decal_normal_axis(item: dict[str, Any]) -> str:
+    return str(item.get("wear_decal_normal_axis", "z"))
+
+
+def _initial_rotation_degrees(item: dict[str, Any]) -> list[float]:
+    if "initial_rotation_degrees" in item:
+        return item["initial_rotation_degrees"]
+    return [0.0, 0.0, 0.0]
+
+
 def build_item_scene_text(item: dict[str, Any]) -> str:
     item_id = item["id"]
     appraisal = item.get("appraisal", {})
@@ -152,6 +162,8 @@ def build_item_scene_text(item: dict[str, Any]) -> str:
         f"wear_decal_enabled = {_gd_bool(_wear_decal_enabled(item))}",
         f"wear_decal_texture_path = {_gd_string(_wear_decal_texture_path(item))}",
         f"wear_decal_size = {_gd_vector3(_wear_decal_size(item), [0.24, 0.16, 0.16])}",
+        f"wear_decal_normal_axis = {_gd_string(_wear_decal_normal_axis(item))}",
+        f"initial_rotation_degrees = {_gd_vector3(_initial_rotation_degrees(item), [0.0, 0.0, 0.0])}",
         "",
         '[node name="ModelRoot" type="Node3D" parent="."]',
         "",

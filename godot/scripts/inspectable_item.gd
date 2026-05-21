@@ -24,6 +24,8 @@ extends Node3D
 @export var wear_decal_enabled := false
 @export var wear_decal_texture_path := ""
 @export var wear_decal_size := Vector3(0.24, 0.16, 0.16)
+@export var wear_decal_normal_axis := "z"
+@export var initial_rotation_degrees := Vector3.ZERO
 
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D
@@ -37,6 +39,7 @@ func _ready() -> void:
 
 	model_root.add_child(model)
 	_center_model(model)
+	_apply_initial_rotation()
 	_apply_fallback_material(model)
 	_apply_material_tint(model)
 	_fit_collision_to_model(model)
@@ -173,17 +176,26 @@ func _add_wear_decal(model: Node3D) -> void:
 	decal.lower_fade = 0.18
 	model_root.add_child(decal)
 
-	var target := bounds.get_center() + Vector3(
-		-bounds.size.x * 0.12,
-		bounds.size.y * 0.08,
-		bounds.size.z * 0.05
-	)
-	decal.global_position = bounds.get_center() + Vector3(
-		-bounds.size.x * 0.24,
-		bounds.size.y * 0.1,
-		bounds.size.z * 0.62
-	)
+	var normal_offset := _wear_decal_normal_offset(bounds)
+	var target := bounds.get_center() - normal_offset
+	decal.global_position = bounds.get_center() + normal_offset + _wear_decal_target_offset(bounds)
 	decal.look_at(target, Vector3.UP)
+
+
+func _wear_decal_normal_offset(bounds: AABB) -> Vector3:
+	if wear_decal_normal_axis == "y":
+		return Vector3(0.0, bounds.size.y * 0.72, 0.0)
+	if wear_decal_normal_axis == "x":
+		return Vector3(bounds.size.x * 0.72, 0.0, 0.0)
+	return Vector3(0.0, bounds.size.y * 0.1, bounds.size.z * 0.62)
+
+
+func _wear_decal_target_offset(bounds: AABB) -> Vector3:
+	if wear_decal_normal_axis == "y":
+		return Vector3(bounds.size.x * 0.02, 0.0, bounds.size.z * 0.02)
+	if wear_decal_normal_axis == "x":
+		return Vector3(0.0, bounds.size.y * 0.04, bounds.size.z * 0.02)
+	return Vector3(-bounds.size.x * 0.24, 0.0, 0.0)
 
 
 func _resolved_wear_decal_size(bounds: AABB) -> Vector3:
@@ -201,6 +213,12 @@ func _make_readability_material(color: Color, metallic := 0.0, roughness := 0.78
 	material.metallic = metallic
 	material.roughness = roughness
 	return material
+
+
+func _apply_initial_rotation() -> void:
+	if initial_rotation_degrees == Vector3.ZERO:
+		return
+	rotation_degrees = initial_rotation_degrees
 
 
 func _center_model(model: Node3D) -> void:

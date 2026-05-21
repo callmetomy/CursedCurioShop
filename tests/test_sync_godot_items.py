@@ -37,6 +37,8 @@ class SyncGodotItemsTests(unittest.TestCase):
             "wear_decal_enabled": True,
             "wear_decal_texture_path": "res://assets/textures/test_decal.png",
             "wear_decal_size": [0.3, 0.2, 0.1],
+            "wear_decal_normal_axis": "y",
+            "initial_rotation_degrees": [0.0, 12.0, 0.0],
         }
 
         scene = build_item_scene_text(item)
@@ -64,6 +66,8 @@ class SyncGodotItemsTests(unittest.TestCase):
         self.assertIn("wear_decal_enabled = true", scene)
         self.assertIn('wear_decal_texture_path = "res://assets/textures/test_decal.png"', scene)
         self.assertIn("wear_decal_size = Vector3(0.3, 0.2, 0.1)", scene)
+        self.assertIn('wear_decal_normal_axis = "y"', scene)
+        self.assertIn("initial_rotation_degrees = Vector3(0.0, 12.0, 0.0)", scene)
 
     def test_sync_item_scene_writes_scene_and_runtime_model(self):
         with tempfile.TemporaryDirectory() as directory:

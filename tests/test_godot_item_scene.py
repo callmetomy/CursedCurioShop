@@ -30,6 +30,8 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("var accent_marker_color", script)
         self.assertIn("var wear_decal_texture_path", script)
         self.assertIn("var wear_decal_size", script)
+        self.assertIn("var wear_decal_normal_axis", script)
+        self.assertIn("var initial_rotation_degrees", script)
         self.assertIn("_apply_fallback_material", script)
         self.assertIn("material.metallic = metallic", script)
         self.assertIn("_apply_material_tint", script)
@@ -39,6 +41,9 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("AppraisalAccentMarker", script)
         self.assertIn("AppraisalWearDecal", script)
         self.assertIn("Decal.new()", script)
+        self.assertIn("_apply_initial_rotation", script)
+        self.assertIn("if initial_rotation_degrees == Vector3.ZERO", script)
+        self.assertIn("_wear_decal_target_offset", script)
         self.assertNotIn("AppraisalWearMarker", script)
         self.assertIn("GLTFDocument", script)
         self.assertIn("_fit_collision_to_model", script)
@@ -128,7 +133,9 @@ class GodotItemSceneTests(unittest.TestCase):
             'wear_decal_texture_path = "res://assets/textures/mirror_coin_decal.png"',
             scene,
         )
-        self.assertIn("wear_decal_size = Vector3(0.26, 0.05, 0.26)", scene)
+        self.assertIn("wear_decal_size = Vector3(0.34, 0.06, 0.34)", scene)
+        self.assertIn('wear_decal_normal_axis = "y"', scene)
+        self.assertIn("initial_rotation_degrees = Vector3(-90.0, 0.0, 0.0)", scene)
 
     def test_ashen_music_box_uses_surface_decal_instead_of_debug_marker(self):
         scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0003.tscn").read_text(

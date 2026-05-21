@@ -315,18 +315,31 @@ func _remember_tool_clue(tool_name: String) -> void:
 
 func _update_appraisal_notes() -> void:
 	var lines := ["Appraisal Notes"]
-	lines.append("- Magnifier: %s" % _note_for_tool(TOOL_MAGNIFIER))
-	lines.append("- UV Lamp: %s" % _note_for_tool(TOOL_UV_LAMP))
-	lines.append("- Thermometer: %s" % _note_for_tool(TOOL_THERMOMETER))
+	lines.append("- Mag: %s" % _short_note_for_tool(TOOL_MAGNIFIER))
+	lines.append("- UV: %s" % _short_note_for_tool(TOOL_UV_LAMP))
+	lines.append("- Temp: %s" % _short_note_for_tool(TOOL_THERMOMETER))
 	appraisal_notes_label.text = "\n".join(lines)
+
+
+func _short_note_for_tool(tool_name: String) -> String:
+	var note := _note_for_tool(tool_name)
+	if note == "-":
+		return note
+	return _truncate_note(note, 28)
 
 
 func _note_for_tool(tool_name: String) -> String:
 	if not discovered_tools.get(tool_name, false):
 		return "-"
 	if tool_name == TOOL_THERMOMETER:
-		return "%.1f C; %s" % [_get_current_temperature_c(), _get_current_tool_clue(tool_name)]
+		return "%.1f C" % _get_current_temperature_c()
 	return _get_current_tool_clue(tool_name)
+
+
+func _truncate_note(text: String, max_length: int) -> String:
+	if text.length() <= max_length:
+		return text
+	return text.substr(0, max_length - 3) + "..."
 
 
 func _get_current_tool_clue(tool_name: String) -> String:

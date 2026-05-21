@@ -65,8 +65,14 @@
   "wear_decal_enabled": true,
   "wear_decal_texture_path": "res://assets/textures/mirror_coin_decal.png",
   "wear_decal_size": [
-    0.26,
-    0.05,
-    0.26
+    0.34,
+    0.06,
+    0.34
+  ],
+  "wear_decal_normal_axis": "y",
+  "initial_rotation_degrees": [
+    -90.0,
+    0.0,
+    0.0
   ]
 }
