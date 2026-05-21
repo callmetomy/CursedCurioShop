@@ -67,6 +67,7 @@ func _ready() -> void:
 	back_to_shop_button.pressed.connect(_on_back_to_shop_pressed)
 	return_to_menu_button.pressed.connect(_on_return_to_menu_pressed)
 	_update_tool_readouts()
+	_update_next_day_button_label()
 	_set_active_tool(TOOL_NONE)
 	day_result_panel.visible = false
 	day_result_background.visible = false
@@ -229,6 +230,7 @@ func _show_day_result(outcome: String, value_delta: int, reputation_delta: int) 
 	GameState.apply_result(value_delta, reputation_delta)
 	day_result_background.visible = true
 	day_result_panel.visible = true
+	_update_next_day_button_label()
 	outcome_label.text = outcome
 	value_label.text = "Cash: %+d" % value_delta
 	reputation_label.text = "Reputation: %+d" % reputation_delta
@@ -241,6 +243,13 @@ func _show_abnormal_event(event_text: String) -> void:
 
 func _show_bad_ending() -> void:
 	bad_ending_panel.visible = true
+
+
+func _update_next_day_button_label() -> void:
+	if GameState.is_run_complete():
+		next_day_button.text = "Return to Menu"
+	else:
+		next_day_button.text = "Next Day"
 
 
 func _get_current_correct_handling() -> String:

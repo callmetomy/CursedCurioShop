@@ -197,6 +197,9 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_show_day_result", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn("_on_back_to_shop_pressed", script)
+        self.assertIn("_update_next_day_button_label", script)
+        self.assertIn('next_day_button.text = "Return to Menu"', script)
+        self.assertIn('next_day_button.text = "Next Day"', script)
         self.assertIn("shop_scene_path", script)
 
     def test_inspection_table_scene_has_abnormal_event_and_bad_ending_panels(self):
