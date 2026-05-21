@@ -19,6 +19,8 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("var thermometer_c", script)
         self.assertIn("var sell_value", script)
         self.assertIn("var seal_cost", script)
+        self.assertIn("load(path) as PackedScene", script)
+        self.assertIn("_load_imported_scene", script)
         self.assertIn("GLTFDocument", script)
         self.assertIn("_fit_collision_to_model", script)
         self.assertIn("BoxShape3D", script)

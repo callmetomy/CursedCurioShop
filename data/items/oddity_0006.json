@@ -45,5 +45,11 @@
     "attempts": 1,
     "approved": true
   },
-  "local_shape": "candle"
+  "local_shape": "candle",
+  "local_material_color": [
+    0.08,
+    0.07,
+    0.08,
+    1.0
+  ]
 }

@@ -6,35 +6,35 @@
       "stage": "item_definition",
       "status": "created_locally",
       "output_path": "data/items/oddity_0004.json",
-      "created_at": "2026-05-20T13:57:01.711616+00:00"
+      "created_at": "2026-05-21T03:46:03.376028+00:00"
     },
     {
       "item_id": "oddity_0004",
       "stage": "concept_image",
       "status": "created_locally",
       "output_path": "assets/concepts/oddity_0004.png",
-      "created_at": "2026-05-20T13:57:01.711624+00:00"
+      "created_at": "2026-05-21T03:46:03.376033+00:00"
     },
     {
       "item_id": "oddity_0004",
       "stage": "local_model",
       "status": "created_locally",
       "output_path": "assets/models_raw/oddity_0004.glb",
-      "created_at": "2026-05-20T13:57:01.711626+00:00"
+      "created_at": "2026-05-21T03:46:03.376034+00:00"
     },
     {
       "item_id": "oddity_0004",
       "stage": "model_processing",
       "status": "created_locally",
       "output_path": "assets/models_processed/oddity_0004.glb",
-      "created_at": "2026-05-20T13:57:01.711627+00:00"
+      "created_at": "2026-05-21T03:46:03.376035+00:00"
     },
     {
       "item_id": "oddity_0004",
       "stage": "manual_review",
       "status": "created_locally",
       "output_path": "assets/review/oddity_0004_review.md",
-      "created_at": "2026-05-20T13:57:01.711628+00:00"
+      "created_at": "2026-05-21T03:46:03.376036+00:00"
     }
   ]
 }

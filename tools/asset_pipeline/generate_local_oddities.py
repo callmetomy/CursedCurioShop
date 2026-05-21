@@ -14,6 +14,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0002",
         "display_name": "Mirror Coin",
         "shape": "coin",
+        "material_color": [0.52, 0.50, 0.62, 1.0],
         "temperature_c": -2.1,
         "handling": "seal",
     },
@@ -21,6 +22,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0003",
         "display_name": "Ashen Music Box",
         "shape": "box",
+        "material_color": [0.42, 0.28, 0.22, 1.0],
         "temperature_c": 13.4,
         "handling": "discard",
     },
@@ -28,6 +30,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0004",
         "display_name": "Cold Brass Key",
         "shape": "key",
+        "material_color": [0.74, 0.58, 0.28, 1.0],
         "temperature_c": -11.8,
         "handling": "seal",
     },
@@ -35,6 +38,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0005",
         "display_name": "Glass Eye",
         "shape": "sphere",
+        "material_color": [0.38, 0.62, 0.68, 1.0],
         "temperature_c": 4.2,
         "handling": "sell",
     },
@@ -42,6 +46,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0006",
         "display_name": "Black Wax Candle",
         "shape": "candle",
+        "material_color": [0.08, 0.07, 0.08, 1.0],
         "temperature_c": 38.6,
         "handling": "discard",
     },
@@ -49,6 +54,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0007",
         "display_name": "Moth-Eaten Doll",
         "shape": "doll",
+        "material_color": [0.46, 0.36, 0.52, 1.0],
         "temperature_c": 7.7,
         "handling": "seal",
     },
@@ -56,6 +62,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0008",
         "display_name": "Silver Funeral Bell",
         "shape": "bell",
+        "material_color": [0.70, 0.68, 0.58, 1.0],
         "temperature_c": 0.6,
         "handling": "seal",
     },
@@ -63,6 +70,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0009",
         "display_name": "Cracked Hand Mirror",
         "shape": "mirror",
+        "material_color": [0.34, 0.45, 0.52, 1.0],
         "temperature_c": 18.9,
         "handling": "discard",
     },
@@ -70,6 +78,7 @@ LOCAL_ODDITY_SPECS = [
         "item_id": "oddity_0010",
         "display_name": "Red Thread Spool",
         "shape": "spool",
+        "material_color": [0.70, 0.18, 0.20, 1.0],
         "temperature_c": 31.2,
         "handling": "sell",
     },
@@ -107,6 +116,7 @@ def build_local_item(spec: dict[str, Any]) -> dict[str, Any]:
     item["generation"]["approved"] = True
     item["generation"]["attempts"] = 1
     item["local_shape"] = spec["shape"]
+    item["local_material_color"] = spec["material_color"]
     return item
 
 

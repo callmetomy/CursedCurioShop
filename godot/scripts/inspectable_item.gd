@@ -19,7 +19,7 @@ extends Node3D
 
 func _ready() -> void:
 	var resolved_model_path: String = _resolve_model_path(model_path)
-	var model: Node3D = _load_gltf_scene(resolved_model_path)
+	var model: Node3D = _load_model_scene(resolved_model_path)
 	if model == null:
 		return
 
@@ -31,7 +31,29 @@ func _ready() -> void:
 func _resolve_model_path(path: String) -> String:
 	if path.begins_with("res://") or path.is_absolute_path():
 		return path
-	return ProjectSettings.globalize_path("res://" + path)
+	return "res://" + path
+
+
+func _load_model_scene(path: String) -> Node3D:
+	var imported_scene := _load_imported_scene(path)
+	if imported_scene != null:
+		return imported_scene
+	return _load_gltf_scene(path)
+
+
+func _load_imported_scene(path: String) -> Node3D:
+	var packed_scene := load(path) as PackedScene
+	if packed_scene == null:
+		return null
+	var scene := packed_scene.instantiate()
+	if scene == null:
+		push_error("Imported item scene could not be instantiated: %s" % path)
+		return null
+	if not scene is Node3D:
+		push_error("Imported item scene is not Node3D: %s" % path)
+		scene.queue_free()
+		return null
+	return scene as Node3D
 
 
 func _load_gltf_scene(path: String) -> Node3D:

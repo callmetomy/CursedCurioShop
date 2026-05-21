@@ -56,6 +56,7 @@ var current_item: Node3D
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_load_current_day_item()
 	magnifier_button.pressed.connect(_on_magnifier_pressed)
 	uv_lamp_button.pressed.connect(_on_uv_lamp_pressed)

@@ -45,5 +45,11 @@
     "attempts": 1,
     "approved": true
   },
-  "local_shape": "key"
+  "local_shape": "key",
+  "local_material_color": [
+    0.74,
+    0.58,
+    0.28,
+    1.0
+  ]
 }

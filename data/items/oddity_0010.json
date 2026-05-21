@@ -45,5 +45,11 @@
     "attempts": 1,
     "approved": true
   },
-  "local_shape": "spool"
+  "local_shape": "spool",
+  "local_material_color": [
+    0.7,
+    0.18,
+    0.2,
+    1.0
+  ]
 }

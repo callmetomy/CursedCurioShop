@@ -27,6 +27,11 @@ def clear_scene() -> None:
 def make_mat(name: str, color: tuple[float, float, float, float]) -> bpy.types.Material:
     mat = bpy.data.materials.new(name)
     mat.diffuse_color = color
+    mat.use_nodes = True
+    principled = mat.node_tree.nodes.get("Principled BSDF")
+    if principled is not None:
+        principled.inputs["Base Color"].default_value = color
+        principled.inputs["Roughness"].default_value = 0.72
     return mat
 
 
@@ -67,7 +72,8 @@ def add_shape(shape: str, mat: bpy.types.Material) -> None:
 
 def export_item(root: Path, item: dict) -> None:
     clear_scene()
-    mat = make_mat(f"{item['id']}_mat", (0.72, 0.68, 0.62, 1.0))
+    color = tuple(item.get("local_material_color", (0.48, 0.42, 0.36, 1.0)))
+    mat = make_mat(f"{item['id']}_mat", color)
     add_shape(item["local_shape"], mat)
     for obj in bpy.context.scene.objects:
         if obj.type == "MESH":

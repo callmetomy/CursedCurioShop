@@ -35,6 +35,17 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_update_item_labels", script)
         self.assertIn("_get_current_description", script)
 
+    def test_inspection_table_releases_mouse_for_hud_buttons(self):
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)", script)
+        self.assertLess(
+            script.index("Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)"),
+            script.index("_load_current_day_item()"),
+        )
+
     def test_inspection_table_script_supports_rotation_and_zoom(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"
