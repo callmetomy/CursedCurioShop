@@ -21,10 +21,12 @@ res://assets/textures/
 
 The inspection scene is `res://scenes/inspection_table.tscn`.
 
-It instances the first tracked oddity scene:
+It loads the current day's oddity scene through `GameState`:
 
 ```text
-res://scenes/items/oddity_0001.tscn
+Day 1: res://scenes/items/oddity_0001.tscn
+Day 2: res://scenes/items/oddity_0002.tscn
+Day 3: res://scenes/items/oddity_0003.tscn
 ```
 
 Drag with the left mouse button to rotate the item. Use the mouse wheel to adjust inspection distance. Press `1` or click `Magnifier` to toggle the close inspection tool. Press `2` or click `UV Lamp` to dim the room light and reveal UV-only markings. Press `3` or click `Thermometer` to show the object's temperature clue.

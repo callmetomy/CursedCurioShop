@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://oddity_0003_item_scene"]
+
+[ext_resource type="Script" path="res://scripts/inspectable_item.gd" id="1_script"]
+
+[node name="Oddity0003" type="Node3D"]
+script = ExtResource("1_script")
+item_id = "oddity_0003"
+display_name = "Ashen Music Box"
+model_path = "res://assets/models_processed/oddity_0003.glb"
+correct_handling = "discard"
+
+[node name="ModelRoot" type="Node3D" parent="."]
+
+[node name="CollisionBody" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionBody"]

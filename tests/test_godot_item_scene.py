@@ -28,6 +28,25 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn('[node name="CollisionBody" type="StaticBody3D" parent="."]', scene)
         self.assertIn('[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionBody"]', scene)
 
+    def test_demo_day_item_scenes_track_metadata_and_models(self):
+        expected = {
+            "oddity_0002": ("Mirror Coin", "seal"),
+            "oddity_0003": ("Ashen Music Box", "discard"),
+        }
+
+        for item_id, (display_name, correct_handling) in expected.items():
+            scene_path = ROOT / "godot" / "scenes" / "items" / f"{item_id}.tscn"
+            model_path = ROOT / "godot" / "assets" / "models_processed" / f"{item_id}.glb"
+
+            self.assertTrue(scene_path.exists(), f"Missing {scene_path}")
+            self.assertTrue(model_path.exists(), f"Missing {model_path}")
+
+            scene = scene_path.read_text(encoding="utf-8")
+            self.assertIn(f'item_id = "{item_id}"', scene)
+            self.assertIn(f'display_name = "{display_name}"', scene)
+            self.assertIn(f'model_path = "res://assets/models_processed/{item_id}.glb"', scene)
+            self.assertIn(f'correct_handling = "{correct_handling}"', scene)
+
 
 if __name__ == "__main__":
     unittest.main()

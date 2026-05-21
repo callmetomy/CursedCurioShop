@@ -35,7 +35,7 @@ const MAGNIFIER_FOV := 26.0
 const UV_KEY_LIGHT_ENERGY := 160.0
 const UV_LAMP_ENERGY := 920.0
 const CURSED_TEMPERATURE_C := -7.4
-const CORRECT_HANDLING := "seal"
+const FALLBACK_CORRECT_HANDLING := "seal"
 const SELL_VALUE := 75
 const SEAL_COST := 20
 const shop_scene_path := "res://scenes/shop_prototype.tscn"
@@ -49,9 +49,11 @@ var drag_active := false
 var rotation_sensitivity := 0.01
 var zoom_step := 0.18
 var active_tool := TOOL_NONE
+var current_item: Node3D
 
 
 func _ready() -> void:
+	_load_current_day_item()
 	magnifier_button.pressed.connect(_on_magnifier_pressed)
 	uv_lamp_button.pressed.connect(_on_uv_lamp_pressed)
 	thermometer_button.pressed.connect(_on_thermometer_pressed)
@@ -100,6 +102,20 @@ func _rotate_item(relative_motion: Vector2) -> void:
 
 func _apply_zoom(delta_z: float) -> void:
 	camera.position.z = clamp(camera.position.z + delta_z, MIN_CAMERA_Z, MAX_CAMERA_Z)
+
+
+func _load_current_day_item() -> void:
+	var item_scene_path: String = GameState.get_current_item_scene_path()
+	var packed_scene := load(item_scene_path) as PackedScene
+	if packed_scene == null:
+		push_error("Could not load current oddity scene: %s" % item_scene_path)
+		return
+
+	current_item = packed_scene.instantiate() as Node3D
+	if current_item == null:
+		push_error("Current oddity scene is not a Node3D: %s" % item_scene_path)
+		return
+	item_pivot.add_child(current_item)
 
 
 func _on_magnifier_pressed() -> void:
@@ -184,15 +200,17 @@ func _set_active_tool(tool_name: String) -> void:
 
 func _resolve_decision(decision: String) -> void:
 	decision_result.visible = true
-	if decision == CORRECT_HANDLING:
-		decision_result.text = "Correct: the teacup is sealed before it can spread frost."
+	var correct_handling := _get_current_correct_handling()
+	var display_name := _get_current_display_name()
+	if decision == correct_handling:
+		decision_result.text = "Correct: %s is handled safely." % display_name
 		_show_day_result("Correct handling", -SEAL_COST, 5)
 		abnormal_event_panel.visible = false
 		bad_ending_panel.visible = false
 	else:
-		decision_result.text = "Wrong: the teacup should be sealed, not %s." % decision
-		_show_abnormal_event("Frost blooms across the counter. The cup has started whispering names.")
-		if decision == "sell":
+		decision_result.text = "Wrong: %s should be %s, not %s." % [display_name, correct_handling, decision]
+		_show_abnormal_event("%s disturbs the shop after the bad appraisal." % display_name)
+		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
 			_show_day_result("Cursed sale", SELL_VALUE, -15)
 			_show_bad_ending()
 		elif decision == "discard":
@@ -217,3 +235,21 @@ func _show_abnormal_event(event_text: String) -> void:
 
 func _show_bad_ending() -> void:
 	bad_ending_panel.visible = true
+
+
+func _get_current_correct_handling() -> String:
+	if current_item == null:
+		return FALLBACK_CORRECT_HANDLING
+	var handling: Variant = current_item.get("correct_handling")
+	if handling is String and not handling.is_empty():
+		return handling
+	return FALLBACK_CORRECT_HANDLING
+
+
+func _get_current_display_name() -> String:
+	if current_item == null:
+		return GameState.get_current_item_id()
+	var item_display_name: Variant = current_item.get("display_name")
+	if item_display_name is String and not item_display_name.is_empty():
+		return item_display_name
+	return GameState.get_current_item_id()

@@ -13,17 +13,21 @@ class GodotInspectionTableTests(unittest.TestCase):
 
         self.assertIn('[node name="ShopPrototype" type="Node3D"]', scene)
 
-    def test_inspection_table_scene_instances_first_oddity(self):
+    def test_inspection_table_scene_loads_current_day_oddity(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"
         )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
 
-        self.assertIn('path="res://scenes/items/oddity_0001.tscn"', scene)
         self.assertIn('path="res://assets/textures/workbench_walnut.png"', scene)
         self.assertIn("albedo_texture = ExtResource", scene)
         self.assertIn('[node name="ItemPivot" type="Node3D" parent="."]', scene)
-        self.assertIn('[node name="Oddity0001" parent="ItemPivot" instance=ExtResource("2_item")]', scene)
         self.assertIn('[node name="InspectionCamera" type="Camera3D" parent="."]', scene)
+        self.assertIn("var current_item: Node3D", script)
+        self.assertIn("_load_current_day_item", script)
+        self.assertIn("GameState.get_current_item_scene_path", script)
 
     def test_inspection_table_script_supports_rotation_and_zoom(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
@@ -137,7 +141,7 @@ class GodotInspectionTableTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        self.assertIn('const CORRECT_HANDLING := "seal"', script)
+        self.assertIn('const FALLBACK_CORRECT_HANDLING := "seal"', script)
         self.assertIn("sell_button", script)
         self.assertIn("seal_button", script)
         self.assertIn("discard_button", script)
@@ -146,7 +150,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_on_seal_pressed", script)
         self.assertIn("_on_discard_pressed", script)
         self.assertIn("_resolve_decision", script)
-        self.assertIn("decision == CORRECT_HANDLING", script)
+        self.assertIn("_get_current_correct_handling", script)
+        self.assertIn("decision == correct_handling", script)
 
     def test_inspection_table_scene_has_day_result_panel(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(

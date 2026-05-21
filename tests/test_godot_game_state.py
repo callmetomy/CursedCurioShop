@@ -27,6 +27,17 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("func advance_day", script)
         self.assertIn("func is_run_complete", script)
 
+    def test_game_state_maps_three_days_to_demo_oddities(self):
+        script = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003"]', script)
+        self.assertIn("func get_current_item_id", script)
+        self.assertIn("func get_current_item_scene_path", script)
+        self.assertIn('res://scenes/items/oddity_0002.tscn', script)
+        self.assertIn('res://scenes/items/oddity_0003.tscn', script)
+
     def test_shop_and_inspection_use_game_state(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
             encoding="utf-8"
@@ -44,6 +55,7 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("GameState.apply_result", inspection)
         self.assertIn("GameState.advance_day", inspection)
         self.assertIn("GameState.is_run_complete", inspection)
+        self.assertIn("GameState.get_current_item_scene_path", inspection)
 
 
 if __name__ == "__main__":
