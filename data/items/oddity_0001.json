@@ -45,7 +45,7 @@
     "attempts": 0,
     "approved": false
   },
-  "use_fallback_material": true,
+  "use_fallback_material": false,
   "fallback_material_color": [
     0.72,
     0.62,

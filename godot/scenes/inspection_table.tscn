@@ -13,7 +13,7 @@ background_mode = 1
 background_color = Color(0.055, 0.05, 0.048, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.52, 0.48, 0.43, 1)
-ambient_light_energy = 0.24
+ambient_light_energy = 0.2
 
 [sub_resource type="BoxMesh" id="BoxMesh_table"]
 size = Vector3(3.2, 0.12, 2.2)
@@ -69,13 +69,13 @@ fov = 42.0
 
 [node name="KeyLight" type="SpotLight3D" parent="."]
 transform = Transform3D(0.819152, -0.219846, 0.53033, 0, 0.92388, 0.382683, -0.573576, -0.313476, 0.756797, -1.2, 1.8, 1.7)
-light_energy = 260.0
+light_energy = 185.0
 spot_range = 5.0
 spot_angle = 32.0
 
 [node name="FillLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.9, 1.4)
-light_energy = 45.0
+light_energy = 34.0
 omni_range = 3.5
 
 [node name="UVLamp" type="SpotLight3D" parent="."]

@@ -85,6 +85,7 @@ class GodotItemSceneTests(unittest.TestCase):
             encoding="utf-8"
         )
 
+        self.assertIn("use_fallback_material = false", scene)
         self.assertIn("accent_marker_enabled = false", scene)
         self.assertIn("wear_decal_enabled = true", scene)
         self.assertIn(
