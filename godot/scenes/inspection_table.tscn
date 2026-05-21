@@ -178,13 +178,14 @@ autowrap_mode = 2
 text = "Tool clue"
 
 [node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]
+modulate = Color(0.78, 0.71, 0.58, 0.82)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -344.0
-offset_top = 108.0
-offset_right = -24.0
-offset_bottom = 252.0
+offset_left = -300.0
+offset_top = 118.0
+offset_right = -28.0
+offset_bottom = 222.0
 texture = ExtResource("8_panel_ledger")
 expand_mode = 1
 stretch_mode = 1
@@ -198,6 +199,7 @@ offset_left = 18.0
 offset_top = 16.0
 offset_right = -18.0
 offset_bottom = -16.0
+theme_override_font_sizes/font_size = 14
 autowrap_mode = 2
 text = "Appraisal Notes
 - Magnifier: -

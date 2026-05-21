@@ -14,6 +14,8 @@ extends Node3D
 @export var wrong_event_text := ""
 @export var use_fallback_material := false
 @export var fallback_material_color := Color(0.48, 0.42, 0.36, 1.0)
+@export var fallback_material_metallic := 0.0
+@export var fallback_material_roughness := 0.78
 @export var material_tint_enabled := false
 @export var material_tint_color := Color(1.0, 1.0, 1.0, 1.0)
 @export var material_tint_roughness := 0.88
@@ -92,7 +94,11 @@ func _load_gltf_scene(path: String) -> Node3D:
 func _apply_fallback_material(model: Node3D) -> void:
 	if not use_fallback_material:
 		return
-	var material := _make_readability_material(fallback_material_color)
+	var material := _make_readability_material(
+		fallback_material_color,
+		fallback_material_metallic,
+		fallback_material_roughness
+	)
 	for child: Node in model.find_children("*", "MeshInstance3D", true, false):
 		var mesh_instance := child as MeshInstance3D
 		mesh_instance.material_override = material
@@ -189,10 +195,11 @@ func _resolved_wear_decal_size(bounds: AABB) -> Vector3:
 	return Vector3(width, height, depth)
 
 
-func _make_readability_material(color: Color) -> StandardMaterial3D:
+func _make_readability_material(color: Color, metallic := 0.0, roughness := 0.78) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
-	material.roughness = 0.78
+	material.metallic = metallic
+	material.roughness = roughness
 	return material
 
 

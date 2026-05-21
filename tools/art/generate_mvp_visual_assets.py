@@ -19,6 +19,7 @@ ASSET_SPECS = {
     "textures/workbench_walnut.png": (1024, 1024),
     "textures/shop_wallpaper.png": (1024, 1024),
     "textures/cursed_teacup_decal.png": (1024, 1024),
+    "textures/mirror_coin_decal.png": (1024, 1024),
     "textures/uv_ring_mark.png": (1024, 1024),
 }
 
@@ -219,6 +220,49 @@ def _draw_cursed_teacup_decal(path: Path) -> None:
     _save(path, image)
 
 
+def _draw_mirror_coin_decal(path: Path) -> None:
+    width, height = ASSET_SPECS["textures/mirror_coin_decal.png"]
+    image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image, "RGBA")
+    center = (width // 2, height // 2)
+    rng = random.Random(616)
+
+    for radius, alpha, thickness in [(360, 120, 14), (292, 92, 8), (188, 70, 5)]:
+        draw.ellipse(
+            (
+                center[0] - radius,
+                center[1] - int(radius * 0.82),
+                center[0] + radius,
+                center[1] + int(radius * 0.82),
+            ),
+            outline=(28, 24, 20, alpha),
+            width=thickness,
+        )
+
+    for i in range(58):
+        angle = rng.uniform(-0.15, math.tau + 0.15)
+        radius = rng.randint(50, 330)
+        length = rng.randint(42, 150)
+        skew = rng.uniform(-0.65, 0.65)
+        x1 = center[0] + int(math.cos(angle) * radius)
+        y1 = center[1] + int(math.sin(angle) * radius * 0.82)
+        x2 = x1 + int(math.cos(angle + skew) * length)
+        y2 = y1 + int(math.sin(angle + skew) * length * 0.42)
+        draw.line((x1, y1, x2, y2), fill=(36, 30, 24, rng.randint(105, 210)), width=rng.randint(3, 7))
+
+    for i in range(10):
+        angle = i * math.tau / 10
+        inner = 170
+        outer = 280
+        p1 = (center[0] + math.cos(angle) * inner, center[1] + math.sin(angle) * inner * 0.82)
+        p2 = (center[0] + math.cos(angle) * outer, center[1] + math.sin(angle) * outer * 0.82)
+        draw.line((p1[0], p1[1], p2[0], p2[1]), fill=(52, 147, 190, 132), width=7)
+
+    draw.ellipse((center[0] - 42, center[1] - 34, center[0] + 42, center[1] + 34), outline=(64, 166, 210, 172), width=7)
+    image = image.filter(ImageFilter.GaussianBlur(0.35))
+    _save(path, image)
+
+
 def _draw_uv_ring_mark(path: Path) -> None:
     width, height = ASSET_SPECS["textures/uv_ring_mark.png"]
     image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -247,6 +291,7 @@ DRAWERS = {
     "textures/workbench_walnut.png": _draw_workbench_walnut,
     "textures/shop_wallpaper.png": _draw_shop_wallpaper,
     "textures/cursed_teacup_decal.png": _draw_cursed_teacup_decal,
+    "textures/mirror_coin_decal.png": _draw_mirror_coin_decal,
     "textures/uv_ring_mark.png": _draw_uv_ring_mark,
 }
 

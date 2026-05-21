@@ -169,6 +169,18 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('discovered_tools[TOOL_MAGNIFIER] = true', script)
         self.assertIn('"- Magnifier: %s"', script)
 
+    def test_appraisal_notes_are_small_and_low_priority(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("offset_left = -300.0", scene)
+        self.assertIn("offset_top = 118.0", scene)
+        self.assertIn("offset_right = -28.0", scene)
+        self.assertIn("offset_bottom = 222.0", scene)
+        self.assertIn("theme_override_font_sizes/font_size = 14", scene)
+        self.assertIn("modulate = Color(0.78, 0.71, 0.58, 0.82)", scene)
+
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"

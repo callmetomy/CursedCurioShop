@@ -66,6 +66,13 @@
       ]
     },
     {
+      "path": "godot/assets/textures/mirror_coin_decal.png",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
       "path": "godot/assets/textures/uv_ring_mark.png",
       "size": [
         1024,

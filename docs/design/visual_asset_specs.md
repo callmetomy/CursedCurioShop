@@ -36,6 +36,7 @@ All generated runtime assets are written under `godot/assets/` so exported build
 | Workbench walnut | `godot/assets/textures/workbench_walnut.png` | 1024x1024 | Table/desk material |
 | Aged wallpaper | `godot/assets/textures/shop_wallpaper.png` | 1024x1024 | Shop wall material |
 | Teacup crack decal | `godot/assets/textures/cursed_teacup_decal.png` | 1024x1024 | Porcelain crack/stain detail |
+| Mirror coin decal | `godot/assets/textures/mirror_coin_decal.png` | 1024x1024 | Coin scratches and appraisal mark |
 | UV ring mark | `godot/assets/textures/uv_ring_mark.png` | 1024x1024 | Hidden glowing clue mask |
 
 ## Acceptance Criteria

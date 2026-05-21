@@ -23,12 +23,15 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("_load_imported_scene", script)
         self.assertIn("var use_fallback_material", script)
         self.assertIn("var fallback_material_color", script)
+        self.assertIn("var fallback_material_metallic", script)
+        self.assertIn("var fallback_material_roughness", script)
         self.assertIn("var material_tint_color", script)
         self.assertIn("var material_tint_roughness", script)
         self.assertIn("var accent_marker_color", script)
         self.assertIn("var wear_decal_texture_path", script)
         self.assertIn("var wear_decal_size", script)
         self.assertIn("_apply_fallback_material", script)
+        self.assertIn("material.metallic = metallic", script)
         self.assertIn("_apply_material_tint", script)
         self.assertIn("set_surface_override_material", script)
         self.assertIn("_add_accent_marker", script)
@@ -81,7 +84,7 @@ class GodotItemSceneTests(unittest.TestCase):
             self.assertIn("seal_cost =", scene)
             self.assertIn("use_fallback_material = true", scene)
             self.assertIn("fallback_material_color = Color(", scene)
-            self.assertIn("accent_marker_enabled = true", scene)
+            self.assertIn("accent_marker_enabled =", scene)
             self.assertIn("accent_marker_color = Color(", scene)
 
     def test_teacup_scene_has_surface_wear_decal(self):
@@ -102,15 +105,30 @@ class GodotItemSceneTests(unittest.TestCase):
         self.assertIn("wear_decal_size = Vector3(", scene)
         self.assertNotIn("wear_marker_enabled = true", scene)
 
-    def test_first_three_day_item_scenes_have_readability_markers(self):
-        for item_id in ("oddity_0002", "oddity_0003"):
-            scene = (ROOT / "godot" / "scenes" / "items" / f"{item_id}.tscn").read_text(
-                encoding="utf-8"
-            )
+    def test_remaining_prototype_item_scenes_have_readability_markers(self):
+        scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0003.tscn").read_text(
+            encoding="utf-8"
+        )
 
-            self.assertIn("fallback_material_color = Color(", scene)
-            self.assertIn("accent_marker_enabled = true", scene)
-            self.assertIn("accent_marker_color = Color(", scene)
+        self.assertIn("fallback_material_color = Color(", scene)
+        self.assertIn("accent_marker_enabled = true", scene)
+        self.assertIn("accent_marker_color = Color(", scene)
+
+    def test_mirror_coin_uses_surface_decal_instead_of_debug_marker(self):
+        scene = (ROOT / "godot" / "scenes" / "items" / "oddity_0002.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("fallback_material_color = Color(0.36, 0.35, 0.4, 1.0)", scene)
+        self.assertIn("fallback_material_metallic = 0.72", scene)
+        self.assertIn("fallback_material_roughness = 0.42", scene)
+        self.assertIn("accent_marker_enabled = false", scene)
+        self.assertIn("wear_decal_enabled = true", scene)
+        self.assertIn(
+            'wear_decal_texture_path = "res://assets/textures/mirror_coin_decal.png"',
+            scene,
+        )
+        self.assertIn("wear_decal_size = Vector3(0.26, 0.05, 0.26)", scene)
 
 
 if __name__ == "__main__":

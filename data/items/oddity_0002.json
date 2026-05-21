@@ -14,7 +14,7 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Mirror Coin.",
+    "description": "A tarnished silver coin whose face reflects a room one second out of sync.",
     "clues": [
       {
         "tool": "magnifier",
@@ -47,16 +47,26 @@
   },
   "local_shape": "coin",
   "local_material_color": [
-    0.52,
-    0.5,
-    0.62,
+    0.36,
+    0.35,
+    0.4,
     1.0
   ],
+  "fallback_material_metallic": 0.72,
+  "fallback_material_roughness": 0.42,
   "use_fallback_material": true,
+  "accent_marker_enabled": false,
   "accent_marker_color": [
     0.25,
     0.85,
     1.0,
     1.0
+  ],
+  "wear_decal_enabled": true,
+  "wear_decal_texture_path": "res://assets/textures/mirror_coin_decal.png",
+  "wear_decal_size": [
+    0.26,
+    0.05,
+    0.26
   ]
 }

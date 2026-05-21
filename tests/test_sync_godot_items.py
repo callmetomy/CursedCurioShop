@@ -28,6 +28,8 @@ class SyncGodotItemsTests(unittest.TestCase):
             },
             "economy": {"sell_value": 88, "seal_cost": 33},
             "fallback_material_color": [0.2, 0.3, 0.4, 1.0],
+            "fallback_material_metallic": 0.6,
+            "fallback_material_roughness": 0.35,
             "material_tint_enabled": True,
             "material_tint_color": [0.5, 0.45, 0.35, 1.0],
             "material_tint_roughness": 0.91,
@@ -52,6 +54,8 @@ class SyncGodotItemsTests(unittest.TestCase):
         self.assertIn("seal_cost = 33", scene)
         self.assertIn("use_fallback_material = true", scene)
         self.assertIn("fallback_material_color = Color(0.2, 0.3, 0.4, 1.0)", scene)
+        self.assertIn("fallback_material_metallic = 0.6", scene)
+        self.assertIn("fallback_material_roughness = 0.35", scene)
         self.assertIn("material_tint_enabled = true", scene)
         self.assertIn("material_tint_color = Color(0.5, 0.45, 0.35, 1.0)", scene)
         self.assertIn("material_tint_roughness = 0.91", scene)
