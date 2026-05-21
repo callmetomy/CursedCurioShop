@@ -152,6 +152,23 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_get_current_temperature_c", script)
         self.assertIn("_get_current_tool_clue", script)
 
+    def test_inspection_table_has_appraisal_notes_for_discovered_clues(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]', scene)
+        self.assertIn('[node name="AppraisalNotesLabel" type="Label" parent="HUD/AppraisalNotesBackground"]', scene)
+        self.assertIn("appraisal_notes_label", script)
+        self.assertIn("discovered_tools", script)
+        self.assertIn("_remember_tool_clue", script)
+        self.assertIn("_update_appraisal_notes", script)
+        self.assertIn('discovered_tools[TOOL_MAGNIFIER] = true', script)
+        self.assertIn('"- Magnifier: %s"', script)
+
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"

@@ -47,6 +47,12 @@ func _verify_correct_three_day_flow() -> void:
 		_assert(_current_correct_handling(table) == expected_decision, "Oddity correct handling changed")
 		_assert(_label_has_text(table, "HUD/ItemNameLabel"), "Inspection table should show item name")
 		_assert(_label_has_text(table, "HUD/ItemDescriptionLabel"), "Inspection table should show item description")
+		table.call("_on_magnifier_pressed")
+		await process_frame
+		_assert(
+			_label_contains(table, "HUD/AppraisalNotesBackground/AppraisalNotesLabel", table.call("_get_current_tool_clue", "magnifier")),
+			"Magnifier clue should persist in appraisal notes"
+		)
 
 		table.call("_resolve_decision", expected_decision)
 		await process_frame
@@ -112,6 +118,11 @@ func _node_visible(table: Node, node_path: NodePath) -> bool:
 func _label_has_text(table: Node, node_path: NodePath) -> bool:
 	var label := table.get_node(node_path) as Label
 	return label != null and not label.text.is_empty()
+
+
+func _label_contains(table: Node, node_path: NodePath, expected_text: String) -> bool:
+	var label := table.get_node(node_path) as Label
+	return label != null and label.text.contains(expected_text)
 
 
 func _assert(condition: bool, message: String) -> void:

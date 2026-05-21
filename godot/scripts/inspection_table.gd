@@ -27,6 +27,7 @@ extends Node3D
 @onready var uv_clue_marker: MeshInstance3D = $ItemPivot/UVClueMarker
 @onready var item_name_label: Label = $HUD/ItemNameLabel
 @onready var item_description_label: Label = $HUD/ItemDescriptionLabel
+@onready var appraisal_notes_label: Label = $HUD/AppraisalNotesBackground/AppraisalNotesLabel
 
 const MIN_CAMERA_Z := 1.8
 const MAX_CAMERA_Z := 4.2
@@ -54,6 +55,11 @@ var rotation_sensitivity := 0.01
 var zoom_step := 0.18
 var active_tool := TOOL_NONE
 var current_item: Node3D
+var discovered_tools := {
+	TOOL_MAGNIFIER: false,
+	TOOL_UV_LAMP: false,
+	TOOL_THERMOMETER: false,
+}
 
 
 func _ready() -> void:
@@ -124,7 +130,9 @@ func _load_current_day_item() -> void:
 	if current_item.get("item_id") == "oddity_0001":
 		current_item.rotation_degrees = TEACUP_INITIAL_ROTATION_DEGREES
 	item_pivot.add_child(current_item)
+	_reset_discovered_tools()
 	_update_item_labels()
+	_update_appraisal_notes()
 
 
 func _on_magnifier_pressed() -> void:
@@ -182,6 +190,7 @@ func _toggle_tool(tool_name: String) -> void:
 
 func _set_active_tool(tool_name: String) -> void:
 	active_tool = tool_name
+	_remember_tool_clue(active_tool)
 	magnifier_button.button_pressed = active_tool == TOOL_MAGNIFIER
 	uv_lamp_button.button_pressed = active_tool == TOOL_UV_LAMP
 	thermometer_button.button_pressed = active_tool == TOOL_THERMOMETER
@@ -191,6 +200,7 @@ func _set_active_tool(tool_name: String) -> void:
 	thermometer_readout.visible = active_tool == TOOL_THERMOMETER
 	tool_clue_readout.visible = active_tool != TOOL_NONE
 	_update_tool_readouts()
+	_update_appraisal_notes()
 	if active_tool == TOOL_MAGNIFIER:
 		camera.position.z = MAGNIFIER_CAMERA_Z
 		camera.fov = MAGNIFIER_FOV
@@ -286,6 +296,37 @@ func _update_item_labels() -> void:
 func _update_tool_readouts() -> void:
 	thermometer_readout.text = "Temperature: %.1f C" % _get_current_temperature_c()
 	tool_clue_readout.text = _get_current_tool_clue(active_tool)
+
+
+func _reset_discovered_tools() -> void:
+	discovered_tools[TOOL_MAGNIFIER] = false
+	discovered_tools[TOOL_UV_LAMP] = false
+	discovered_tools[TOOL_THERMOMETER] = false
+
+
+func _remember_tool_clue(tool_name: String) -> void:
+	if tool_name == TOOL_MAGNIFIER:
+		discovered_tools[TOOL_MAGNIFIER] = true
+	elif tool_name == TOOL_UV_LAMP:
+		discovered_tools[TOOL_UV_LAMP] = true
+	elif tool_name == TOOL_THERMOMETER:
+		discovered_tools[TOOL_THERMOMETER] = true
+
+
+func _update_appraisal_notes() -> void:
+	var lines := ["Appraisal Notes"]
+	lines.append("- Magnifier: %s" % _note_for_tool(TOOL_MAGNIFIER))
+	lines.append("- UV Lamp: %s" % _note_for_tool(TOOL_UV_LAMP))
+	lines.append("- Thermometer: %s" % _note_for_tool(TOOL_THERMOMETER))
+	appraisal_notes_label.text = "\n".join(lines)
+
+
+func _note_for_tool(tool_name: String) -> String:
+	if not discovered_tools.get(tool_name, false):
+		return "-"
+	if tool_name == TOOL_THERMOMETER:
+		return "%.1f C; %s" % [_get_current_temperature_c(), _get_current_tool_clue(tool_name)]
+	return _get_current_tool_clue(tool_name)
 
 
 func _get_current_tool_clue(tool_name: String) -> String:

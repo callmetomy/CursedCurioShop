@@ -177,6 +177,33 @@ horizontal_alignment = 1
 autowrap_mode = 2
 text = "Tool clue"
 
+[node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -344.0
+offset_top = 108.0
+offset_right = -24.0
+offset_bottom = 252.0
+texture = ExtResource("8_panel_ledger")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="AppraisalNotesLabel" type="Label" parent="HUD/AppraisalNotesBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 16.0
+offset_right = -18.0
+offset_bottom = -16.0
+autowrap_mode = 2
+text = "Appraisal Notes
+- Magnifier: -
+- UV Lamp: -
+- Thermometer: -"
+
 [node name="UVLampButton" type="Button" parent="HUD/ToolPanel"]
 custom_minimum_size = Vector2(136, 44)
 toggle_mode = true

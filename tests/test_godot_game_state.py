@@ -67,6 +67,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("_resolve_decision", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn('_game_state().get("current_day")', script)
+        self.assertIn("_on_magnifier_pressed", script)
+        self.assertIn("HUD/AppraisalNotesBackground/AppraisalNotesLabel", script)
         self.assertIn("HUD/AbnormalEventPanel", script)
         self.assertIn("HUD/BadEndingPanel", script)
         self.assertIn("quit(0)", script)
