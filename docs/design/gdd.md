@@ -185,7 +185,7 @@ The current structured item set is:
 - `oddity_0009`: Cracked Hand Mirror
 - `oddity_0010`: Red Thread Spool
 
-Only `oddity_0001` is currently fully integrated as a Godot item scene. The remaining oddities are content targets for future scene and asset integration.
+All ten MVP oddities currently have Godot item scenes generated from structured data and processed local model assets. The three-day playable loop currently presents `oddity_0001`, `oddity_0002`, and `oddity_0003` as the daily queue. The remaining oddities are ready content reserves for future queue expansion, balance passes, and visual polish.
 
 ## Example Item Baseline
 

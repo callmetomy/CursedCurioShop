@@ -76,7 +76,6 @@ Add after the asset factory can reliably produce at least one approved object.
 
 ## Current Next Milestones
 
-- Link the downloaded Tripo teacup model to `oddity_0001` or regenerate it with a stable item id.
-- Add the first review report format for generated oddities.
-- Build the Blender processing step for raw-to-processed model handoff.
-- After one reviewed object is stable, start the Godot inspectable item prototype.
+- Run a manual three-day Windows demo pass from the exported build and record concrete playtest issues.
+- Tune inspection readability for the three daily oddities before expanding the playable queue.
+- Decide the first post-MVP direction before adding larger systems: more daily items, stronger fail conditions, sealed-item storage, or customer presentation.
