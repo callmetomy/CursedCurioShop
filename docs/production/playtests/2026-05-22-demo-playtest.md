@@ -4,7 +4,7 @@
 
 ## 測試版本
 
-- Commit: `d5489be`
+- Commit: `e3c319c`
 - 匯出路徑: `exports/windows/CursedCurioShop.exe`
 - 自動 smoke 測試指令: `godot --headless --path godot --script res://tools/smoke_three_day_flow.gd`
 - 測試者: Codex 自動 preflight + 截圖檢視紀錄
@@ -48,9 +48,10 @@
 
 | ID | 嚴重度 | 日期 / 異物 | 問題 | 重現步驟 | 預期 | 實際 |
 | --- | --- | --- | --- | --- | --- | --- |
-| VIS-001 | 已修正 | Day 1 / Whispering Teacup | 茶杯表面看起來過白，裂紋與污漬細節比較像幾何 marker，而不像表面細節。 | 檢視 Day 1，旋轉茶杯，並使用 Magnifier / UV Lamp。 | 瓷器仍保持淺色，但能看出暖色老化感、表面裂紋、污漬與 UV ring 細節。 | 茶杯目前使用較溫暖的材質反應，並以 decal 風格呈現裂紋 / 污漬細節與只在 UV 下顯示的 ring mark。 |
-| VIS-002 | 已修正 | Day 2 / Mirror Coin | 硬幣起始角度偏側面或過亮，且 UV Lamp 會顯示固定的藍白圓圈，導致正面與鑑定刮痕不易閱讀。 | 推進到 Day 2，檢視 Mirror Coin，並使用 Magnifier / UV Lamp。 | 硬幣正面可讀，刮痕看起來像表面的鑑定痕跡；UV 模式不應顯示與物件無關的固定圓圈。 | Mirror Coin 目前以正面朝向開始，使用較大的 y 軸投射表面 decal，且固定 UVClueMarker 已保持隱藏。 |
-| VIS-003 | 已修正 | Day 3 / Ashen Music Box | 音樂盒輪廓太像單純方塊，且小零件在檢視截圖中容易看成分離碎片。 | 推進到 Day 3 並檢視 Ashen Music Box。 | 物件在不依賴文字描述前，就應能被辨識為連成一體的音樂盒。 | Runtime GLB 目前保留底座、上蓋、圓筒與搖柄，放大主體並移除容易像散件的腳座 / 小把手。 |
+| VIS-001 | 已修正 | Day 1 / Whispering Teacup | 茶杯表面看起來過白，裂紋與污漬細節比較像幾何 marker，而不像表面細節，且 decal 可能投射到桌面。 | 檢視 Day 1，旋轉茶杯，並使用 Magnifier / UV Lamp。 | 瓷器仍保持淺色，但能看出暖色老化感、表面裂紋、污漬與 UV ring 細節；decal 只應落在物件上。 | 茶杯目前使用較溫暖的材質反應，並以 decal 風格呈現裂紋 / 污漬細節；wear decal 已限制只投射到 item layer。 |
+| VIS-002 | 已修正 | Day 2 / Mirror Coin | 硬幣起始角度偏側面或過亮，UV Lamp 會顯示固定的藍白圓圈，且 decal 可能出現在桌面附近。 | 推進到 Day 2，檢視 Mirror Coin，並使用 Magnifier / UV Lamp。 | 硬幣正面可讀，刮痕看起來像表面的鑑定痕跡；UV 模式不應顯示與物件無關的固定圓圈，decal 不應投到桌面。 | Mirror Coin 目前以正面朝向開始，固定 UVClueMarker 已保持隱藏，wear decal 已限制只投射到 item layer。 |
+| VIS-003 | 已修正 | Day 3 / Ashen Music Box | 音樂盒輪廓太像單純方塊，且小零件在檢視截圖中容易看成分離碎片。 | 推進到 Day 3 並檢視 Ashen Music Box。 | 物件在不依賴文字描述前，就應能被辨識為連成一體的音樂盒。 | Runtime GLB 目前保留底座、上蓋、圓筒與搖柄，放大主體、加入 cylinder bridge，並移除容易像散件的腳座 / 小把手。 |
+| VIS-004 | 已修正 | UI / Appraisal Notes | 右側 Appraisal Notes 字太小、太暗，截斷後不易閱讀。 | 任一天使用 Magnifier / UV Lamp / Thermometer 後查看右側筆記板。 | 筆記板應可快速辨識已發現線索，但不遮擋主要物件視圖。 | Appraisal Notes 面板已加大、提高不透明度與文字對比，字體調整為 14，行距調整為 4。 |
 
 ## 通過結果
 
