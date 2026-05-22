@@ -79,6 +79,7 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
         self.assertIn("oddity_0003_music_box_base", node_names)
         self.assertIn("oddity_0003_music_box_lid", node_names)
         self.assertIn("oddity_0003_music_box_cylinder", node_names)
+        self.assertIn("oddity_0003_music_box_cylinder_bridge", node_names)
         self.assertIn("oddity_0003_music_box_crank", node_names)
 
     def test_music_box_runtime_glb_avoids_loose_fragment_parts(self):
@@ -90,6 +91,8 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
 
         base = next(node for node in gltf.get("nodes", []) if node.get("name") == "oddity_0003_music_box_base")
         self.assertGreaterEqual(base.get("scale", [0.0])[0], 0.32)
+        cylinder = next(node for node in gltf.get("nodes", []) if node.get("name") == "oddity_0003_music_box_cylinder")
+        self.assertLess(abs(cylinder.get("translation", [0.0, 0.0, 0.0])[2]), 0.15)
 
 
 if __name__ == "__main__":

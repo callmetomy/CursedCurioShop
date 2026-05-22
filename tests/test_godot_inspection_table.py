@@ -173,19 +173,19 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('"- UV: %s"', script)
         self.assertIn('"- Temp: %s"', script)
 
-    def test_appraisal_notes_are_small_and_low_priority(self):
+    def test_appraisal_notes_are_readable_without_dominating_item_view(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"
         )
 
-        self.assertIn("offset_left = -300.0", scene)
-        self.assertIn("offset_top = 118.0", scene)
+        self.assertIn("offset_left = -330.0", scene)
+        self.assertIn("offset_top = 108.0", scene)
         self.assertIn("offset_right = -28.0", scene)
-        self.assertIn("offset_bottom = 222.0", scene)
-        self.assertIn("theme_override_font_sizes/font_size = 13", scene)
-        self.assertIn("theme_override_colors/font_color = Color(0.18, 0.135, 0.085, 0.96)", scene)
-        self.assertIn("theme_override_constants/line_spacing = 2", scene)
-        self.assertIn("modulate = Color(0.86, 0.78, 0.62, 0.72)", scene)
+        self.assertIn("offset_bottom = 248.0", scene)
+        self.assertIn("theme_override_font_sizes/font_size = 14", scene)
+        self.assertIn("theme_override_colors/font_color = Color(0.06, 0.045, 0.03, 1)", scene)
+        self.assertIn("theme_override_constants/line_spacing = 4", scene)
+        self.assertIn("modulate = Color(0.92, 0.84, 0.66, 0.93)", scene)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(

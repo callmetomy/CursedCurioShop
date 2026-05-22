@@ -42,6 +42,10 @@ def add_box_part(name: str, *, location: tuple[float, float, float], scale: tupl
     obj.name = name
     obj.scale = scale
     obj.data.materials.append(mat)
+    bevel = obj.modifiers.new(f"{name}_soft_edges", "BEVEL")
+    bevel.width = 0.012
+    bevel.segments = 2
+    obj.modifiers.new(f"{name}_weighted_normals", "WEIGHTED_NORMAL")
 
 
 def add_cylinder_part(
@@ -63,13 +67,14 @@ def add_cylinder_part(
 def add_music_box(item_id: str, mat: bpy.types.Material) -> None:
     dark = make_mat(f"{item_id}_music_box_dark_mat", (0.11, 0.075, 0.055, 1.0), roughness=0.86)
     brass = make_mat(f"{item_id}_music_box_brass_mat", (0.72, 0.43, 0.18, 1.0), roughness=0.48, metallic=0.45)
-    add_box_part(f"{item_id}_music_box_base", location=(0, 0, -0.02), scale=(0.36, 0.25, 0.11), mat=mat)
-    add_box_part(f"{item_id}_music_box_lid", location=(0.012, 0, 0.085), scale=(0.34, 0.235, 0.035), mat=mat)
-    add_box_part(f"{item_id}_music_box_shadow_gap", location=(0, -0.126, 0.045), scale=(0.34, 0.018, 0.034), mat=dark)
+    add_box_part(f"{item_id}_music_box_base", location=(0, 0, -0.018), scale=(0.38, 0.24, 0.105), mat=mat)
+    add_box_part(f"{item_id}_music_box_lid", location=(0.012, 0, 0.082), scale=(0.36, 0.23, 0.034), mat=mat)
+    add_box_part(f"{item_id}_music_box_shadow_gap", location=(0, -0.12, 0.045), scale=(0.35, 0.016, 0.03), mat=dark)
+    add_box_part(f"{item_id}_music_box_cylinder_bridge", location=(-0.05, -0.108, 0.045), scale=(0.18, 0.022, 0.055), mat=dark)
     add_cylinder_part(
         f"{item_id}_music_box_cylinder",
-        location=(-0.05, -0.142, 0.045),
-        radius=0.026,
+        location=(-0.05, -0.125, 0.045),
+        radius=0.03,
         depth=0.18,
         mat=brass,
         vertices=32,
@@ -77,9 +82,9 @@ def add_music_box(item_id: str, mat: bpy.types.Material) -> None:
     )
     add_cylinder_part(
         f"{item_id}_music_box_crank",
-        location=(0.205, 0.0, 0.02),
+        location=(0.205, -0.032, 0.018),
         radius=0.011,
-        depth=0.07,
+        depth=0.09,
         mat=brass,
         vertices=20,
         rotation=(0, 1.5708, 0),

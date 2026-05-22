@@ -30,6 +30,8 @@ extends Node3D
 @onready var model_root: Node3D = $ModelRoot
 @onready var collision_shape: CollisionShape3D = $CollisionBody/CollisionShape3D
 
+const ITEM_DECAL_LAYER := 2
+
 
 func _ready() -> void:
 	var resolved_model_path: String = _resolve_model_path(model_path)
@@ -39,6 +41,7 @@ func _ready() -> void:
 
 	model_root.add_child(model)
 	_center_model(model)
+	_assign_model_visual_layers(model)
 	_apply_initial_rotation()
 	_apply_fallback_material(model)
 	_apply_material_tint(model)
@@ -133,6 +136,12 @@ func _tinted_surface_material(mesh_instance: MeshInstance3D, surface_index: int)
 	return material
 
 
+func _assign_model_visual_layers(model: Node3D) -> void:
+	for child: Node in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := child as MeshInstance3D
+		mesh_instance.layers = ITEM_DECAL_LAYER
+
+
 func _add_accent_marker(model: Node3D) -> void:
 	if not accent_marker_enabled:
 		return
@@ -171,6 +180,7 @@ func _add_wear_decal(model: Node3D) -> void:
 	decal.name = "AppraisalWearDecal"
 	decal.texture_albedo = decal_texture
 	decal.size = _resolved_wear_decal_size(bounds)
+	decal.cull_mask = ITEM_DECAL_LAYER
 	decal.albedo_mix = 0.92
 	decal.upper_fade = 0.18
 	decal.lower_fade = 0.18
