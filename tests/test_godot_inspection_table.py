@@ -122,7 +122,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_on_uv_lamp_pressed", script)
         self.assertIn("KEY_2", script)
         self.assertIn("UV_LAMP_ENERGY", script)
-        self.assertIn("uv_clue_marker.visible = active_tool == TOOL_UV_LAMP", script)
+        self.assertIn("uv_clue_marker.visible = false", script)
+        self.assertNotIn("uv_clue_marker.visible = active_tool == TOOL_UV_LAMP", script)
 
     def test_inspection_table_scene_has_thermometer_tool_nodes(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(

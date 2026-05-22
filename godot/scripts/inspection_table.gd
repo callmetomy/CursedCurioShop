@@ -196,7 +196,7 @@ func _set_active_tool(tool_name: String) -> void:
 	thermometer_button.button_pressed = active_tool == TOOL_THERMOMETER
 	uv_lamp.visible = active_tool == TOOL_UV_LAMP
 	uv_lamp.light_energy = UV_LAMP_ENERGY if active_tool == TOOL_UV_LAMP else 0.0
-	uv_clue_marker.visible = active_tool == TOOL_UV_LAMP
+	uv_clue_marker.visible = false
 	thermometer_readout.visible = active_tool == TOOL_THERMOMETER
 	tool_clue_readout.visible = active_tool != TOOL_NONE
 	_update_tool_readouts()

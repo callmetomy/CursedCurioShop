@@ -81,6 +81,16 @@ class GenerateLocalOdditiesTests(unittest.TestCase):
         self.assertIn("oddity_0003_music_box_cylinder", node_names)
         self.assertIn("oddity_0003_music_box_crank", node_names)
 
+    def test_music_box_runtime_glb_avoids_loose_fragment_parts(self):
+        gltf = _read_glb_json(ROOT / "godot" / "assets" / "models_processed" / "oddity_0003.glb")
+        node_names = {node.get("name", "") for node in gltf.get("nodes", [])}
+
+        self.assertNotIn("oddity_0003_music_box_crank_handle", node_names)
+        self.assertFalse(any("_foot_" in node_name for node_name in node_names))
+
+        base = next(node for node in gltf.get("nodes", []) if node.get("name") == "oddity_0003_music_box_base")
+        self.assertGreaterEqual(base.get("scale", [0.0])[0], 0.32)
+
 
 if __name__ == "__main__":
     unittest.main()

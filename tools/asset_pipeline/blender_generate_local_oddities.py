@@ -63,14 +63,14 @@ def add_cylinder_part(
 def add_music_box(item_id: str, mat: bpy.types.Material) -> None:
     dark = make_mat(f"{item_id}_music_box_dark_mat", (0.11, 0.075, 0.055, 1.0), roughness=0.86)
     brass = make_mat(f"{item_id}_music_box_brass_mat", (0.72, 0.43, 0.18, 1.0), roughness=0.48, metallic=0.45)
-    add_box_part(f"{item_id}_music_box_base", location=(0, 0, -0.015), scale=(0.18, 0.13, 0.055), mat=mat)
-    add_box_part(f"{item_id}_music_box_lid", location=(0.012, 0, 0.075), scale=(0.17, 0.125, 0.025), mat=mat)
-    add_box_part(f"{item_id}_music_box_shadow_gap", location=(0, -0.132, 0.035), scale=(0.18, 0.012, 0.028), mat=dark)
+    add_box_part(f"{item_id}_music_box_base", location=(0, 0, -0.02), scale=(0.36, 0.25, 0.11), mat=mat)
+    add_box_part(f"{item_id}_music_box_lid", location=(0.012, 0, 0.085), scale=(0.34, 0.235, 0.035), mat=mat)
+    add_box_part(f"{item_id}_music_box_shadow_gap", location=(0, -0.126, 0.045), scale=(0.34, 0.018, 0.034), mat=dark)
     add_cylinder_part(
         f"{item_id}_music_box_cylinder",
-        location=(-0.045, -0.142, 0.045),
-        radius=0.025,
-        depth=0.15,
+        location=(-0.05, -0.142, 0.045),
+        radius=0.026,
+        depth=0.18,
         mat=brass,
         vertices=32,
         rotation=(1.5708, 0, 0),
@@ -78,16 +78,12 @@ def add_music_box(item_id: str, mat: bpy.types.Material) -> None:
     add_cylinder_part(
         f"{item_id}_music_box_crank",
         location=(0.205, 0.0, 0.02),
-        radius=0.012,
-        depth=0.08,
+        radius=0.011,
+        depth=0.07,
         mat=brass,
         vertices=20,
         rotation=(0, 1.5708, 0),
     )
-    add_box_part(f"{item_id}_music_box_crank_handle", location=(0.245, 0.042, 0.02), scale=(0.012, 0.032, 0.012), mat=brass)
-    for index, x in enumerate((-0.13, 0.13)):
-        for y in (-0.09, 0.09):
-            add_box_part(f"{item_id}_music_box_foot_{index}_{'front' if y > 0 else 'back'}", location=(x, y, -0.078), scale=(0.025, 0.025, 0.018), mat=dark)
 
 
 def add_shape(item_id: str, shape: str, mat: bpy.types.Material) -> None:
