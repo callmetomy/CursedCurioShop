@@ -46,7 +46,7 @@
 
 ## 可讀性紀錄
 
-| ID | 嚴重度 | 日期 / 異物 | 問題 | 重現步驟 | 預期 | 實際 |
+| ID | 嚴重度 | 日數 / 異物 | 問題 | 重現步驟 | 預期 | 實際 |
 | --- | --- | --- | --- | --- | --- | --- |
 | VIS-001 | 已修正 | Day 1 / Whispering Teacup | 茶杯表面看起來過白，裂紋與污漬細節比較像幾何 marker，而不像表面細節，且 decal 可能投射到桌面。 | 檢視 Day 1，旋轉茶杯，並使用 Magnifier / UV Lamp。 | 瓷器仍保持淺色，但能看出暖色老化感、表面裂紋、污漬與 UV ring 細節；decal 只應落在物件上。 | 茶杯目前使用較溫暖的材質反應，並以 decal 風格呈現裂紋 / 污漬細節；wear decal 已限制只投射到 item layer。 |
 | VIS-002 | 已修正 | Day 2 / Mirror Coin | 硬幣起始角度偏側面或過亮，UV Lamp 會顯示固定的藍白圓圈，且 decal 可能出現在桌面附近。 | 推進到 Day 2，檢視 Mirror Coin，並使用 Magnifier / UV Lamp。 | 硬幣正面可讀，刮痕看起來像表面的鑑定痕跡；UV 模式不應顯示與物件無關的固定圓圈，decal 不應投到桌面。 | Mirror Coin 目前以正面朝向開始，固定 UVClueMarker 已保持隱藏，wear decal 已限制只投射到 item layer。 |

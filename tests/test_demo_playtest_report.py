@@ -21,19 +21,19 @@ class DemoPlaytestReportTests(unittest.TestCase):
             export_path="exports/windows/CursedCurioShop.exe",
         )
 
-        self.assertIn("# Demo Playtest Report", report)
+        self.assertIn("# Demo 試玩報告", report)
         self.assertIn("- Commit: `abc1234`", report)
-        self.assertIn("- Export path: `exports/windows/CursedCurioShop.exe`", report)
+        self.assertIn("- 匯出路徑: `exports/windows/CursedCurioShop.exe`", report)
         self.assertIn(
-            "- Automated smoke command: `godot --headless --path godot --script res://tools/smoke_three_day_flow.gd`",
+            "- 自動 smoke 測試指令: `godot --headless --path godot --script res://tools/smoke_three_day_flow.gd`",
             report,
         )
-        self.assertIn("- Tester: Codex", report)
-        self.assertIn("- Date: 2026-05-21", report)
-        self.assertIn("## Startup", report)
-        self.assertIn("## Three-Day Flow", report)
-        self.assertIn("## Consequences", report)
-        self.assertIn("## Readability Notes", report)
+        self.assertIn("- 測試者: Codex", report)
+        self.assertIn("- 日期: 2026-05-21", report)
+        self.assertIn("## 啟動流程", report)
+        self.assertIn("## 三日流程", report)
+        self.assertIn("## 後果與結局", report)
+        self.assertIn("## 可讀性紀錄", report)
         self.assertTrue(report.endswith("\n"))
 
     def test_build_demo_playtest_report_can_mark_automated_preflight(self):
@@ -49,10 +49,10 @@ class DemoPlaytestReportTests(unittest.TestCase):
             },
         )
 
-        self.assertIn("- [x] Unit tests pass.", report)
-        self.assertIn("- [x] Godot headless project load passes.", report)
-        self.assertIn("- [x] Three-day smoke script passes.", report)
-        self.assertIn("- [x] Windows export succeeds.", report)
+        self.assertIn("- [x] 單元測試通過。", report)
+        self.assertIn("- [x] Godot headless 專案載入通過。", report)
+        self.assertIn("- [x] 三日流程 smoke script 通過。", report)
+        self.assertIn("- [x] Windows 匯出成功。", report)
 
     def test_build_demo_playtest_report_renders_readability_notes(self):
         report = build_demo_playtest_report(
@@ -62,18 +62,18 @@ class DemoPlaytestReportTests(unittest.TestCase):
             readability_notes=[
                 {
                     "id": "VIS-001",
-                    "severity": "Fixed",
+                    "severity": "已修正",
                     "day_oddity": "Day 2 / Mirror Coin",
-                    "issue": "Coin face and scratches were hard to read.",
-                    "repro_steps": "Inspect Day 2 and use Magnifier.",
-                    "expected": "Scratches read as surface detail.",
-                    "actual": "Coin now starts front-facing with a larger projected decal.",
+                    "issue": "硬幣正面與刮痕不易閱讀。",
+                    "repro_steps": "檢視 Day 2 並使用 Magnifier。",
+                    "expected": "刮痕應像表面細節。",
+                    "actual": "硬幣目前以正面朝向開始，decal 較容易閱讀。",
                 }
             ],
         )
 
         self.assertIn(
-            "| VIS-001 | Fixed | Day 2 / Mirror Coin | Coin face and scratches were hard to read. | Inspect Day 2 and use Magnifier. | Scratches read as surface detail. | Coin now starts front-facing with a larger projected decal. |",
+            "| VIS-001 | 已修正 | Day 2 / Mirror Coin | 硬幣正面與刮痕不易閱讀。 | 檢視 Day 2 並使用 Magnifier。 | 刮痕應像表面細節。 | 硬幣目前以正面朝向開始，decal 較容易閱讀。 |",
             report,
         )
 
