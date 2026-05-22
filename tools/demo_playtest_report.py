@@ -11,12 +11,14 @@ def build_demo_playtest_report(
     tester: str,
     export_path: str = DEFAULT_EXPORT_PATH,
     preflight: dict[str, bool] | None = None,
+    readability_notes: list[dict[str, str]] | None = None,
 ) -> str:
     preflight = preflight or {}
     unit_tests = _check(preflight.get("unit_tests", False))
     godot_headless = _check(preflight.get("godot_headless", False))
     three_day_smoke = _check(preflight.get("three_day_smoke", False))
     windows_export = _check(preflight.get("windows_export", False))
+    readability_rows = _readability_note_rows(readability_notes or [])
 
     return f"""# Demo Playtest Report
 
@@ -68,7 +70,7 @@ Use this report for a concrete Windows demo pass. Record observations, not desig
 
 | ID | Severity | Day / Oddity | Issue | Repro Steps | Expected | Actual |
 | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |  |
+{readability_rows}
 
 ## Pass Result
 
@@ -86,6 +88,7 @@ def write_demo_playtest_report(
     tester: str,
     export_path: str = DEFAULT_EXPORT_PATH,
     preflight: dict[str, bool] | None = None,
+    readability_notes: list[dict[str, str]] | None = None,
 ) -> Path:
     report_dir = root / "docs" / "production" / "playtests"
     report_dir.mkdir(parents=True, exist_ok=True)
@@ -97,6 +100,7 @@ def write_demo_playtest_report(
             tester=tester,
             export_path=export_path,
             preflight=preflight,
+            readability_notes=readability_notes,
         ),
         encoding="utf-8",
     )
@@ -107,3 +111,27 @@ def _check(is_checked: bool) -> str:
     if is_checked:
         return "x"
     return " "
+
+
+def _readability_note_rows(notes: list[dict[str, str]]) -> str:
+    if not notes:
+        return "|  |  |  |  |  |  |  |"
+
+    rows: list[str] = []
+    for note in notes:
+        rows.append(
+            "| {id} | {severity} | {day_oddity} | {issue} | {repro_steps} | {expected} | {actual} |".format(
+                id=_table_cell(note.get("id", "")),
+                severity=_table_cell(note.get("severity", "")),
+                day_oddity=_table_cell(note.get("day_oddity", "")),
+                issue=_table_cell(note.get("issue", "")),
+                repro_steps=_table_cell(note.get("repro_steps", "")),
+                expected=_table_cell(note.get("expected", "")),
+                actual=_table_cell(note.get("actual", "")),
+            )
+        )
+    return "\n".join(rows)
+
+
+def _table_cell(value: str) -> str:
+    return value.replace("|", "\\|").replace("\n", " ").strip()

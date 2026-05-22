@@ -54,6 +54,29 @@ class DemoPlaytestReportTests(unittest.TestCase):
         self.assertIn("- [x] Three-day smoke script passes.", report)
         self.assertIn("- [x] Windows export succeeds.", report)
 
+    def test_build_demo_playtest_report_renders_readability_notes(self):
+        report = build_demo_playtest_report(
+            commit="abc1234",
+            date="2026-05-22",
+            tester="Codex",
+            readability_notes=[
+                {
+                    "id": "VIS-001",
+                    "severity": "Fixed",
+                    "day_oddity": "Day 2 / Mirror Coin",
+                    "issue": "Coin face and scratches were hard to read.",
+                    "repro_steps": "Inspect Day 2 and use Magnifier.",
+                    "expected": "Scratches read as surface detail.",
+                    "actual": "Coin now starts front-facing with a larger projected decal.",
+                }
+            ],
+        )
+
+        self.assertIn(
+            "| VIS-001 | Fixed | Day 2 / Mirror Coin | Coin face and scratches were hard to read. | Inspect Day 2 and use Magnifier. | Scratches read as surface detail. | Coin now starts front-facing with a larger projected decal. |",
+            report,
+        )
+
     def test_write_demo_playtest_report_uses_date_based_path(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
