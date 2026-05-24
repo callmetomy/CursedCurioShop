@@ -52,6 +52,7 @@
 | VIS-002 | 已修正 | Day 2 / Mirror Coin | 硬幣起始角度偏側面或過亮，UV Lamp 會顯示固定的藍白圓圈，且 decal 可能出現在桌面附近。 | 推進到 Day 2，檢視 Mirror Coin，並使用 Magnifier / UV Lamp。 | 硬幣正面可讀，刮痕看起來像表面的鑑定痕跡；UV 模式不應顯示與物件無關的固定圓圈，decal 不應投到桌面。 | Mirror Coin 目前以正面朝向開始，固定 UVClueMarker 已保持隱藏，wear decal 已限制只投射到 item layer。 |
 | VIS-003 | 已修正 | Day 3 / Ashen Music Box | 音樂盒輪廓太像單純方塊，且小零件在檢視截圖中容易看成分離碎片。 | 推進到 Day 3 並檢視 Ashen Music Box。 | 物件在不依賴文字描述前，就應能被辨識為連成一體的音樂盒。 | Runtime GLB 目前保留底座、上蓋、圓筒與搖柄，放大主體、加入 cylinder bridge，並移除容易像散件的腳座 / 小把手。 |
 | VIS-004 | 已修正 | UI / Appraisal Notes | 右側 Appraisal Notes 字太小、太暗，截斷後不易閱讀。 | 任一天使用 Magnifier / UV Lamp / Thermometer 後查看右側筆記板。 | 筆記板應可快速辨識已發現線索，但不遮擋主要物件視圖。 | Appraisal Notes 面板已加大、提高不透明度與文字對比，字體調整為 14，行距調整為 4。 |
+| VIS-005 | 已修正 | Bad Ending / Whispering Teacup | 壞結局畫面同時顯示 Bad Ending、一般 Day Result、異常事件文字與兩個結束按鈕，且進入壞結局後仍可按底部決策/工具按鈕；第一版修正仍使用拉伸 ledger 圖，造成面板裁切與背景紙張露出。 | Day 1 對 Whispering Teacup 選擇 Sell，進入 Frost Sale bad ending，再觀察壞結局面板或按底部 Sell / Seal / Discard / 工具按鈕。 | 壞結局應只顯示單一置中卡片、結局說明、最終 Cash/Reputation 與 Return to Menu，不應同時出現 Next Day、決策按鈕、工具按鈕、Back to Shop、Appraisal Notes、被裁切的背景紙張或紋理線干擾。 | Bad Ending 目前改用全螢幕暗色遮罩與固定尺寸 PanelContainer 卡片；顯示時會隱藏 DecisionResult、AbnormalEventPanel、DayResultPanel、Back to Shop、ToolPanel、DecisionPanel 與 Appraisal Notes，並阻止後續決策再次改變結果。 |
 
 ## 通過結果
 

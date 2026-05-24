@@ -238,6 +238,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
+        self.assertIn('[node name="ConsequenceReportLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
+        self.assertIn('[node name="RunSummaryLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('[node name="NextDayButton" type="Button" parent="HUD/DayResultPanel"]', scene)
         self.assertIn('text = "Next Day"', scene)
 
@@ -251,6 +253,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("outcome_label", script)
         self.assertIn("value_label", script)
         self.assertIn("reputation_label", script)
+        self.assertIn("consequence_report_label", script)
+        self.assertIn("run_summary_label", script)
         self.assertIn("next_day_button", script)
         self.assertIn("back_to_shop_button", script)
         self.assertIn("FALLBACK_SEAL_COST", script)
@@ -258,6 +262,9 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_get_current_seal_cost", script)
         self.assertIn("_get_current_sell_value", script)
         self.assertIn("_show_day_result", script)
+        self.assertIn("GameState.record_decision_result", script)
+        self.assertIn("GameState.get_current_consequence_report", script)
+        self.assertIn("GameState.get_run_summary", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn("_on_back_to_shop_pressed", script)
         self.assertIn("_update_next_day_button_label", script)
@@ -272,9 +279,13 @@ class GodotInspectionTableTests(unittest.TestCase):
 
         self.assertIn('[node name="AbnormalEventPanel" type="VBoxContainer" parent="HUD"]', scene)
         self.assertIn('[node name="EventLabel" type="Label" parent="HUD/AbnormalEventPanel"]', scene)
-        self.assertIn('[node name="BadEndingPanel" type="VBoxContainer" parent="HUD"]', scene)
-        self.assertIn('[node name="EndingTitle" type="Label" parent="HUD/BadEndingPanel"]', scene)
-        self.assertIn('[node name="ReturnToMenuButton" type="Button" parent="HUD/BadEndingPanel"]', scene)
+        self.assertIn('[node name="BadEndingBackground" type="ColorRect" parent="HUD"]', scene)
+        self.assertIn('[node name="BadEndingCard" type="PanelContainer" parent="HUD"]', scene)
+        self.assertIn('[node name="BadEndingPanel" type="VBoxContainer" parent="HUD/BadEndingCard"]', scene)
+        self.assertIn('[node name="EndingTitle" type="Label" parent="HUD/BadEndingCard/BadEndingPanel"]', scene)
+        self.assertIn('[node name="EndingBody" type="Label" parent="HUD/BadEndingCard/BadEndingPanel"]', scene)
+        self.assertIn('[node name="ReturnToMenuButton" type="Button" parent="HUD/BadEndingCard/BadEndingPanel"]', scene)
+        self.assertIn('theme_override_styles/panel = SubResource("StyleBox_bad_ending_card")', scene)
         self.assertIn('text = "Return to Menu"', scene)
 
     def test_inspection_table_script_triggers_abnormal_event_and_bad_ending(self):
@@ -284,12 +295,40 @@ class GodotInspectionTableTests(unittest.TestCase):
 
         self.assertIn("abnormal_event_panel", script)
         self.assertIn("event_label", script)
+        self.assertIn("tool_panel", script)
+        self.assertIn("decision_panel", script)
+        self.assertIn("appraisal_notes_background", script)
+        self.assertIn("bad_ending_background", script)
+        self.assertIn("bad_ending_card", script)
         self.assertIn("bad_ending_panel", script)
+        self.assertIn("ending_body", script)
         self.assertIn("return_to_menu_button", script)
         self.assertIn("_show_abnormal_event", script)
         self.assertIn("_show_bad_ending", script)
         self.assertIn("_on_return_to_menu_pressed", script)
         self.assertIn("main_menu_scene_path", script)
+
+    def test_bad_ending_uses_exclusive_overlay(self):
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("func _set_gameplay_hud_visible(is_visible: bool) -> void:", script)
+        self.assertIn("_show_bad_ending(wrong_event_text)", script)
+        self.assertIn("_set_active_tool(TOOL_NONE)", script)
+        self.assertIn("_set_gameplay_hud_visible(false)", script)
+        self.assertIn("decision_result.visible = false", script)
+        self.assertIn("day_result_background.visible = false", script)
+        self.assertIn("day_result_panel.visible = false", script)
+        self.assertIn("abnormal_event_panel.visible = false", script)
+        self.assertIn("bad_ending_background.visible = true", script)
+        self.assertIn("bad_ending_card.visible = true", script)
+        self.assertIn('ending_body.text = "%s\\n\\nCash: %d | Reputation: %d"', script)
+        self.assertIn("tool_panel.visible = is_visible", script)
+        self.assertIn("decision_panel.visible = is_visible", script)
+        self.assertIn("appraisal_notes_background.visible = is_visible", script)
+        self.assertIn("sell_button.disabled = not is_visible", script)
+        self.assertIn("if bad_ending_card.visible:\n\t\treturn", script)
 
 
 if __name__ == "__main__":

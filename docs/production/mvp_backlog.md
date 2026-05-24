@@ -36,3 +36,4 @@
 - Done: One bad ending.
 - Done: Main menu.
 - Done: Windows export.
+- Done: Manual three-day demo playtest passed.

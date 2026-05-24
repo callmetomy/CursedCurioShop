@@ -3,6 +3,7 @@ extends Node3D
 @onready var item_pivot: Node3D = $ItemPivot
 @onready var camera: Camera3D = $InspectionCamera
 @onready var key_light: SpotLight3D = $KeyLight
+@onready var tool_panel: HBoxContainer = $HUD/ToolPanel
 @onready var magnifier_button: Button = $HUD/ToolPanel/MagnifierButton
 @onready var uv_lamp_button: Button = $HUD/ToolPanel/UVLampButton
 @onready var thermometer_button: Button = $HUD/ToolPanel/ThermometerButton
@@ -17,16 +18,23 @@ extends Node3D
 @onready var outcome_label: Label = $HUD/DayResultPanel/OutcomeLabel
 @onready var value_label: Label = $HUD/DayResultPanel/ValueLabel
 @onready var reputation_label: Label = $HUD/DayResultPanel/ReputationLabel
+@onready var consequence_report_label: Label = $HUD/DayResultPanel/ConsequenceReportLabel
+@onready var run_summary_label: Label = $HUD/DayResultPanel/RunSummaryLabel
 @onready var next_day_button: Button = $HUD/DayResultPanel/NextDayButton
 @onready var back_to_shop_button: Button = $HUD/BackToShopButton
+@onready var decision_panel: HBoxContainer = $HUD/DecisionPanel
 @onready var abnormal_event_panel: VBoxContainer = $HUD/AbnormalEventPanel
 @onready var event_label: Label = $HUD/AbnormalEventPanel/EventLabel
-@onready var bad_ending_panel: VBoxContainer = $HUD/BadEndingPanel
-@onready var return_to_menu_button: Button = $HUD/BadEndingPanel/ReturnToMenuButton
+@onready var bad_ending_background: ColorRect = $HUD/BadEndingBackground
+@onready var bad_ending_card: PanelContainer = $HUD/BadEndingCard
+@onready var bad_ending_panel: VBoxContainer = $HUD/BadEndingCard/BadEndingPanel
+@onready var ending_body: Label = $HUD/BadEndingCard/BadEndingPanel/EndingBody
+@onready var return_to_menu_button: Button = $HUD/BadEndingCard/BadEndingPanel/ReturnToMenuButton
 @onready var uv_lamp: SpotLight3D = $UVLamp
 @onready var uv_clue_marker: MeshInstance3D = $ItemPivot/UVClueMarker
 @onready var item_name_label: Label = $HUD/ItemNameLabel
 @onready var item_description_label: Label = $HUD/ItemDescriptionLabel
+@onready var appraisal_notes_background: TextureRect = $HUD/AppraisalNotesBackground
 @onready var appraisal_notes_label: Label = $HUD/AppraisalNotesBackground/AppraisalNotesLabel
 
 const MIN_CAMERA_Z := 1.8
@@ -80,7 +88,8 @@ func _ready() -> void:
 	day_result_panel.visible = false
 	day_result_background.visible = false
 	abnormal_event_panel.visible = false
-	bad_ending_panel.visible = false
+	bad_ending_background.visible = false
+	bad_ending_card.visible = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -164,7 +173,8 @@ func _on_next_day_pressed() -> void:
 	day_result_panel.visible = false
 	day_result_background.visible = false
 	abnormal_event_panel.visible = false
-	bad_ending_panel.visible = false
+	bad_ending_background.visible = false
+	bad_ending_card.visible = false
 	_set_active_tool(TOOL_NONE)
 	if GameState.is_run_complete():
 		get_tree().change_scene_to_file(main_menu_scene_path)
@@ -174,6 +184,8 @@ func _on_next_day_pressed() -> void:
 
 
 func _on_back_to_shop_pressed() -> void:
+	if bad_ending_card.visible:
+		return
 	get_tree().change_scene_to_file(shop_scene_path)
 
 
@@ -182,6 +194,8 @@ func _on_return_to_menu_pressed() -> void:
 
 
 func _toggle_tool(tool_name: String) -> void:
+	if bad_ending_card.visible:
+		return
 	if active_tool == tool_name:
 		_set_active_tool(TOOL_NONE)
 	else:
@@ -220,27 +234,31 @@ func _set_active_tool(tool_name: String) -> void:
 
 
 func _resolve_decision(decision: String) -> void:
+	if bad_ending_card.visible:
+		return
 	decision_result.visible = true
 	var correct_handling := _get_current_correct_handling()
 	var display_name := _get_current_display_name()
 	if decision == correct_handling:
 		decision_result.text = "Correct: %s is handled safely." % display_name
-		_show_day_result("Correct handling", _get_decision_value_delta(decision), 5)
+		_show_day_result("Correct handling", _get_decision_value_delta(decision), 5, decision)
 		abnormal_event_panel.visible = false
-		bad_ending_panel.visible = false
+		bad_ending_card.visible = false
 	else:
 		decision_result.text = "Wrong: %s should be %s, not %s." % [display_name, correct_handling, decision]
-		_show_abnormal_event(_get_current_wrong_event_text())
+		var wrong_event_text := _get_current_wrong_event_text()
 		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
-			_show_day_result("Cursed sale", _get_current_sell_value(), -15)
-			_show_bad_ending()
+			_show_day_result("Cursed sale", _get_current_sell_value(), -15, decision)
+			_show_bad_ending(wrong_event_text)
 		elif decision == "discard":
-			_show_day_result("Uncontained discard", 0, -8)
+			_show_abnormal_event(wrong_event_text)
+			_show_day_result("Uncontained discard", 0, -8, decision)
 		else:
-			_show_day_result("Bad appraisal", 0, -10)
+			_show_abnormal_event(wrong_event_text)
+			_show_day_result("Bad appraisal", 0, -10, decision)
 
 
-func _show_day_result(outcome: String, value_delta: int, reputation_delta: int) -> void:
+func _show_day_result(outcome: String, value_delta: int, reputation_delta: int, decision: String) -> void:
 	GameState.apply_result(value_delta, reputation_delta)
 	day_result_background.visible = true
 	day_result_panel.visible = true
@@ -248,6 +266,11 @@ func _show_day_result(outcome: String, value_delta: int, reputation_delta: int) 
 	outcome_label.text = outcome
 	value_label.text = "Cash: %+d" % value_delta
 	reputation_label.text = "Reputation: %+d" % reputation_delta
+	var consequence_report: String = GameState.get_current_consequence_report(decision)
+	consequence_report_label.text = consequence_report
+	GameState.record_decision_result(GameState.get_current_item_id(), decision, outcome, consequence_report)
+	run_summary_label.visible = GameState.is_run_complete()
+	run_summary_label.text = GameState.get_run_summary() if GameState.is_run_complete() else ""
 
 
 func _show_abnormal_event(event_text: String) -> void:
@@ -255,8 +278,42 @@ func _show_abnormal_event(event_text: String) -> void:
 	event_label.text = event_text
 
 
-func _show_bad_ending() -> void:
-	bad_ending_panel.visible = true
+func _show_bad_ending(event_text: String) -> void:
+	_set_active_tool(TOOL_NONE)
+	_set_gameplay_hud_visible(false)
+	decision_result.visible = false
+	day_result_background.visible = false
+	day_result_panel.visible = false
+	abnormal_event_panel.visible = false
+	bad_ending_background.visible = true
+	bad_ending_card.visible = true
+	ending_body.text = "%s\n\nCash: %d | Reputation: %d" % [
+		event_text,
+		GameState.cash,
+		GameState.reputation,
+	]
+
+
+func _set_gameplay_hud_visible(is_visible: bool) -> void:
+	item_name_label.visible = is_visible
+	item_description_label.visible = is_visible
+	back_to_shop_button.visible = is_visible
+	tool_panel.visible = is_visible
+	decision_panel.visible = is_visible
+	appraisal_notes_background.visible = is_visible
+	sell_button.disabled = not is_visible
+	seal_button.disabled = not is_visible
+	discard_button.disabled = not is_visible
+	back_to_shop_button.disabled = not is_visible
+	magnifier_button.disabled = not is_visible
+	uv_lamp_button.disabled = not is_visible
+	thermometer_button.disabled = not is_visible
+	if not is_visible:
+		drag_active = false
+		thermometer_readout.visible = false
+		tool_clue_readout.visible = false
+		uv_lamp.visible = false
+		uv_lamp.light_energy = 0.0
 
 
 func _update_next_day_button_label() -> void:

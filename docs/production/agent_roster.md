@@ -76,6 +76,11 @@ Add after the asset factory can reliably produce at least one approved object.
 
 ## Current Next Milestones
 
-- Run a manual three-day Windows demo pass from the exported build and record concrete playtest issues.
-- Tune inspection readability for the three daily oddities before expanding the playable queue.
-- Decide the first post-MVP direction before adding larger systems: more daily items, stronger fail conditions, sealed-item storage, or customer presentation.
+- Done: Started the first post-MVP customer presentation slice with daily customer notes in the shop HUD.
+- Done: Added lightweight consequence reports after each decision, so the loop has narrative feedback without requiring visible customer characters yet.
+- Done: Added a compact end-of-run summary that lists handled oddity count, final cash, final reputation, and the last consequence report.
+- Done: Added a simple three-day ledger in the shop scene after returning from each day, so the player can review prior decisions before continuing.
+- Done: Added a small risk hint to the customer note panel so each day has a clearer player hypothesis before inspection.
+- Validate the refreshed Windows export and confirm the customer note panel, risk hint, result report panel, final run summary, and shop ledger read cleanly.
+- Next recommended implementation slice: improve visual safe areas for the right-side appraisal notes and shop HUD panels at 1152x648 and common 16:9 desktop sizes.
+- Keep tuning inspection readability as issues appear during playtest, but do not expand the playable queue until the customer presentation loop is readable.

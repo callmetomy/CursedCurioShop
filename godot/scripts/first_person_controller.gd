@@ -6,18 +6,33 @@ extends CharacterBody3D
 
 @onready var camera: Camera3D = $Camera3D
 @onready var run_status: Label = $"../HUD/RunStatus"
+@onready var customer_brief_title: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerBriefTitle"
+@onready var customer_brief_body: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerBriefBody"
+@onready var customer_risk_hint: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerRiskHint"
+@onready var shop_ledger_title: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerTitle"
+@onready var shop_ledger_body: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerBody"
 
 var look_pitch := 0.0
 
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	_update_shop_hud()
+
+
+func _update_shop_hud() -> void:
 	run_status.text = "Day %d/%d | Cash %d | Reputation %d" % [
 		GameState.current_day,
 		GameState.max_days,
 		GameState.cash,
 		GameState.reputation,
 	]
+	var customer_brief: Dictionary = GameState.get_current_customer_brief()
+	customer_brief_title.text = str(customer_brief.get("title", "Customer Note"))
+	customer_brief_body.text = str(customer_brief.get("body", "A customer is waiting for an appraisal."))
+	customer_risk_hint.text = str(customer_brief.get("risk_hint", "Risk hint: unknown"))
+	shop_ledger_title.text = GameState.SHOP_LEDGER_TITLE
+	shop_ledger_body.text = GameState.get_shop_ledger()
 
 
 func _unhandled_input(event: InputEvent) -> void:

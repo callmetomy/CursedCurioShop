@@ -41,6 +41,10 @@ Use `Sell`, `Seal`, or `Discard` to resolve the current appraisal. The first odd
 
 Wrong decisions trigger a scripted abnormal event. Selling the teacup triggers the current bad ending path.
 
+Decision results now include a short customer or consequence report. This keeps the appraisal loop connected to the shop fiction instead of only showing score deltas.
+
+On the final day, the result panel also shows a compact run summary with handled oddity count, final cash, final reputation, and the last consequence report.
+
 ## Shop Prototype
 
 The first-person shop prototype is `res://scenes/shop_prototype.tscn`.
@@ -48,6 +52,10 @@ The first-person shop prototype is `res://scenes/shop_prototype.tscn`.
 Use WASD to move, mouse look to turn, and `E` to enter the inspection table from the shop floor. Use `Back to Shop` from the inspection table to return.
 
 The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoload. `Next Day` advances the run until the three-day prototype loop completes.
+
+The shop HUD also shows the current day's customer note and risk hint before inspection. Together with the decision consequence reports and final run summary, this is the first post-MVP customer presentation slice: it gives the oddity a source and pressure context without adding character models or new asset dependencies.
+
+After each completed appraisal, the shop HUD ledger lists prior day decisions so the player can review the current run before entering the next inspection.
 
 ## Windows Export
 
@@ -68,6 +76,8 @@ The latest verified local export wrote:
 ```text
 ../exports/windows/CursedCurioShop.exe
 ```
+
+The latest local export was refreshed after the customer note HUD and bad-ending overlay fixes on 2026-05-24.
 
 ## Model Viewer
 
