@@ -1,13 +1,14 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
 	"oddity_0003": "res://scenes/items/oddity_0003.tscn",
 	"oddity_0004": "res://scenes/items/oddity_0004.tscn",
 	"oddity_0005": "res://scenes/items/oddity_0005.tscn",
+	"oddity_0006": "res://scenes/items/oddity_0006.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -34,6 +35,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Retired Surgeon",
 		"body": "A glass eye was found staring upward inside a sealed instrument case.",
 		"risk_hint": "Risk hint: safe resale, watchful object",
+	},
+	"oddity_0006": {
+		"title": "Customer Note: Chapel Caretaker",
+		"body": "A black candle was found burning cold beside an unused chapel register.",
+		"risk_hint": "Risk hint: heat mismatch, unsafe resale",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -62,10 +68,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer reports that the eye stays quiet once placed in a display case.",
 		"discard": "The glass eye rolls back under the counter before closing time.",
 	},
+	"oddity_0006": {
+		"seal": "The sealed candle stains the case with warm soot before quieting.",
+		"sell": "The buyer says the candle lights itself whenever a name is spoken.",
+		"discard": "The candle collapses into harmless wax after the wick is pinched out.",
+	},
 }
 
 var current_day := 1
-var max_days := 5
+var max_days := 6
 var cash := 100
 var reputation := 50
 var handled_reports := []

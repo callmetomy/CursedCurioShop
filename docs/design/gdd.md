@@ -35,13 +35,13 @@ The player is not a combat hero. They are the last person willing to touch objec
 
 ## MVP Scope
 
-The current playable demo is a five-day slice:
+The current playable demo is a six-day slice:
 
 - One shop interior
 - Ten oddities in structured data
 - One fully integrated 3D oddity scene
 - Three inspection tools
-- Five in-game days
+- Six in-game days
 - One scripted abnormal event
 - One bad ending
 - Main menu
@@ -185,7 +185,7 @@ The current structured item set is:
 - `oddity_0009`: Cracked Hand Mirror
 - `oddity_0010`: Red Thread Spool
 
-All ten MVP oddities currently have Godot item scenes generated from structured data and processed local model assets. The five-day playable loop currently presents `oddity_0001`, `oddity_0002`, `oddity_0003`, `oddity_0004`, and `oddity_0005` as the daily queue. The remaining oddities are ready content reserves for future queue expansion, balance passes, and visual polish.
+All ten MVP oddities currently have Godot item scenes generated from structured data and processed local model assets. The six-day playable loop currently presents `oddity_0001`, `oddity_0002`, `oddity_0003`, `oddity_0004`, `oddity_0005`, and `oddity_0006` as the daily queue. The remaining oddities are ready content reserves for future queue expansion, balance passes, and visual polish.
 
 ## Example Item Baseline
 
@@ -213,7 +213,7 @@ Current prototype baseline:
 - Starts on Day 1.
 - Starts with Cash 100.
 - Starts with Reputation 50.
-- Advances through a five-day loop.
+- Advances through a six-day loop.
 
 Future versions may add mental stability, customer trust, insurance, storage space, curse contamination, and shop upgrades. Those should not be added until the Sell / Seal / Discard loop is consistently readable.
 

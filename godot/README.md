@@ -59,7 +59,7 @@ The first-person shop prototype is `res://scenes/shop_prototype.tscn`.
 
 Use WASD to move, mouse look to turn, and `E` to enter the inspection table from the shop floor. Use `Back to Shop` from the inspection table to return.
 
-The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoload. `Next Day` advances the run until the five-day prototype loop completes.
+The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoload. `Next Day` advances the run until the six-day prototype loop completes.
 
 The shop HUD also shows the current day's customer note and risk hint before inspection. Together with the decision consequence reports and final run summary, this is the first post-MVP customer presentation slice: it gives the oddity a source and pressure context without adding character models or new asset dependencies.
 
@@ -85,7 +85,7 @@ The latest verified local export wrote:
 ../exports/windows/CursedCurioShop.exe
 ```
 
-The latest local export was refreshed after the five-day `oddity_0005` playable schedule pass on 2026-05-25.
+The latest local export was refreshed after the six-day `oddity_0006` playable schedule pass on 2026-05-25.
 
 ## Visual Review Capture
 
