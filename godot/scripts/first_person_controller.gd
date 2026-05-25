@@ -12,12 +12,19 @@ extends CharacterBody3D
 @onready var customer_risk_hint: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerRiskHint"
 @onready var shop_ledger_title: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerTitle"
 @onready var shop_ledger_body: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerBody"
+@onready var result_detail_panel: PanelContainer = $"../HUD/ResultDetailPanel"
+@onready var result_detail_title: Label = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailTitle"
+@onready var result_detail_body: Label = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody"
+@onready var result_detail_previous_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailPreviousButton"
+@onready var result_detail_next_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailNextButton"
 
 var look_pitch := 0.0
+var result_detail_index := 0
 
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	result_detail_previous_button.pressed.connect(_on_result_detail_previous_pressed)
+	result_detail_next_button.pressed.connect(_on_result_detail_next_pressed)
 	_update_shop_hud()
 
 
@@ -35,6 +42,35 @@ func _update_shop_hud() -> void:
 	customer_risk_hint.text = str(customer_brief.get("risk_hint", Localization.text("fallback.risk_hint")))
 	shop_ledger_title.text = Localization.text("ui.shop_ledger")
 	shop_ledger_body.text = GameState.get_shop_ledger()
+	_update_result_detail_panel()
+
+
+func _update_result_detail_panel() -> void:
+	var detail_count := GameState.get_result_detail_count()
+	result_detail_panel.visible = detail_count > 0
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if detail_count > 0 else Input.MOUSE_MODE_CAPTURED)
+	if detail_count <= 0:
+		result_detail_title.text = Localization.text("ui.result_detail_empty")
+		result_detail_body.text = Localization.text("ui.result_detail_empty")
+		return
+	result_detail_index = clamp(result_detail_index, 0, detail_count - 1)
+	var detail: Dictionary = GameState.get_result_detail(result_detail_index)
+	result_detail_title.text = str(detail.get("title", Localization.text("ui.result_detail_empty")))
+	result_detail_body.text = str(detail.get("body", Localization.text("ui.result_detail_empty")))
+	result_detail_previous_button.text = Localization.text("ui.detail_previous")
+	result_detail_next_button.text = Localization.text("ui.detail_next")
+	result_detail_previous_button.disabled = result_detail_index <= 0
+	result_detail_next_button.disabled = result_detail_index >= detail_count - 1
+
+
+func _on_result_detail_previous_pressed() -> void:
+	result_detail_index -= 1
+	_update_result_detail_panel()
+
+
+func _on_result_detail_next_pressed() -> void:
+	result_detail_index += 1
+	_update_result_detail_panel()
 
 
 func _unhandled_input(event: InputEvent) -> void:

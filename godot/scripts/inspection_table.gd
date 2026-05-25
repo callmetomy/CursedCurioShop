@@ -256,36 +256,44 @@ func _resolve_decision(decision: String) -> void:
 	var display_name := _get_current_display_name()
 	if decision == correct_handling:
 		decision_result.text = Localization.format_text("ui.correct_result", [display_name])
-		_show_day_result(Localization.text("outcome.correct"), _get_decision_value_delta(decision), 5, decision)
+		_show_day_result("outcome.correct", _get_decision_value_delta(decision), 5, decision)
 		abnormal_event_panel.visible = false
 		bad_ending_card.visible = false
 	else:
 		decision_result.text = Localization.format_text("ui.wrong_result", [display_name, correct_handling, decision])
 		var wrong_event_text := _get_current_wrong_event_text()
 		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
-			_show_day_result(Localization.text("outcome.cursed_sale"), _get_current_sell_value(), -15, decision)
+			_show_day_result("outcome.cursed_sale", _get_current_sell_value(), -15, decision)
 			_show_bad_ending(wrong_event_text)
 		elif decision == "discard":
 			_show_abnormal_event(wrong_event_text)
-			_show_day_result(Localization.text("outcome.uncontained_discard"), 0, -8, decision)
+			_show_day_result("outcome.uncontained_discard", 0, -8, decision)
 		else:
 			_show_abnormal_event(wrong_event_text)
-			_show_day_result(Localization.text("outcome.bad_appraisal"), 0, -10, decision)
+			_show_day_result("outcome.bad_appraisal", 0, -10, decision)
 
 
-func _show_day_result(outcome: String, value_delta: int, reputation_delta: int, decision: String) -> void:
+func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: int, decision: String) -> void:
 	GameState.apply_result(value_delta, reputation_delta)
 	_set_active_tool(TOOL_NONE)
 	_set_inspection_controls_visible(false)
 	day_result_background.visible = true
 	day_result_panel.visible = true
 	_update_next_day_button_label()
-	outcome_label.text = outcome
+	outcome_label.text = Localization.text(outcome_key)
 	value_label.text = Localization.format_text("ui.cash_delta", [value_delta])
 	reputation_label.text = Localization.format_text("ui.reputation_delta", [reputation_delta])
+	var consequence_key := GameState.get_current_consequence_key(decision)
 	var consequence_report: String = GameState.get_current_consequence_report(decision)
 	consequence_report_label.text = consequence_report
-	GameState.record_decision_result(GameState.get_current_item_id(), decision, outcome, consequence_report)
+	GameState.record_decision_result(
+		GameState.get_current_item_id(),
+		decision,
+		outcome_key,
+		consequence_key,
+		value_delta,
+		reputation_delta
+	)
 	consequence_report_label.visible = not GameState.is_run_complete()
 	run_summary_label.visible = GameState.is_run_complete()
 	run_summary_label.text = GameState.get_run_summary() if GameState.is_run_complete() else ""

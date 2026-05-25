@@ -18,6 +18,7 @@ func _run() -> void:
 		root.size = viewport["size"]
 		await process_frame
 		await _capture_shop_customer_brief(viewport["name"])
+		await _capture_shop_result_detail(viewport["name"])
 		await _capture_day_result(viewport["name"])
 		await _capture_final_summary(viewport["name"])
 	print("Traditional Chinese review screenshots captured")
@@ -30,6 +31,19 @@ func _capture_shop_customer_brief(viewport_name: String) -> void:
 	var shop := _instantiate_scene("res://scenes/shop_prototype.tscn")
 	await _settle_frames()
 	await _save_screenshot("shop_customer_brief", viewport_name)
+	root.remove_child(shop)
+	shop.free()
+
+
+func _capture_shop_result_detail(viewport_name: String) -> void:
+	_clear_runtime_scenes()
+	var game_state := _game_state()
+	game_state.call("start_new_run")
+	await _resolve_and_close_day("seal")
+	game_state.call("advance_day")
+	var shop := _instantiate_scene("res://scenes/shop_prototype.tscn")
+	await _settle_frames()
+	await _save_screenshot("shop_result_detail", viewport_name)
 	root.remove_child(shop)
 	shop.free()
 

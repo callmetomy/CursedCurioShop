@@ -87,5 +87,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Tightened the final-day result panel so the run summary fits inside the ledger frame and duplicate consequence text is hidden on the final day.
 - Done: Split result panel text and button areas with a semi-transparent text plate, reducing overlap risk in the Traditional Chinese review layout.
 - Done: Captured and recorded a Traditional Chinese visual pass at `1152x648` and `1280x720`.
-- Next recommended implementation slice: add a reviewable result-detail path so players can inspect each handled oddity's decision and consequence after the day result.
-- Keep tuning inspection readability as issues appear during playtest, but do not expand the playable queue until the customer presentation loop is readable.
+- Done: Added a reviewable result-detail panel in the shop so players can inspect each handled oddity's decision, outcome, cash delta, reputation delta, and consequence.
+- Next recommended implementation slice: promote `oddity_0004` into the playable schedule as a four-day loop, then rerun the Traditional Chinese visual pass before expanding further.
+- Keep tuning inspection readability as issues appear during playtest, and expand the playable queue one oddity at a time.

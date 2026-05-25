@@ -104,6 +104,23 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('Localization.format_text("ui.final_cash"', game_state)
         self.assertIn('Localization.format_text("ui.final_reputation"', game_state)
 
+    def test_game_state_exposes_reviewable_result_details(self):
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("func get_result_detail_count", game_state)
+        self.assertIn("func get_result_detail", game_state)
+        self.assertIn("func _get_decision_label", game_state)
+        self.assertIn('"value_delta": value_delta', game_state)
+        self.assertIn('"reputation_delta": reputation_delta', game_state)
+        self.assertIn('"outcome_key": outcome_key', game_state)
+        self.assertIn('"consequence_key": consequence_key', game_state)
+        self.assertIn('Localization.format_text("ui.result_detail_title"', game_state)
+        self.assertIn('Localization.format_text("ui.result_detail_body"', game_state)
+        self.assertIn('Localization.text("ui.result_detail_empty")', game_state)
+        self.assertIn('Localization.text("decision.%s" % decision)', game_state)
+
     def test_shop_shows_three_day_ledger_from_handled_reports(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
             encoding="utf-8"
@@ -124,6 +141,32 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("shop_ledger_title", controller)
         self.assertIn("shop_ledger_body", controller)
         self.assertIn("GameState.get_shop_ledger", controller)
+
+    def test_shop_exposes_result_detail_review_panel(self):
+        shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
+            encoding="utf-8"
+        )
+        controller = (ROOT / "godot" / "scripts" / "first_person_controller.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="ResultDetailPanel" type="PanelContainer" parent="HUD"]', shop_scene)
+        self.assertIn('[node name="ResultDetailTitle" type="Label" parent="HUD/ResultDetailPanel/ResultDetailContent"]', shop_scene)
+        self.assertIn('[node name="ResultDetailBody" type="Label" parent="HUD/ResultDetailPanel/ResultDetailContent"]', shop_scene)
+        self.assertIn('[node name="ResultDetailNav" type="HBoxContainer" parent="HUD/ResultDetailPanel/ResultDetailContent"]', shop_scene)
+        self.assertIn('[node name="ResultDetailPreviousButton" type="Button" parent="HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav"]', shop_scene)
+        self.assertIn('[node name="ResultDetailNextButton" type="Button" parent="HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav"]', shop_scene)
+        self.assertIn("result_detail_panel", controller)
+        self.assertIn("result_detail_title", controller)
+        self.assertIn("result_detail_body", controller)
+        self.assertIn("result_detail_previous_button", controller)
+        self.assertIn("result_detail_next_button", controller)
+        self.assertIn("var result_detail_index := 0", controller)
+        self.assertIn("func _update_result_detail_panel", controller)
+        self.assertIn("GameState.get_result_detail_count", controller)
+        self.assertIn("GameState.get_result_detail", controller)
+        self.assertIn("_on_result_detail_previous_pressed", controller)
+        self.assertIn("_on_result_detail_next_pressed", controller)
 
     def test_shop_hud_panels_use_1152_safe_areas(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
@@ -149,6 +192,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("HUD/AbnormalEventPanel", script)
         self.assertIn("HUD/BadEndingCard", script)
         self.assertIn("HUD/BadEndingCard/BadEndingPanel", script)
+        self.assertIn("HUD/ResultDetailPanel", script)
+        self.assertIn("HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", script)
         self.assertIn("quit(0)", script)
 
 

@@ -93,19 +93,32 @@ func get_current_consequence_report(decision: String) -> String:
 		get_current_item_id(),
 		DAILY_CONSEQUENCE_REPORTS["oddity_0001"]
 	)
-	var key := "consequence.%s.%s" % [get_current_item_id(), decision]
+	var key := get_current_consequence_key(decision)
 	var translated := Localization.text(key)
 	if translated == key:
 		return str(item_reports.get(decision, Localization.text("fallback.consequence")))
 	return translated
 
 
-func record_decision_result(item_id: String, decision: String, outcome: String, consequence_report: String) -> void:
+func get_current_consequence_key(decision: String) -> String:
+	return "consequence.%s.%s" % [get_current_item_id(), decision]
+
+
+func record_decision_result(
+	item_id: String,
+	decision: String,
+	outcome_key: String,
+	consequence_key: String,
+	value_delta: int,
+	reputation_delta: int
+) -> void:
 	handled_reports.append({
 		"item_id": item_id,
 		"decision": decision,
-		"outcome": outcome,
-		"consequence_report": consequence_report,
+		"outcome_key": outcome_key,
+		"consequence_key": consequence_key,
+		"value_delta": value_delta,
+		"reputation_delta": reputation_delta,
 	})
 
 
@@ -120,9 +133,40 @@ func get_run_summary() -> String:
 		var strongest_report: Dictionary = handled_reports[handled_reports.size() - 1]
 		lines.append(Localization.format_text(
 			"ui.last_report",
-			[strongest_report.get("consequence_report", Localization.text("ui.no_consequence"))]
+			[_get_consequence_text(strongest_report)]
 		))
 	return "\n".join(lines)
+
+
+func get_result_detail_count() -> int:
+	return handled_reports.size()
+
+
+func get_result_detail(index: int) -> Dictionary:
+	if handled_reports.is_empty():
+		return {
+			"title": Localization.text("ui.result_detail_empty"),
+			"body": Localization.text("ui.result_detail_empty"),
+		}
+	var safe_index: int = clamp(index, 0, handled_reports.size() - 1)
+	var report: Dictionary = handled_reports[safe_index]
+	var item_id := str(report.get("item_id", "unknown"))
+	var decision := str(report.get("decision", "unknown"))
+	var value_delta := int(report.get("value_delta", 0))
+	var reputation_delta := int(report.get("reputation_delta", 0))
+	var title := Localization.format_text("ui.result_detail_title", [safe_index + 1, handled_reports.size()])
+	var body := Localization.format_text("ui.result_detail_body", [
+		_get_item_display_name(item_id),
+		_get_decision_label(decision),
+		Localization.text(str(report.get("outcome_key", "outcome.bad_appraisal"))),
+		value_delta,
+		reputation_delta,
+		_get_consequence_text(report),
+	])
+	return {
+		"title": title,
+		"body": body,
+	}
 
 
 func get_shop_ledger() -> String:
@@ -135,8 +179,24 @@ func get_shop_ledger() -> String:
 			"ui.ledger_entry",
 			[
 				index + 1,
-				report.get("item_id", "unknown"),
-				report.get("decision", "unknown"),
+				_get_item_display_name(str(report.get("item_id", "unknown"))),
+				_get_decision_label(str(report.get("decision", "unknown"))),
 			]
 		))
 	return "\n".join(lines)
+
+
+func _get_item_display_name(item_id: String) -> String:
+	return Localization.item_text(item_id, "display_name", item_id)
+
+
+func _get_decision_label(decision: String) -> String:
+	return Localization.text("decision.%s" % decision)
+
+
+func _get_consequence_text(report: Dictionary) -> String:
+	var consequence_key := str(report.get("consequence_key", ""))
+	var consequence_text := Localization.text(consequence_key)
+	if consequence_text == consequence_key:
+		return Localization.text("ui.no_consequence")
+	return consequence_text

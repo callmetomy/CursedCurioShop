@@ -124,6 +124,15 @@ func _verify_shop_ledger_after_decision(day_number: int) -> void:
 		_label_contains(shop, "HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerBody", "第 %d 天" % day_number),
 		"Shop ledger should show the localized completed day"
 	)
+	_assert(_node_visible(shop, "HUD/ResultDetailPanel"), "Shop should show result detail panel after a completed appraisal")
+	_assert(
+		_label_contains(shop, "HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", "決策"),
+		"Shop result detail should show the localized decision label"
+	)
+	_assert(
+		_label_contains(shop, "HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", "後果"),
+		"Shop result detail should show the localized consequence label"
+	)
 	root.remove_child(shop)
 	shop.free()
 

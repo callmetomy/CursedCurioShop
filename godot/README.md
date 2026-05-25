@@ -63,7 +63,7 @@ The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoloa
 
 The shop HUD also shows the current day's customer note and risk hint before inspection. Together with the decision consequence reports and final run summary, this is the first post-MVP customer presentation slice: it gives the oddity a source and pressure context without adding character models or new asset dependencies.
 
-After each completed appraisal, the shop HUD ledger lists prior day decisions so the player can review the current run before entering the next inspection.
+After each completed appraisal, the shop HUD ledger lists prior day decisions and a result-detail panel lets the player review the selected oddity, decision, outcome, cash change, reputation change, and consequence before entering the next inspection.
 
 ## Windows Export
 
@@ -85,7 +85,7 @@ The latest verified local export wrote:
 ../exports/windows/CursedCurioShop.exe
 ```
 
-The latest local export was refreshed after the Traditional Chinese result panel text/button separation pass on 2026-05-25.
+The latest local export was refreshed after the Traditional Chinese result-detail review panel pass on 2026-05-25.
 
 ## Visual Review Capture
 
