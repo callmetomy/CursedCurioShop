@@ -76,6 +76,8 @@ func _capture_final_summary(viewport_name: String) -> void:
 	game_state.call("advance_day")
 	await _resolve_and_close_day("discard")
 	game_state.call("advance_day")
+	await _resolve_and_close_day("seal")
+	game_state.call("advance_day")
 	var table := _instantiate_scene("res://scenes/inspection_table.tscn")
 	await _settle_frames()
 	table.call("_resolve_decision", "seal")

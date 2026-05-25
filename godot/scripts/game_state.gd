@@ -1,7 +1,7 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
@@ -10,6 +10,7 @@ const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0005": "res://scenes/items/oddity_0005.tscn",
 	"oddity_0006": "res://scenes/items/oddity_0006.tscn",
 	"oddity_0007": "res://scenes/items/oddity_0007.tscn",
+	"oddity_0008": "res://scenes/items/oddity_0008.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -46,6 +47,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Boarding School Matron",
 		"body": "A cloth doll was found in a dormitory trunk, wrapped in shed fabric scraps.",
 		"risk_hint": "Risk hint: cold nursery trace, containment advised",
+	},
+	"oddity_0008": {
+		"title": "Customer Note: Funeral Director",
+		"body": "A silver bell was found inside a sealed coffin drawer that should have been empty.",
+		"risk_hint": "Risk hint: burial chime, containment advised",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -84,10 +90,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer reports loose threads spelling names across a nursery wall.",
 		"discard": "The doll is found sitting upright in the waste bin after closing.",
 	},
+	"oddity_0008": {
+		"seal": "The sealed bell gives one soft ring, then stays silent in the case.",
+		"sell": "The buyer hears a funeral procession outside every locked window.",
+		"discard": "The bell rings from the rubbish crate whenever the shop goes quiet.",
+	},
 }
 
 var current_day := 1
-var max_days := 7
+var max_days := 8
 var cash := 100
 var reputation := 50
 var handled_reports := []
