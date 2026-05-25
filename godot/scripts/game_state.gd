@@ -1,6 +1,7 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
+const LEDGER_DESK_UPGRADE_COST := 120
 const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
@@ -38,32 +39,32 @@ const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0005": {
 		"title": "Customer Note: Retired Surgeon",
 		"body": "A glass eye was found staring upward inside a sealed instrument case.",
-		"risk_hint": "Risk hint: safe resale, watchful object",
+		"risk_hint": "Risk hint: catalogued medical provenance, watchful surface",
 	},
 	"oddity_0006": {
 		"title": "Customer Note: Chapel Caretaker",
 		"body": "A black candle was found burning cold beside an unused chapel register.",
-		"risk_hint": "Risk hint: heat mismatch, unsafe resale",
+		"risk_hint": "Risk hint: heat rises after attention shifts",
 	},
 	"oddity_0007": {
 		"title": "Customer Note: Boarding School Matron",
 		"body": "A cloth doll was found in a dormitory trunk, wrapped in shed fabric scraps.",
-		"risk_hint": "Risk hint: cold nursery trace, containment advised",
+		"risk_hint": "Risk hint: cold nursery trace, active stitching",
 	},
 	"oddity_0008": {
 		"title": "Customer Note: Funeral Director",
 		"body": "A silver bell was found inside a sealed coffin drawer that should have been empty.",
-		"risk_hint": "Risk hint: burial chime, containment advised",
+		"risk_hint": "Risk hint: muted clapper, active vibration",
 	},
 	"oddity_0009": {
 		"title": "Customer Note: Theatre Widow",
 		"body": "A cracked hand mirror was recovered from a dressing room that reflects applause after midnight.",
-		"risk_hint": "Risk hint: split reflection, discard advised",
+		"risk_hint": "Risk hint: split reflection, covered temperature",
 	},
 	"oddity_0010": {
 		"title": "Customer Note: Matchmaker",
 		"body": "A spool of red thread was found tying two account books together after closing.",
-		"risk_hint": "Risk hint: profitable bond, sale advised",
+		"risk_hint": "Risk hint: matched accounts, warm thread",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -123,6 +124,7 @@ var current_day := 1
 var max_days := 10
 var cash := 100
 var reputation := 50
+var ledger_desk_upgraded := false
 var handled_reports := []
 
 
@@ -158,11 +160,32 @@ func get_current_item_scene_path() -> String:
 
 func get_current_customer_brief() -> Dictionary:
 	var item_id := get_current_item_id()
+	var body := Localization.text("customer.%s.body" % item_id)
+	if ledger_desk_upgraded:
+		body = "%s\n%s" % [body, Localization.text("upgrade.ledger_desk.provenance")]
 	return {
 		"title": Localization.text("customer.%s.title" % item_id),
-		"body": Localization.text("customer.%s.body" % item_id),
+		"body": body,
 		"risk_hint": Localization.text("customer.%s.risk_hint" % item_id),
 	}
+
+
+func can_purchase_ledger_desk_upgrade() -> bool:
+	return not ledger_desk_upgraded and cash >= LEDGER_DESK_UPGRADE_COST
+
+
+func purchase_ledger_desk_upgrade() -> bool:
+	if not can_purchase_ledger_desk_upgrade():
+		return false
+	cash -= LEDGER_DESK_UPGRADE_COST
+	ledger_desk_upgraded = true
+	return true
+
+
+func get_progression_status_text() -> String:
+	if ledger_desk_upgraded:
+		return Localization.text("upgrade.ledger_desk.status_unlocked")
+	return Localization.format_text("upgrade.ledger_desk.status_locked", [LEDGER_DESK_UPGRADE_COST])
 
 
 func get_current_consequence_report(decision: String) -> String:

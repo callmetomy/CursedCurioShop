@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0005"
 display_name = "Glass Eye"
-description = "A local prototype oddity: Glass Eye."
+description = "A polished glass prosthetic eye in a surgeon's case, unsettling but carefully catalogued."
 model_path = "res://assets/models_processed/oddity_0005.glb"
 correct_handling = "sell"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
-thermometer_c = 4.2
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+magnifier_clue = "The maker's mark is intact and the tiny iris scratches are from medical fitting tools."
+uv_clue = "UV light shows a clean serial number, not a ritual mark."
+thermometer_clue = "The eye stays close to room temperature even after being handled."
+thermometer_c = 21.4
+sell_value = 140
+seal_cost = 50
+wrong_event_text = "If hidden away, the legitimate buyer cancels and rumors spread that the shop destroys harmless antiques."
 use_fallback_material = true
 fallback_material_color = Color(0.38, 0.62, 0.68, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.9, 0.18, 0.22, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

@@ -18,25 +18,25 @@
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "Ash is packed inside the comb teeth, but none has fallen onto the desk."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light shows the words 'play me home' burned into the underside of the lid."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
+        "result": "The music box cools only while the cylinder is turning.",
         "temperature_c": 13.4
       }
     ],
     "correct_handling": "discard",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If kept or sold, the tune resumes from an empty nursery after midnight."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 35,
+    "sell_value": 55,
+    "seal_cost": 25
   },
   "generation": {
     "status": "local_prototype",

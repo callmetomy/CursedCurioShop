@@ -196,7 +196,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]', scene)
         self.assertIn("offset_left = -344.0\noffset_top = 204.0\noffset_right = -24.0\noffset_bottom = 356.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
         self.assertIn('[node name="DayResultBackground" type="TextureRect" parent="HUD"]', scene)
-        self.assertIn("offset_left = -270.0\noffset_top = -150.0\noffset_right = 270.0\noffset_bottom = 150.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
+        self.assertIn("offset_left = -270.0\noffset_top = -190.0\noffset_right = 270.0\noffset_bottom = 190.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(

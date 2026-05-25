@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0008"
 display_name = "Silver Funeral Bell"
-description = "A local prototype oddity: Silver Funeral Bell."
+description = "A tarnished silver funeral bell with a muted clapper and a ribbon faded to coffin-lining grey."
 model_path = "res://assets/models_processed/oddity_0008.glb"
 correct_handling = "seal"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "The clapper is tied with black thread, yet the bell still vibrates under the lens."
+uv_clue = "UV light reveals initials scratched inside the bell mouth."
+thermometer_clue = "The bell's rim is colder than the handle despite being touched last."
 thermometer_c = 0.6
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+sell_value = 100
+seal_cost = 55
+wrong_event_text = "If mishandled, a funeral procession can be heard outside each locked window."
 use_fallback_material = true
 fallback_material_color = Color(0.7, 0.68, 0.58, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.16, 0.62, 1.0, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

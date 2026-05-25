@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0010"
 display_name = "Red Thread Spool"
-description = "A local prototype oddity: Red Thread Spool."
+description = "A red thread spool from a matchmaker's desk, still tied to two unpaid account slips."
 model_path = "res://assets/models_processed/oddity_0010.glb"
 correct_handling = "sell"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "Tiny knots mark paired initials rather than warnings or dates."
+uv_clue = "UV light shows balanced ledger numbers written along the paper core."
+thermometer_clue = "The thread is warm like recently handled cloth, but the spool core stays normal."
 thermometer_c = 31.2
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+sell_value = 125
+seal_cost = 45
+wrong_event_text = "If locked away or thrown out, the thread ties unrelated objects together after closing."
 use_fallback_material = true
 fallback_material_color = Color(0.7, 0.18, 0.2, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.95, 0.75, 0.18, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

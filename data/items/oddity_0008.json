@@ -2,7 +2,7 @@
   "id": "oddity_0008",
   "display_name": "Silver Funeral Bell",
   "rarity": "common",
-  "danger_level": 1,
+  "danger_level": 3,
   "visual_theme": [
     "antique",
     "cursed",
@@ -14,29 +14,29 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Silver Funeral Bell.",
+    "description": "A tarnished silver funeral bell with a muted clapper and a ribbon faded to coffin-lining grey.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "The clapper is tied with black thread, yet the bell still vibrates under the lens."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light reveals initials scratched inside the bell mouth."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
+        "result": "The bell's rim is colder than the handle despite being touched last.",
         "temperature_c": 0.6
       }
     ],
     "correct_handling": "seal",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If mishandled, a funeral procession can be heard outside each locked window."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 65,
+    "sell_value": 100,
+    "seal_cost": 55
   },
   "generation": {
     "status": "local_prototype",

@@ -95,5 +95,9 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Promoted `oddity_0008` into the playable schedule as an eight-day loop and reran the core smoke checks.
 - Done: Promoted `oddity_0009` into the playable schedule as a nine-day loop and reran the core smoke checks.
 - Done: Promoted `oddity_0010` into the playable schedule as a ten-day loop and reran the core smoke and visual checks.
-- Next recommended implementation slice: run a full ten-day playtest balance pass, focusing on cash/reputation pacing, clue readability, and whether any day feels like an obvious guess.
-- Keep tuning inspection readability as issues appear during playtest, then decide whether the next milestone is new oddity content or a shop progression layer.
+- Done: Applied the first commercial-demo readability tuning pass: unique item clues, non-answer risk hints, and varied sell/seal/discard economy across the ten-day loop.
+- Done: Ran the internal ten-day balance pass, fixed the correct-route cash dip, and recorded the balance report in `docs/production/playtests/2026-05-25-ten-day-balance-pass.md`.
+- Done: Refreshed the local Windows export after the ten-day balance pass.
+- Done: Added the first shop progression slice: the Ledger Desk upgrade spends post-run cash, persists into the next run, and adds provenance notes to customer briefs.
+- Next recommended implementation slice: refresh the local Windows export after the Ledger Desk upgrade, then tune only if visual or smoke checks show regressions.
+- Keep tuning inspection readability as issues appear, then decide whether the next milestone is a second shop perk or new oddity content.

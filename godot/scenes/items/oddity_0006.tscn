@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0006"
 display_name = "Black Wax Candle"
-description = "A local prototype oddity: Black Wax Candle."
+description = "A black chapel candle whose wick gives off heat without flame and smells faintly of signed names."
 model_path = "res://assets/models_processed/oddity_0006.glb"
 correct_handling = "discard"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "Melt lines run upward toward the wick instead of down the candle."
+uv_clue = "UV light reveals thumbprints circling the base like a congregation."
+thermometer_clue = "The candle grows hotter after the lamp is turned away."
 thermometer_c = 38.6
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+sell_value = 45
+seal_cost = 15
+wrong_event_text = "If preserved or sold, the wick lights whenever a name is spoken near the shop."
 use_fallback_material = true
 fallback_material_color = Color(0.08, 0.07, 0.08, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.95, 0.28, 0.12, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

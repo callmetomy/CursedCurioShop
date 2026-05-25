@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0007"
 display_name = "Moth-Eaten Doll"
-description = "A local prototype oddity: Moth-Eaten Doll."
+description = "A worn cloth doll shedding grey fabric dust from seams that have been repaired too many times."
 model_path = "res://assets/models_processed/oddity_0007.glb"
 correct_handling = "seal"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "The stitched smile was resewn with thread taken from several different garments."
+uv_clue = "UV light reveals small handprints pressed into the back of the dress."
+thermometer_clue = "The doll is coldest around the chest seam, not the exposed fabric."
 thermometer_c = 7.7
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+sell_value = 65
+seal_cost = 35
+wrong_event_text = "If sent away loose, the thread spells names across a nursery wall."
 use_fallback_material = true
 fallback_material_color = Color(0.46, 0.36, 0.52, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.2, 0.75, 0.95, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

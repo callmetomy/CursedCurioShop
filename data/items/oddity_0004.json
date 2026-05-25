@@ -2,7 +2,7 @@
   "id": "oddity_0004",
   "display_name": "Cold Brass Key",
   "rarity": "common",
-  "danger_level": 1,
+  "danger_level": 2,
   "visual_theme": [
     "antique",
     "cursed",
@@ -14,29 +14,29 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Cold Brass Key.",
+    "description": "A brass key with cellar grime packed into the bow and a tooth pattern that never quite repeats.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "The key teeth have fresh frost only on the cuts that would enter a lock first."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light reveals a floor-plan line etched across the bow."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
+        "result": "The bow is colder than the shaft, as if the handle was left outside.",
         "temperature_c": -11.8
       }
     ],
     "correct_handling": "seal",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If it leaves containment, nearby locks open at 3:04 and relock from the wrong side."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 45,
+    "sell_value": 80,
+    "seal_cost": 25
   },
   "generation": {
     "status": "local_prototype",

@@ -72,6 +72,12 @@ The shop HUD also shows the current day's customer note and risk hint before ins
 
 After each completed appraisal, the shop HUD ledger lists prior day decisions and a result-detail panel lets the player review the selected oddity, decision, outcome, cash change, reputation change, and consequence before entering the next inspection.
 
+## Shop Progression
+
+The first progression upgrade is the Ledger Desk.
+
+On the final-day run summary, players with enough cash can spend 120 cash to upgrade the ledger desk. The upgrade persists into the next run and adds a provenance note to each customer brief, giving the player more context without adding new oddity assets.
+
 ## Windows Export
 
 The export preset is `Windows Desktop`, configured to write:
@@ -92,7 +98,7 @@ The latest verified local export wrote:
 ../exports/windows/CursedCurioShop.exe
 ```
 
-The latest local export was refreshed after the ten-day `oddity_0010` playable schedule pass on 2026-05-25.
+The latest local export was refreshed after the commercial-demo readability, ten-day balance pass, and Ledger Desk progression slice on 2026-05-25.
 
 ## Visual Review Capture
 

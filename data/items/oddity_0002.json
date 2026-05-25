@@ -2,7 +2,7 @@
   "id": "oddity_0002",
   "display_name": "Mirror Coin",
   "rarity": "common",
-  "danger_level": 1,
+  "danger_level": 2,
   "visual_theme": [
     "antique",
     "cursed",
@@ -18,25 +18,25 @@
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "The stamped date repeats backward along the rim when viewed through the lens."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light reveals a second set of initials floating above the coin face."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
+        "result": "The coin chills the table in a perfect circle while the air stays warm.",
         "temperature_c": -2.1
       }
     ],
     "correct_handling": "seal",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If released, the coin returns in a locked till with tomorrow's receipt folded underneath."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 70,
+    "sell_value": 110,
+    "seal_cost": 30
   },
   "generation": {
     "status": "local_prototype",

@@ -107,8 +107,21 @@ func _verify_correct_demo_flow() -> void:
 			_assert(not _node_visible(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel"), "Final day should hide duplicate consequence report")
 			_assert(_label_contains(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel", "最終現金"), "Run summary should show localized final cash")
 			_assert(_label_contains(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel", "最終聲望"), "Run summary should show localized final reputation")
+			_assert(_node_visible(table, "HUD/DayResultPanel/ProgressionPanel"), "Final day should show the progression panel")
+			var final_cash := int(_game_state().get("cash"))
+			_assert(bool(_game_state().call("can_purchase_ledger_desk_upgrade")), "Final cash should afford the ledger desk upgrade")
+			table.call("_on_buy_ledger_desk_pressed")
+			await process_frame
+			_assert(bool(_game_state().get("ledger_desk_upgraded")), "Ledger desk upgrade should be purchased")
+			_assert(int(_game_state().get("cash")) == final_cash - 120, "Ledger desk upgrade should deduct cash")
+			_assert(
+				_label_contains(table, "HUD/DayResultPanel/ProgressionPanel/ProgressionContent/ProgressionStatusLabel", _localized("upgrade.ledger_desk.status_unlocked")),
+				"Progression panel should show the upgraded ledger desk status"
+			)
 		table.queue_free()
 		await process_frame
+	_game_state().call("start_new_run")
+	await _verify_upgraded_customer_brief()
 
 
 func _verify_shop_ledger_after_decision(day_number: int) -> void:
@@ -137,6 +150,26 @@ func _verify_shop_ledger_after_decision(day_number: int) -> void:
 	shop.free()
 
 
+func _verify_upgraded_customer_brief() -> void:
+	var packed := load("res://scenes/shop_prototype.tscn") as PackedScene
+	_assert(packed != null, "Could not load shop prototype scene for upgraded customer brief check")
+
+	var shop := packed.instantiate()
+	root.add_child(shop)
+	await process_frame
+
+	_assert(
+		_label_contains(shop, "HUD/CustomerBriefPanel/CustomerBriefContent/CustomerBriefBody", _localized("upgrade.ledger_desk.provenance")),
+		"Upgraded ledger desk should add provenance notes to customer briefs"
+	)
+	_assert(
+		_label_contains(shop, "HUD/ShopLedgerPanel/ShopLedgerContent/ProgressionStatus", _localized("upgrade.ledger_desk.status_unlocked")),
+		"Shop ledger should show upgraded progression status"
+	)
+	root.remove_child(shop)
+	shop.free()
+
+
 func _instantiate_inspection_table() -> Node:
 	var packed := load("res://scenes/inspection_table.tscn") as PackedScene
 	_assert(packed != null, "Could not load inspection table scene")
@@ -160,6 +193,12 @@ func _game_state() -> Node:
 	node.name = "GameState"
 	root.add_child(node)
 	return node
+
+
+func _localized(key: String) -> String:
+	var node := root.get_node_or_null("Localization")
+	_assert(node != null, "Localization autoload is not available")
+	return str(node.call("text", key))
 
 
 func _current_item_id(table: Node) -> String:

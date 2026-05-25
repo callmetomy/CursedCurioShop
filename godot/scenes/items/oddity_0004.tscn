@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0004"
 display_name = "Cold Brass Key"
-description = "A local prototype oddity: Cold Brass Key."
+description = "A brass key with cellar grime packed into the bow and a tooth pattern that never quite repeats."
 model_path = "res://assets/models_processed/oddity_0004.glb"
 correct_handling = "seal"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "The key teeth have fresh frost only on the cuts that would enter a lock first."
+uv_clue = "UV light reveals a floor-plan line etched across the bow."
+thermometer_clue = "The bow is colder than the shaft, as if the handle was left outside."
 thermometer_c = -11.8
-sell_value = 75
-seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+sell_value = 80
+seal_cost = 25
+wrong_event_text = "If it leaves containment, nearby locks open at 3:04 and relock from the wrong side."
 use_fallback_material = true
 fallback_material_color = Color(0.74, 0.58, 0.28, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.2, 0.65, 1.0, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

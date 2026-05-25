@@ -154,6 +154,13 @@ theme_override_font_sizes/font_size = 13
 autowrap_mode = 2
 text = "No appraisals filed yet."
 
+[node name="ProgressionStatus" type="Label" parent="HUD/ShopLedgerPanel/ShopLedgerContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.07, 0.03, 1)
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 2
+text = "Ledger Desk: upgrade available after a profitable run."
+
 [node name="ResultDetailPanel" type="PanelContainer" parent="HUD"]
 visible = false
 anchors_preset = 0

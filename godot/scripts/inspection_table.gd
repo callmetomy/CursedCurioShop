@@ -20,6 +20,9 @@ extends Node3D
 @onready var reputation_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ReputationLabel
 @onready var consequence_report_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel
 @onready var run_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel
+@onready var progression_panel: PanelContainer = $HUD/DayResultPanel/ProgressionPanel
+@onready var progression_status_label: Label = $HUD/DayResultPanel/ProgressionPanel/ProgressionContent/ProgressionStatusLabel
+@onready var buy_ledger_desk_button: Button = $HUD/DayResultPanel/ProgressionPanel/ProgressionContent/BuyLedgerDeskButton
 @onready var next_day_button: Button = $HUD/DayResultPanel/ResultButtonPanel/NextDayButton
 @onready var back_to_shop_button: Button = $HUD/BackToShopButton
 @onready var decision_panel: HBoxContainer = $HUD/DecisionPanel
@@ -82,6 +85,7 @@ func _ready() -> void:
 	seal_button.pressed.connect(_on_seal_pressed)
 	discard_button.pressed.connect(_on_discard_pressed)
 	next_day_button.pressed.connect(_on_next_day_pressed)
+	buy_ledger_desk_button.pressed.connect(_on_buy_ledger_desk_pressed)
 	back_to_shop_button.pressed.connect(_on_back_to_shop_pressed)
 	return_to_menu_button.pressed.connect(_on_return_to_menu_pressed)
 	_update_tool_readouts()
@@ -89,6 +93,7 @@ func _ready() -> void:
 	_set_active_tool(TOOL_NONE)
 	day_result_panel.visible = false
 	day_result_background.visible = false
+	progression_panel.visible = false
 	abnormal_event_panel.visible = false
 	bad_ending_background.visible = false
 	bad_ending_card.visible = false
@@ -187,6 +192,7 @@ func _on_next_day_pressed() -> void:
 	decision_result.visible = false
 	day_result_panel.visible = false
 	day_result_background.visible = false
+	progression_panel.visible = false
 	abnormal_event_panel.visible = false
 	bad_ending_background.visible = false
 	bad_ending_card.visible = false
@@ -206,6 +212,12 @@ func _on_back_to_shop_pressed() -> void:
 
 func _on_return_to_menu_pressed() -> void:
 	get_tree().change_scene_to_file(main_menu_scene_path)
+
+
+func _on_buy_ledger_desk_pressed() -> void:
+	if GameState.purchase_ledger_desk_upgrade():
+		run_summary_label.text = GameState.get_run_summary()
+	_update_progression_panel()
 
 
 func _toggle_tool(tool_name: String) -> void:
@@ -297,6 +309,14 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	consequence_report_label.visible = not GameState.is_run_complete()
 	run_summary_label.visible = GameState.is_run_complete()
 	run_summary_label.text = GameState.get_run_summary() if GameState.is_run_complete() else ""
+	_update_progression_panel()
+
+
+func _update_progression_panel() -> void:
+	progression_panel.visible = GameState.is_run_complete()
+	progression_status_label.text = GameState.get_progression_status_text()
+	buy_ledger_desk_button.text = Localization.text("upgrade.ledger_desk.buy")
+	buy_ledger_desk_button.disabled = not GameState.can_purchase_ledger_desk_upgrade()
 
 
 func _show_abnormal_event(event_text: String) -> void:

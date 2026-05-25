@@ -2,7 +2,7 @@
   "id": "oddity_0006",
   "display_name": "Black Wax Candle",
   "rarity": "common",
-  "danger_level": 1,
+  "danger_level": 3,
   "visual_theme": [
     "antique",
     "cursed",
@@ -14,29 +14,29 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Black Wax Candle.",
+    "description": "A black chapel candle whose wick gives off heat without flame and smells faintly of signed names.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "Melt lines run upward toward the wick instead of down the candle."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light reveals thumbprints circling the base like a congregation."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
+        "result": "The candle grows hotter after the lamp is turned away.",
         "temperature_c": 38.6
       }
     ],
     "correct_handling": "discard",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If preserved or sold, the wick lights whenever a name is spoken near the shop."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 20,
+    "sell_value": 45,
+    "seal_cost": 15
   },
   "generation": {
     "status": "local_prototype",

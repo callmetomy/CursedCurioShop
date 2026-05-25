@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var customer_risk_hint: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerRiskHint"
 @onready var shop_ledger_title: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerTitle"
 @onready var shop_ledger_body: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ShopLedgerBody"
+@onready var progression_status: Label = $"../HUD/ShopLedgerPanel/ShopLedgerContent/ProgressionStatus"
 @onready var result_detail_panel: PanelContainer = $"../HUD/ResultDetailPanel"
 @onready var result_detail_title: Label = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailTitle"
 @onready var result_detail_body: Label = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody"
@@ -42,6 +43,7 @@ func _update_shop_hud() -> void:
 	customer_risk_hint.text = str(customer_brief.get("risk_hint", Localization.text("fallback.risk_hint")))
 	shop_ledger_title.text = Localization.text("ui.shop_ledger")
 	shop_ledger_body.text = GameState.get_shop_ledger()
+	progression_status.text = GameState.get_progression_status_text()
 	_update_result_detail_panel()
 
 

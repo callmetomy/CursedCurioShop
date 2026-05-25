@@ -14,29 +14,29 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A local prototype oddity: Glass Eye.",
+    "description": "A polished glass prosthetic eye in a surgeon's case, unsettling but carefully catalogued.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Fine scratches form a deliberate appraisal mark."
+        "result": "The maker's mark is intact and the tiny iris scratches are from medical fitting tools."
       },
       {
         "tool": "uv_lamp",
-        "result": "A hidden blue mark appears under UV light."
+        "result": "UV light shows a clean serial number, not a ritual mark."
       },
       {
         "tool": "thermometer",
-        "result": "The reading is inconsistent with the room.",
-        "temperature_c": 4.2
+        "result": "The eye stays close to room temperature even after being handled.",
+        "temperature_c": 21.4
       }
     ],
     "correct_handling": "sell",
-    "wrong_handling_consequence": "A minor abnormal event is queued for the shop."
+    "wrong_handling_consequence": "If hidden away, the legitimate buyer cancels and rumors spread that the shop destroys harmless antiques."
   },
   "economy": {
-    "base_value": 50,
-    "sell_value": 75,
-    "seal_cost": 20
+    "base_value": 90,
+    "sell_value": 140,
+    "seal_cost": 50
   },
   "generation": {
     "status": "local_prototype",

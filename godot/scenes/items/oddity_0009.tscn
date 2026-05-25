@@ -6,20 +6,30 @@
 script = ExtResource("1_script")
 item_id = "oddity_0009"
 display_name = "Cracked Hand Mirror"
-description = "A local prototype oddity: Cracked Hand Mirror."
+description = "A cracked dressing-room hand mirror whose silver backing has peeled into the shape of a second face."
 model_path = "res://assets/models_processed/oddity_0009.glb"
 correct_handling = "discard"
-magnifier_clue = "Fine scratches form a deliberate appraisal mark."
-uv_clue = "A hidden blue mark appears under UV light."
-thermometer_clue = "The reading is inconsistent with the room."
+magnifier_clue = "The central crack splits the reflected face before it splits the glass."
+uv_clue = "UV light shows no maker's mark, only a second eye where the backing has lifted."
+thermometer_clue = "The mirror reaches room temperature only when its face is covered."
 thermometer_c = 18.9
-sell_value = 75
+sell_value = 60
 seal_cost = 20
-wrong_event_text = "A minor abnormal event is queued for the shop."
+wrong_event_text = "If kept intact, a second reflection remains after the mirror is covered."
 use_fallback_material = true
 fallback_material_color = Color(0.34, 0.45, 0.52, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
+material_tint_enabled = false
+material_tint_color = Color(1.0, 1.0, 1.0, 1.0)
+material_tint_roughness = 0.88
 accent_marker_enabled = true
 accent_marker_color = Color(0.85, 0.15, 0.22, 1.0)
+wear_decal_enabled = false
+wear_decal_texture_path = ""
+wear_decal_size = Vector3(0.24, 0.16, 0.16)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 

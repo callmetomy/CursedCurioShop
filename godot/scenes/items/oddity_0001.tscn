@@ -13,11 +13,13 @@ magnifier_clue = "Hairline cracks form a faint spiral around the bowl."
 uv_clue = "A hidden ring-shaped mark glows blue near the rim."
 thermometer_clue = "The cup reads far below room temperature."
 thermometer_c = -7.4
-sell_value = 75
-seal_cost = 20
+sell_value = 85
+seal_cost = 25
 wrong_event_text = "If sold, the buyer returns with frostbite and the shop loses reputation."
 use_fallback_material = false
 fallback_material_color = Color(0.72, 0.62, 0.48, 1.0)
+fallback_material_metallic = 0
+fallback_material_roughness = 0.78
 material_tint_enabled = true
 material_tint_color = Color(0.62, 0.52, 0.38, 1.0)
 material_tint_roughness = 0.94
@@ -26,6 +28,8 @@ accent_marker_color = Color(0.15, 0.72, 1.0, 1.0)
 wear_decal_enabled = true
 wear_decal_texture_path = "res://assets/textures/cursed_teacup_decal.png"
 wear_decal_size = Vector3(0.28, 0.16, 0.18)
+wear_decal_normal_axis = "z"
+initial_rotation_degrees = Vector3(0.0, 0.0, 0.0)
 
 [node name="ModelRoot" type="Node3D" parent="."]
 
