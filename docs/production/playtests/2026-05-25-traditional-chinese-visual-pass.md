@@ -1,8 +1,8 @@
 # 繁體中文視覺檢查紀錄
 
 日期：2026-05-25
-測試者：Codex
-版本：本機工作樹，Windows 匯出已於 2026-05-25 刷新
+執行者：Codex
+範圍：繁體中文 UI、十日流程、Windows 匯出前檢查
 
 ## 驗證指令
 
@@ -12,15 +12,15 @@ godot --headless --path godot --script res://tools/smoke_three_day_flow.gd
 godot --path godot --script res://tools/capture_traditional_chinese_review.gd
 ```
 
-注意：截圖工具需要非 headless Godot，因為 headless 模式使用 dummy renderer，無法讀取 viewport texture。
+截圖指令必須使用非 headless Godot；headless renderer 無法提供可用的 viewport texture。
 
-## 截圖範圍
+## 檢查尺寸
 
-- `1152x648`：對應目前 Codex/Godot debug 視窗常見檢查尺寸。
-- `1280x720`：標準 16:9 桌面尺寸。
-- 狀態：商店顧客備註、商店鑑定結果詳情、一般日結結果、最終流程總結。
+- `1152x648`：接近 Codex/Godot debug 視窗常用比例。
+- `1280x720`：標準 16:9 檢查比例。
+- 檢查狀態：顧客備註、鑑定結果詳情、日結算結果、最終流程總結。
 
-## 截圖證據
+## 截圖
 
 ![shop_customer_brief-1152x648](screenshots/shop_customer_brief-1152x648.png)
 ![shop_result_detail-1152x648](screenshots/shop_result_detail-1152x648.png)
@@ -31,14 +31,14 @@ godot --path godot --script res://tools/capture_traditional_chinese_review.gd
 ![day_result-1280x720](screenshots/day_result-1280x720.png)
 ![final_summary-1280x720](screenshots/final_summary-1280x720.png)
 
-## 結論
+## 結果
 
-- 通過：商店顧客備註與店鋪帳本沒有超出面板。
-- 通過：鑑定結果詳情能顯示異物、決策、結果、現金、聲望與後果，兩個尺寸都沒有超出面板。
-- 通過：一般日結文字位於半透明文字底板內，按鈕與文字分區清楚。
-- 通過：九天最終流程總結在 `1152x648` 與 `1280x720` 都沒有文字超框或按鈕遮住文字，並正確顯示 `9/9` 與裂紋手鏡結果。
-- 保留觀察：結果面板按鈕目前接近 ledger 下緣，但沒有遮擋內容。若後續文案變長，優先縮短最後紀錄文字或增加結果面板高度。
+- 通過：店鋪顧客備註與店鋪帳本在兩個檢查尺寸都沒有文字超框。
+- 通過：鑑定結果詳情的異物、決策、現金、聲望、後果欄位可讀，按鈕沒有遮住文字。
+- 通過：日結算結果維持在中央 ledger 框內，文字沒有壓到按鈕。
+- 通過：十天最終流程總結在 `1152x648` 與 `1280x720` 都沒有文字超框或按鈕遮住文字，並正確顯示 `10/10` 與紅線軸結果。
+- 通過：返回選單按鈕維持在面板底部安全區，與摘要文字保持間距。
 
 ## 下一步
 
-下一個建議切片是把 `oddity_0010` 納入可玩日程，先擴充到十天流程並補齊繁中視覺檢查，再決定是否關閉完整 MVP 佇列。
+十日 MVP 佇列已完整納入可玩流程。下一個建議切片是做完整十日平衡 playtest，檢查現金、聲望、線索可讀性與每一天的決策難度，再決定是否進入新奇物批次或店鋪成長系統。

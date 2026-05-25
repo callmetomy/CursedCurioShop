@@ -35,6 +35,13 @@ It loads the current day's oddity scene through `GameState`:
 Day 1: res://scenes/items/oddity_0001.tscn
 Day 2: res://scenes/items/oddity_0002.tscn
 Day 3: res://scenes/items/oddity_0003.tscn
+Day 4: res://scenes/items/oddity_0004.tscn
+Day 5: res://scenes/items/oddity_0005.tscn
+Day 6: res://scenes/items/oddity_0006.tscn
+Day 7: res://scenes/items/oddity_0007.tscn
+Day 8: res://scenes/items/oddity_0008.tscn
+Day 9: res://scenes/items/oddity_0009.tscn
+Day 10: res://scenes/items/oddity_0010.tscn
 ```
 
 All ten MVP oddity scenes can be regenerated from `data/items/*.json` with:
@@ -59,7 +66,7 @@ The first-person shop prototype is `res://scenes/shop_prototype.tscn`.
 
 Use WASD to move, mouse look to turn, and `E` to enter the inspection table from the shop floor. Use `Back to Shop` from the inspection table to return.
 
-The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoload. `Next Day` advances the run until the nine-day prototype loop completes.
+The shop HUD shows Day, Cash, and Reputation from the shared `GameState` autoload. `Next Day` advances the run until the ten-day prototype loop completes.
 
 The shop HUD also shows the current day's customer note and risk hint before inspection. Together with the decision consequence reports and final run summary, this is the first post-MVP customer presentation slice: it gives the oddity a source and pressure context without adding character models or new asset dependencies.
 
@@ -85,7 +92,7 @@ The latest verified local export wrote:
 ../exports/windows/CursedCurioShop.exe
 ```
 
-The latest local export was refreshed after the nine-day `oddity_0009` playable schedule pass on 2026-05-25.
+The latest local export was refreshed after the ten-day `oddity_0010` playable schedule pass on 2026-05-25.
 
 ## Visual Review Capture
 
