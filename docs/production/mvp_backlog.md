@@ -31,9 +31,10 @@
 ## Phase 4: Demo Slice
 
 - Done: Ten approved oddities.
-- Done: Three-day loop.
+- Done: Four-day loop.
 - Done: One scripted abnormal event.
 - Done: One bad ending.
 - Done: Main menu.
 - Done: Windows export.
 - Done: Manual three-day demo playtest passed.
+- Done: Automated four-day smoke flow passed.

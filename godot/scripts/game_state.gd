@@ -1,11 +1,12 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
 	"oddity_0003": "res://scenes/items/oddity_0003.tscn",
+	"oddity_0004": "res://scenes/items/oddity_0004.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -22,6 +23,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Estate Executor",
 		"body": "This music box played during the inventory, though no key was wound.",
 		"risk_hint": "Risk hint: self-playing mechanism",
+	},
+	"oddity_0004": {
+		"title": "Customer Note: Night Porter",
+		"body": "A brass key arrived from a locked cellar door, cold enough to numb the envelope.",
+		"risk_hint": "Risk hint: room-temperature mismatch",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -40,10 +46,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer reports music from an empty nursery after midnight.",
 		"discard": "The music box is removed quietly",
 	},
+	"oddity_0004": {
+		"seal": "The porter reports that the cellar door stays shut and the key stops frosting.",
+		"sell": "The buyer says every lock in the house clicks open at 3:04.",
+		"discard": "The key returns under the shop mat with a new layer of ice.",
+	},
 }
 
 var current_day := 1
-var max_days := 3
+var max_days := 4
 var cash := 100
 var reputation := 50
 var handled_reports := []

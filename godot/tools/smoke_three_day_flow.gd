@@ -1,7 +1,7 @@
 extends SceneTree
 
-const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003"]
-const CORRECT_DECISIONS := ["seal", "seal", "discard"]
+const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004"]
+const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal"]
 
 
 func _init() -> void:
@@ -20,7 +20,7 @@ func _run() -> void:
 	game_state.call("start_new_run")
 	await _verify_correct_three_day_flow()
 
-	print("Three-day demo smoke flow passed")
+	print("Four-day demo smoke flow passed")
 	quit(0)
 
 

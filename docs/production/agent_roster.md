@@ -79,7 +79,7 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Started the first post-MVP customer presentation slice with daily customer notes in the shop HUD.
 - Done: Added lightweight consequence reports after each decision, so the loop has narrative feedback without requiring visible customer characters yet.
 - Done: Added a compact end-of-run summary that lists handled oddity count, final cash, final reputation, and the last consequence report.
-- Done: Added a simple three-day ledger in the shop scene after returning from each day, so the player can review prior decisions before continuing.
+- Done: Added a simple run ledger in the shop scene after returning from each day, so the player can review prior decisions before continuing.
 - Done: Added a small risk hint to the customer note panel so each day has a clearer player hypothesis before inspection.
 - Done: Improved 1152x648 HUD safe areas by moving appraisal notes away from centered readouts and giving the shop ledger/customer panels more vertical room.
 - Done: Refreshed the local Windows export after the HUD safe-area pass.
@@ -88,5 +88,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Split result panel text and button areas with a semi-transparent text plate, reducing overlap risk in the Traditional Chinese review layout.
 - Done: Captured and recorded a Traditional Chinese visual pass at `1152x648` and `1280x720`.
 - Done: Added a reviewable result-detail panel in the shop so players can inspect each handled oddity's decision, outcome, cash delta, reputation delta, and consequence.
-- Next recommended implementation slice: promote `oddity_0004` into the playable schedule as a four-day loop, then rerun the Traditional Chinese visual pass before expanding further.
+- Done: Promoted `oddity_0004` into the playable schedule as a four-day loop and reran the Traditional Chinese visual pass.
+- Next recommended implementation slice: promote `oddity_0005` into the playable schedule as a five-day loop, then rerun smoke and visual checks before expanding further.
 - Keep tuning inspection readability as issues appear during playtest, and expand the playable queue one oddity at a time.

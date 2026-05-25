@@ -41,4 +41,4 @@ godot --path godot --script res://tools/capture_traditional_chinese_review.gd
 
 ## 下一步
 
-下一個建議切片是把 `oddity_0004` 納入可玩日程，先擴充到四天流程並補齊繁中視覺檢查，再決定是否一次推進到 10 件異物。
+下一個建議切片是把 `oddity_0005` 納入可玩日程，先擴充到五天流程並補齊繁中視覺檢查，再決定是否繼續逐件擴充。
