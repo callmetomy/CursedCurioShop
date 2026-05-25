@@ -1,7 +1,7 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
@@ -9,6 +9,7 @@ const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0004": "res://scenes/items/oddity_0004.tscn",
 	"oddity_0005": "res://scenes/items/oddity_0005.tscn",
 	"oddity_0006": "res://scenes/items/oddity_0006.tscn",
+	"oddity_0007": "res://scenes/items/oddity_0007.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -40,6 +41,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Chapel Caretaker",
 		"body": "A black candle was found burning cold beside an unused chapel register.",
 		"risk_hint": "Risk hint: heat mismatch, unsafe resale",
+	},
+	"oddity_0007": {
+		"title": "Customer Note: Boarding School Matron",
+		"body": "A cloth doll was found in a dormitory trunk, wrapped in shed fabric scraps.",
+		"risk_hint": "Risk hint: cold nursery trace, containment advised",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -73,10 +79,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer says the candle lights itself whenever a name is spoken.",
 		"discard": "The candle collapses into harmless wax after the wick is pinched out.",
 	},
+	"oddity_0007": {
+		"seal": "The sealed doll stops shedding fabric after the latch is tied shut.",
+		"sell": "The buyer reports loose threads spelling names across a nursery wall.",
+		"discard": "The doll is found sitting upright in the waste bin after closing.",
+	},
 }
 
 var current_day := 1
-var max_days := 6
+var max_days := 7
 var cash := 100
 var reputation := 50
 var handled_reports := []
