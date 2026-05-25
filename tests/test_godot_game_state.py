@@ -12,14 +12,14 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("[autoload]", project)
         self.assertIn('GameState="*res://scripts/game_state.gd"', project)
 
-    def test_game_state_tracks_eight_day_loop_cash_and_reputation(self):
+    def test_game_state_tracks_nine_day_loop_cash_and_reputation(self):
         script = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
             encoding="utf-8"
         )
 
         self.assertIn("extends Node", script)
         self.assertIn("var current_day := 1", script)
-        self.assertIn("var max_days := 8", script)
+        self.assertIn("var max_days := 9", script)
         self.assertIn("var cash := 100", script)
         self.assertIn("var reputation := 50", script)
         self.assertIn("func start_new_run", script)
@@ -27,12 +27,12 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("func advance_day", script)
         self.assertIn("func is_run_complete", script)
 
-    def test_game_state_maps_eight_days_to_demo_oddities(self):
+    def test_game_state_maps_nine_days_to_demo_oddities(self):
         script = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
             encoding="utf-8"
         )
 
-        self.assertIn('const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008"]', script)
+        self.assertIn('const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009"]', script)
         self.assertIn("func get_current_item_id", script)
         self.assertIn("func get_current_item_scene_path", script)
         self.assertIn('res://scenes/items/oddity_0002.tscn', script)
@@ -42,6 +42,7 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('res://scenes/items/oddity_0006.tscn', script)
         self.assertIn('res://scenes/items/oddity_0007.tscn', script)
         self.assertIn('res://scenes/items/oddity_0008.tscn', script)
+        self.assertIn('res://scenes/items/oddity_0009.tscn', script)
 
     def test_shop_and_inspection_use_game_state(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
@@ -126,7 +127,7 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('Localization.text("ui.result_detail_empty")', game_state)
         self.assertIn('Localization.text("decision.%s" % decision)', game_state)
 
-    def test_shop_shows_eight_day_ledger_from_handled_reports(self):
+    def test_shop_shows_nine_day_ledger_from_handled_reports(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
             encoding="utf-8"
         )
@@ -182,14 +183,14 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("offset_left = -400.0\noffset_top = 24.0\noffset_right = -24.0\noffset_bottom = 210.0", shop_scene)
         self.assertIn("offset_left = 24.0\noffset_top = 24.0\noffset_right = 376.0\noffset_bottom = 58.0", shop_scene)
 
-    def test_eight_day_demo_smoke_script_exercises_core_flow(self):
+    def test_nine_day_demo_smoke_script_exercises_core_flow(self):
         script_path = ROOT / "godot" / "tools" / "smoke_three_day_flow.gd"
         self.assertTrue(script_path.exists())
 
         script = script_path.read_text(encoding="utf-8")
         self.assertIn('load("res://scenes/inspection_table.tscn") as PackedScene', script)
-        self.assertIn('const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008"]', script)
-        self.assertIn('const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal"]', script)
+        self.assertIn('const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009"]', script)
+        self.assertIn('const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "discard"]', script)
         self.assertIn("_resolve_decision", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn('_game_state().get("current_day")', script)

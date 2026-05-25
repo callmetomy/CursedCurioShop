@@ -1,7 +1,7 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
@@ -11,6 +11,7 @@ const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0006": "res://scenes/items/oddity_0006.tscn",
 	"oddity_0007": "res://scenes/items/oddity_0007.tscn",
 	"oddity_0008": "res://scenes/items/oddity_0008.tscn",
+	"oddity_0009": "res://scenes/items/oddity_0009.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -52,6 +53,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Funeral Director",
 		"body": "A silver bell was found inside a sealed coffin drawer that should have been empty.",
 		"risk_hint": "Risk hint: burial chime, containment advised",
+	},
+	"oddity_0009": {
+		"title": "Customer Note: Theatre Widow",
+		"body": "A cracked hand mirror was recovered from a dressing room that reflects applause after midnight.",
+		"risk_hint": "Risk hint: split reflection, discard advised",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -95,10 +101,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer hears a funeral procession outside every locked window.",
 		"discard": "The bell rings from the rubbish crate whenever the shop goes quiet.",
 	},
+	"oddity_0009": {
+		"seal": "The sealed mirror fogs from the inside and keeps showing another room.",
+		"sell": "The buyer reports their reflection leaving the room before they do.",
+		"discard": "The broken mirror darkens and stops reflecting anything after disposal.",
+	},
 }
 
 var current_day := 1
-var max_days := 8
+var max_days := 9
 var cash := 100
 var reputation := 50
 var handled_reports := []

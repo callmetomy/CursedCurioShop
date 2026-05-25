@@ -93,5 +93,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Promoted `oddity_0006` into the playable schedule as a six-day loop and reran the core smoke checks.
 - Done: Promoted `oddity_0007` into the playable schedule as a seven-day loop and reran the core smoke checks.
 - Done: Promoted `oddity_0008` into the playable schedule as an eight-day loop and reran the core smoke checks.
-- Next recommended implementation slice: promote `oddity_0009` into the playable schedule as a nine-day loop, then rerun smoke and visual checks before expanding further.
+- Done: Promoted `oddity_0009` into the playable schedule as a nine-day loop and reran the core smoke checks.
+- Next recommended implementation slice: promote `oddity_0010` into the playable schedule as a ten-day loop, then rerun smoke and visual checks before closing the full MVP queue.
 - Keep tuning inspection readability as issues appear during playtest, and expand the playable queue one oddity at a time.
