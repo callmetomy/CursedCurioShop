@@ -1,7 +1,7 @@
 extends SceneTree
 
-const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004"]
-const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal"]
+const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005"]
+const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell"]
 
 
 func _init() -> void:
@@ -18,9 +18,9 @@ func _run() -> void:
 	await _verify_shop_customer_brief()
 	await _verify_wrong_teacup_sale_path()
 	game_state.call("start_new_run")
-	await _verify_correct_three_day_flow()
+	await _verify_correct_demo_flow()
 
-	print("Four-day demo smoke flow passed")
+	print("Five-day demo smoke flow passed")
 	quit(0)
 
 
@@ -67,7 +67,7 @@ func _verify_wrong_teacup_sale_path() -> void:
 	await process_frame
 
 
-func _verify_correct_three_day_flow() -> void:
+func _verify_correct_demo_flow() -> void:
 	for day_index: int in EXPECTED_ITEMS.size():
 		var table := await _instantiate_inspection_table()
 		var expected_item_id: String = EXPECTED_ITEMS[day_index]

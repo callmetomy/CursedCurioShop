@@ -1,12 +1,13 @@
 extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
-const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004"]
+const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
 	"oddity_0002": "res://scenes/items/oddity_0002.tscn",
 	"oddity_0003": "res://scenes/items/oddity_0003.tscn",
 	"oddity_0004": "res://scenes/items/oddity_0004.tscn",
+	"oddity_0005": "res://scenes/items/oddity_0005.tscn",
 }
 const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0001": {
@@ -28,6 +29,11 @@ const DAILY_CUSTOMER_BRIEFS := {
 		"title": "Customer Note: Night Porter",
 		"body": "A brass key arrived from a locked cellar door, cold enough to numb the envelope.",
 		"risk_hint": "Risk hint: room-temperature mismatch",
+	},
+	"oddity_0005": {
+		"title": "Customer Note: Retired Surgeon",
+		"body": "A glass eye was found staring upward inside a sealed instrument case.",
+		"risk_hint": "Risk hint: safe resale, watchful object",
 	},
 }
 const DAILY_CONSEQUENCE_REPORTS := {
@@ -51,10 +57,15 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"sell": "The buyer says every lock in the house clicks open at 3:04.",
 		"discard": "The key returns under the shop mat with a new layer of ice.",
 	},
+	"oddity_0005": {
+		"seal": "The sealed case keeps tapping from the inside until the courier leaves.",
+		"sell": "The buyer reports that the eye stays quiet once placed in a display case.",
+		"discard": "The glass eye rolls back under the counter before closing time.",
+	},
 }
 
 var current_day := 1
-var max_days := 4
+var max_days := 5
 var cash := 100
 var reputation := 50
 var handled_reports := []

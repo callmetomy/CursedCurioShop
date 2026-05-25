@@ -89,5 +89,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Captured and recorded a Traditional Chinese visual pass at `1152x648` and `1280x720`.
 - Done: Added a reviewable result-detail panel in the shop so players can inspect each handled oddity's decision, outcome, cash delta, reputation delta, and consequence.
 - Done: Promoted `oddity_0004` into the playable schedule as a four-day loop and reran the Traditional Chinese visual pass.
-- Next recommended implementation slice: promote `oddity_0005` into the playable schedule as a five-day loop, then rerun smoke and visual checks before expanding further.
+- Done: Promoted `oddity_0005` into the playable schedule as a five-day loop and reran the core smoke checks.
+- Next recommended implementation slice: promote `oddity_0006` into the playable schedule as a six-day loop, then rerun smoke and visual checks before expanding further.
 - Keep tuning inspection readability as issues appear during playtest, and expand the playable queue one oddity at a time.

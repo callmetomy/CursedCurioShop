@@ -63,7 +63,7 @@ class GodotLocalizationTests(unittest.TestCase):
             "consequence.oddity_0001.sell",
             "ending.frost_sale.title",
         ]
-        for item_id in ["oddity_0002", "oddity_0003", "oddity_0004"]:
+        for item_id in ["oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005"]:
             required_keys.extend(
                 [
                     f"item.{item_id}.display_name",

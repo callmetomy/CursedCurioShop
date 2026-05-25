@@ -27,7 +27,7 @@ The player is not a hero with a weapon. They are the last person willing to touc
 - One shop interior
 - Ten oddities
 - Three inspection tools
-- Four in-game days
+- Five in-game days
 - One bad ending
 - Basic main menu and build export
 
