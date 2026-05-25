@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var inspection_scene_path := "res://scenes/inspection_table.tscn"
 
 @onready var camera: Camera3D = $Camera3D
+@onready var prompt_label: Label = $"../HUD/Prompt"
 @onready var run_status: Label = $"../HUD/RunStatus"
 @onready var customer_brief_title: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerBriefTitle"
 @onready var customer_brief_body: Label = $"../HUD/CustomerBriefPanel/CustomerBriefContent/CustomerBriefBody"
@@ -21,17 +22,18 @@ func _ready() -> void:
 
 
 func _update_shop_hud() -> void:
-	run_status.text = "Day %d/%d | Cash %d | Reputation %d" % [
+	prompt_label.text = Localization.text("ui.inspect_prompt")
+	run_status.text = Localization.format_text("ui.run_status", [
 		GameState.current_day,
 		GameState.max_days,
 		GameState.cash,
 		GameState.reputation,
-	]
+	])
 	var customer_brief: Dictionary = GameState.get_current_customer_brief()
-	customer_brief_title.text = str(customer_brief.get("title", "Customer Note"))
-	customer_brief_body.text = str(customer_brief.get("body", "A customer is waiting for an appraisal."))
-	customer_risk_hint.text = str(customer_brief.get("risk_hint", "Risk hint: unknown"))
-	shop_ledger_title.text = GameState.SHOP_LEDGER_TITLE
+	customer_brief_title.text = str(customer_brief.get("title", Localization.text("fallback.customer_note")))
+	customer_brief_body.text = str(customer_brief.get("body", Localization.text("fallback.customer_body")))
+	customer_risk_hint.text = str(customer_brief.get("risk_hint", Localization.text("fallback.risk_hint")))
+	shop_ledger_title.text = Localization.text("ui.shop_ledger")
 	shop_ledger_body.text = GameState.get_shop_ledger()
 
 

@@ -10,6 +10,14 @@ Use `Start Day` to enter the first-person shop prototype.
 
 Starting a day resets the current prototype run to Day 1, Cash 100, Reputation 50.
 
+Runtime text is routed through `res://scripts/localization.gd`. The current playable demo supports:
+
+```text
+en, ja, ko, es, pt, ru, zh_CN, zh_TW
+```
+
+The default locale is `zh_TW`, so local review builds show Traditional Chinese UI, item information, customer notes, consequence reports, and run summaries unless the locale is changed in code.
+
 The local MVP UI and material asset pack is generated under:
 
 ```text
@@ -77,7 +85,21 @@ The latest verified local export wrote:
 ../exports/windows/CursedCurioShop.exe
 ```
 
-The latest local export was refreshed after the customer note HUD and bad-ending overlay fixes on 2026-05-24.
+The latest local export was refreshed after the Traditional Chinese result panel text/button separation pass on 2026-05-25.
+
+## Visual Review Capture
+
+Use the Traditional Chinese visual capture script after HUD layout changes:
+
+```powershell
+godot --path godot --script res://tools/capture_traditional_chinese_review.gd
+```
+
+This must run without `--headless`; the headless renderer cannot provide viewport screenshots. The script writes review PNGs to:
+
+```text
+../docs/production/playtests/screenshots/
+```
 
 ## Model Viewer
 

@@ -80,7 +80,12 @@ func get_current_item_scene_path() -> String:
 
 
 func get_current_customer_brief() -> Dictionary:
-	return DAILY_CUSTOMER_BRIEFS.get(get_current_item_id(), DAILY_CUSTOMER_BRIEFS["oddity_0001"])
+	var item_id := get_current_item_id()
+	return {
+		"title": Localization.text("customer.%s.title" % item_id),
+		"body": Localization.text("customer.%s.body" % item_id),
+		"risk_hint": Localization.text("customer.%s.risk_hint" % item_id),
+	}
 
 
 func get_current_consequence_report(decision: String) -> String:
@@ -88,7 +93,11 @@ func get_current_consequence_report(decision: String) -> String:
 		get_current_item_id(),
 		DAILY_CONSEQUENCE_REPORTS["oddity_0001"]
 	)
-	return str(item_reports.get(decision, "The customer files the appraisal note without comment."))
+	var key := "consequence.%s.%s" % [get_current_item_id(), decision]
+	var translated := Localization.text(key)
+	if translated == key:
+		return str(item_reports.get(decision, Localization.text("fallback.consequence")))
+	return translated
 
 
 func record_decision_result(item_id: String, decision: String, outcome: String, consequence_report: String) -> void:
@@ -102,28 +111,32 @@ func record_decision_result(item_id: String, decision: String, outcome: String, 
 
 func get_run_summary() -> String:
 	var lines := [
-		"Run Summary",
-		"Handled: %d/%d oddities" % [handled_reports.size(), max_days],
-		"Final Cash: %d" % cash,
-		"Final Reputation: %d" % reputation,
+		Localization.text("ui.run_summary"),
+		Localization.format_text("ui.handled_count", [handled_reports.size(), max_days]),
+		Localization.format_text("ui.final_cash", [cash]),
+		Localization.format_text("ui.final_reputation", [reputation]),
 	]
 	if not handled_reports.is_empty():
 		var strongest_report: Dictionary = handled_reports[handled_reports.size() - 1]
-		lines.append("Last: %s" % strongest_report.get("consequence_report", "No consequence recorded."))
+		lines.append(Localization.format_text(
+			"ui.last_report",
+			[strongest_report.get("consequence_report", Localization.text("ui.no_consequence"))]
+		))
 	return "\n".join(lines)
 
 
 func get_shop_ledger() -> String:
 	if handled_reports.is_empty():
-		return "No appraisals filed yet."
+		return Localization.text("ui.no_appraisals")
 	var lines: Array[String] = []
 	for index in handled_reports.size():
 		var report: Dictionary = handled_reports[index]
-		lines.append(
-			"Day %d: %s -> %s" % [
+		lines.append(Localization.format_text(
+			"ui.ledger_entry",
+			[
 				index + 1,
 				report.get("item_id", "unknown"),
 				report.get("decision", "unknown"),
 			]
-		)
+		))
 	return "\n".join(lines)

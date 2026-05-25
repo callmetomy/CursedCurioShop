@@ -169,23 +169,34 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_update_appraisal_notes", script)
         self.assertIn("_short_note_for_tool", script)
         self.assertIn('discovered_tools[TOOL_MAGNIFIER] = true', script)
-        self.assertIn('"- Mag: %s"', script)
-        self.assertIn('"- UV: %s"', script)
-        self.assertIn('"- Temp: %s"', script)
+        self.assertIn('Localization.text("ui.appraisal_notes")', script)
+        self.assertIn('Localization.format_text("ui.note_mag"', script)
+        self.assertIn('Localization.format_text("ui.note_uv"', script)
+        self.assertIn('Localization.format_text("ui.note_temp"', script)
 
-    def test_appraisal_notes_are_readable_without_dominating_item_view(self):
+    def test_appraisal_notes_use_right_side_safe_area(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"
         )
 
-        self.assertIn("offset_left = -330.0", scene)
-        self.assertIn("offset_top = 108.0", scene)
-        self.assertIn("offset_right = -28.0", scene)
-        self.assertIn("offset_bottom = 248.0", scene)
+        self.assertIn("offset_left = -344.0", scene)
+        self.assertIn("offset_top = 204.0", scene)
+        self.assertIn("offset_right = -24.0", scene)
+        self.assertIn("offset_bottom = 356.0", scene)
         self.assertIn("theme_override_font_sizes/font_size = 14", scene)
         self.assertIn("theme_override_colors/font_color = Color(0.06, 0.045, 0.03, 1)", scene)
         self.assertIn("theme_override_constants/line_spacing = 4", scene)
         self.assertIn("modulate = Color(0.92, 0.84, 0.66, 0.93)", scene)
+
+    def test_ledger_textures_scale_instead_of_tiling(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]', scene)
+        self.assertIn("offset_left = -344.0\noffset_top = 204.0\noffset_right = -24.0\noffset_bottom = 356.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
+        self.assertIn('[node name="DayResultBackground" type="TextureRect" parent="HUD"]', scene)
+        self.assertIn("offset_left = -270.0\noffset_top = -150.0\noffset_right = 270.0\noffset_bottom = 150.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
@@ -232,16 +243,25 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn('[node name="DayResultPanel" type="VBoxContainer" parent="HUD"]', scene)
+        self.assertIn('[sub_resource type="StyleBoxFlat" id="StyleBox_result_text_panel"]', scene)
         self.assertIn('path="res://assets/ui/panel_ledger.png"', scene)
         self.assertIn('path="res://assets/ui/button_brass.png"', scene)
         self.assertIn('[node name="DayResultBackground" type="TextureRect" parent="HUD"]', scene)
-        self.assertIn('[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
-        self.assertIn('[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
-        self.assertIn('[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
-        self.assertIn('[node name="ConsequenceReportLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
-        self.assertIn('[node name="RunSummaryLabel" type="Label" parent="HUD/DayResultPanel"]', scene)
-        self.assertIn('[node name="NextDayButton" type="Button" parent="HUD/DayResultPanel"]', scene)
+        self.assertIn('[node name="ResultTextPanel" type="PanelContainer" parent="HUD/DayResultPanel"]', scene)
+        self.assertIn('[node name="ResultTextContent" type="VBoxContainer" parent="HUD/DayResultPanel/ResultTextPanel"]', scene)
+        self.assertIn('[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="ConsequenceReportLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="RunSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="ResultButtonPanel" type="MarginContainer" parent="HUD/DayResultPanel"]', scene)
+        self.assertIn('[node name="NextDayButton" type="Button" parent="HUD/DayResultPanel/ResultButtonPanel"]', scene)
         self.assertIn('text = "Next Day"', scene)
+        self.assertIn("theme_override_styles/panel = SubResource(\"StyleBox_result_text_panel\")", scene)
+        self.assertIn("theme_override_constants/margin_bottom = 16", scene)
+        self.assertIn("custom_minimum_size = Vector2(420, 170)", scene)
+        self.assertIn("custom_minimum_size = Vector2(400, 44)", scene)
+        self.assertIn("custom_minimum_size = Vector2(400, 72)", scene)
 
     def test_inspection_table_script_updates_day_result_after_decision(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
@@ -265,11 +285,14 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("GameState.record_decision_result", script)
         self.assertIn("GameState.get_current_consequence_report", script)
         self.assertIn("GameState.get_run_summary", script)
+        self.assertIn("_set_inspection_controls_visible(false)", script)
+        self.assertIn("consequence_report_label.visible = not GameState.is_run_complete()", script)
+        self.assertIn("run_summary_label.visible = GameState.is_run_complete()", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn("_on_back_to_shop_pressed", script)
         self.assertIn("_update_next_day_button_label", script)
-        self.assertIn('next_day_button.text = "Return to Menu"', script)
-        self.assertIn('next_day_button.text = "Next Day"', script)
+        self.assertIn('next_day_button.text = Localization.text("ui.return_to_menu")', script)
+        self.assertIn('next_day_button.text = Localization.text("ui.next_day")', script)
         self.assertIn("shop_scene_path", script)
 
     def test_inspection_table_scene_has_abnormal_event_and_bad_ending_panels(self):
@@ -314,6 +337,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         )
 
         self.assertIn("func _set_gameplay_hud_visible(is_visible: bool) -> void:", script)
+        self.assertIn("func _set_inspection_controls_visible(is_visible: bool) -> void:", script)
         self.assertIn("_show_bad_ending(wrong_event_text)", script)
         self.assertIn("_set_active_tool(TOOL_NONE)", script)
         self.assertIn("_set_gameplay_hud_visible(false)", script)
@@ -323,7 +347,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("abnormal_event_panel.visible = false", script)
         self.assertIn("bad_ending_background.visible = true", script)
         self.assertIn("bad_ending_card.visible = true", script)
-        self.assertIn('ending_body.text = "%s\\n\\nCash: %d | Reputation: %d"', script)
+        self.assertIn('Localization.format_text("ui.final_cash"', script)
+        self.assertIn('Localization.format_text("ui.final_reputation"', script)
         self.assertIn("tool_panel.visible = is_visible", script)
         self.assertIn("decision_panel.visible = is_visible", script)
         self.assertIn("appraisal_notes_background.visible = is_visible", script)

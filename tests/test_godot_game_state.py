@@ -100,9 +100,9 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("handled_reports.clear()", game_state)
         self.assertIn("func record_decision_result", game_state)
         self.assertIn("func get_run_summary", game_state)
-        self.assertIn('"Run Summary"', game_state)
-        self.assertIn('"Final Cash: %d"', game_state)
-        self.assertIn('"Final Reputation: %d"', game_state)
+        self.assertIn('Localization.text("ui.run_summary")', game_state)
+        self.assertIn('Localization.format_text("ui.final_cash"', game_state)
+        self.assertIn('Localization.format_text("ui.final_reputation"', game_state)
 
     def test_shop_shows_three_day_ledger_from_handled_reports(self):
         shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
@@ -117,13 +117,22 @@ class GodotGameStateTests(unittest.TestCase):
 
         self.assertIn("func get_shop_ledger", game_state)
         self.assertIn('"Shop Ledger"', game_state)
-        self.assertIn('"No appraisals filed yet."', game_state)
+        self.assertIn('Localization.text("ui.no_appraisals")', game_state)
         self.assertIn('[node name="ShopLedgerPanel" type="PanelContainer" parent="HUD"]', shop_scene)
         self.assertIn('[node name="ShopLedgerTitle" type="Label" parent="HUD/ShopLedgerPanel/ShopLedgerContent"]', shop_scene)
         self.assertIn('[node name="ShopLedgerBody" type="Label" parent="HUD/ShopLedgerPanel/ShopLedgerContent"]', shop_scene)
         self.assertIn("shop_ledger_title", controller)
         self.assertIn("shop_ledger_body", controller)
         self.assertIn("GameState.get_shop_ledger", controller)
+
+    def test_shop_hud_panels_use_1152_safe_areas(self):
+        shop_scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("offset_left = 24.0\noffset_top = 72.0\noffset_right = 376.0\noffset_bottom = 238.0", shop_scene)
+        self.assertIn("offset_left = -400.0\noffset_top = 24.0\noffset_right = -24.0\noffset_bottom = 210.0", shop_scene)
+        self.assertIn("offset_left = 24.0\noffset_top = 24.0\noffset_right = 376.0\noffset_bottom = 58.0", shop_scene)
 
     def test_three_day_demo_smoke_script_exercises_core_flow(self):
         script_path = ROOT / "godot" / "tools" / "smoke_three_day_flow.gd"

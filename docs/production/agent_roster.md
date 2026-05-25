@@ -81,6 +81,11 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Added a compact end-of-run summary that lists handled oddity count, final cash, final reputation, and the last consequence report.
 - Done: Added a simple three-day ledger in the shop scene after returning from each day, so the player can review prior decisions before continuing.
 - Done: Added a small risk hint to the customer note panel so each day has a clearer player hypothesis before inspection.
-- Validate the refreshed Windows export and confirm the customer note panel, risk hint, result report panel, final run summary, and shop ledger read cleanly.
-- Next recommended implementation slice: improve visual safe areas for the right-side appraisal notes and shop HUD panels at 1152x648 and common 16:9 desktop sizes.
+- Done: Improved 1152x648 HUD safe areas by moving appraisal notes away from centered readouts and giving the shop ledger/customer panels more vertical room.
+- Done: Refreshed the local Windows export after the HUD safe-area pass.
+- Done: Added a Godot localization layer for `en`, `ja`, `ko`, `es`, `pt`, `ru`, `zh_CN`, and `zh_TW`; review builds now default to Traditional Chinese for visible demo UI and item information.
+- Done: Tightened the final-day result panel so the run summary fits inside the ledger frame and duplicate consequence text is hidden on the final day.
+- Done: Split result panel text and button areas with a semi-transparent text plate, reducing overlap risk in the Traditional Chinese review layout.
+- Done: Captured and recorded a Traditional Chinese visual pass at `1152x648` and `1280x720`.
+- Next recommended implementation slice: add a reviewable result-detail path so players can inspect each handled oddity's decision and consequence after the day result.
 - Keep tuning inspection readability as issues appear during playtest, but do not expand the playable queue until the customer presentation loop is readable.

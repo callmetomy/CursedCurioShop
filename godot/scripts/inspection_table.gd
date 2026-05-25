@@ -15,12 +15,12 @@ extends Node3D
 @onready var decision_result: Label = $HUD/DecisionResult
 @onready var day_result_panel: VBoxContainer = $HUD/DayResultPanel
 @onready var day_result_background: TextureRect = $HUD/DayResultBackground
-@onready var outcome_label: Label = $HUD/DayResultPanel/OutcomeLabel
-@onready var value_label: Label = $HUD/DayResultPanel/ValueLabel
-@onready var reputation_label: Label = $HUD/DayResultPanel/ReputationLabel
-@onready var consequence_report_label: Label = $HUD/DayResultPanel/ConsequenceReportLabel
-@onready var run_summary_label: Label = $HUD/DayResultPanel/RunSummaryLabel
-@onready var next_day_button: Button = $HUD/DayResultPanel/NextDayButton
+@onready var outcome_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/OutcomeLabel
+@onready var value_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ValueLabel
+@onready var reputation_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ReputationLabel
+@onready var consequence_report_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel
+@onready var run_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel
+@onready var next_day_button: Button = $HUD/DayResultPanel/ResultButtonPanel/NextDayButton
 @onready var back_to_shop_button: Button = $HUD/BackToShopButton
 @onready var decision_panel: HBoxContainer = $HUD/DecisionPanel
 @onready var abnormal_event_panel: VBoxContainer = $HUD/AbnormalEventPanel
@@ -28,6 +28,7 @@ extends Node3D
 @onready var bad_ending_background: ColorRect = $HUD/BadEndingBackground
 @onready var bad_ending_card: PanelContainer = $HUD/BadEndingCard
 @onready var bad_ending_panel: VBoxContainer = $HUD/BadEndingCard/BadEndingPanel
+@onready var ending_title: Label = $HUD/BadEndingCard/BadEndingPanel/EndingTitle
 @onready var ending_body: Label = $HUD/BadEndingCard/BadEndingPanel/EndingBody
 @onready var return_to_menu_button: Button = $HUD/BadEndingCard/BadEndingPanel/ReturnToMenuButton
 @onready var uv_lamp: SpotLight3D = $UVLamp
@@ -72,6 +73,7 @@ var discovered_tools := {
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	_apply_localized_static_text()
 	_load_current_day_item()
 	magnifier_button.pressed.connect(_on_magnifier_pressed)
 	uv_lamp_button.pressed.connect(_on_uv_lamp_pressed)
@@ -90,6 +92,19 @@ func _ready() -> void:
 	abnormal_event_panel.visible = false
 	bad_ending_background.visible = false
 	bad_ending_card.visible = false
+
+
+func _apply_localized_static_text() -> void:
+	back_to_shop_button.text = Localization.text("ui.back_to_shop")
+	magnifier_button.text = Localization.text("ui.magnifier")
+	uv_lamp_button.text = Localization.text("ui.uv_lamp")
+	thermometer_button.text = Localization.text("ui.thermometer")
+	sell_button.text = Localization.text("ui.sell")
+	seal_button.text = Localization.text("ui.seal")
+	discard_button.text = Localization.text("ui.discard")
+	next_day_button.text = Localization.text("ui.next_day")
+	return_to_menu_button.text = Localization.text("ui.return_to_menu")
+	ending_title.text = Localization.text("ending.frost_sale.title")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -240,35 +255,38 @@ func _resolve_decision(decision: String) -> void:
 	var correct_handling := _get_current_correct_handling()
 	var display_name := _get_current_display_name()
 	if decision == correct_handling:
-		decision_result.text = "Correct: %s is handled safely." % display_name
-		_show_day_result("Correct handling", _get_decision_value_delta(decision), 5, decision)
+		decision_result.text = Localization.format_text("ui.correct_result", [display_name])
+		_show_day_result(Localization.text("outcome.correct"), _get_decision_value_delta(decision), 5, decision)
 		abnormal_event_panel.visible = false
 		bad_ending_card.visible = false
 	else:
-		decision_result.text = "Wrong: %s should be %s, not %s." % [display_name, correct_handling, decision]
+		decision_result.text = Localization.format_text("ui.wrong_result", [display_name, correct_handling, decision])
 		var wrong_event_text := _get_current_wrong_event_text()
 		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
-			_show_day_result("Cursed sale", _get_current_sell_value(), -15, decision)
+			_show_day_result(Localization.text("outcome.cursed_sale"), _get_current_sell_value(), -15, decision)
 			_show_bad_ending(wrong_event_text)
 		elif decision == "discard":
 			_show_abnormal_event(wrong_event_text)
-			_show_day_result("Uncontained discard", 0, -8, decision)
+			_show_day_result(Localization.text("outcome.uncontained_discard"), 0, -8, decision)
 		else:
 			_show_abnormal_event(wrong_event_text)
-			_show_day_result("Bad appraisal", 0, -10, decision)
+			_show_day_result(Localization.text("outcome.bad_appraisal"), 0, -10, decision)
 
 
 func _show_day_result(outcome: String, value_delta: int, reputation_delta: int, decision: String) -> void:
 	GameState.apply_result(value_delta, reputation_delta)
+	_set_active_tool(TOOL_NONE)
+	_set_inspection_controls_visible(false)
 	day_result_background.visible = true
 	day_result_panel.visible = true
 	_update_next_day_button_label()
 	outcome_label.text = outcome
-	value_label.text = "Cash: %+d" % value_delta
-	reputation_label.text = "Reputation: %+d" % reputation_delta
+	value_label.text = Localization.format_text("ui.cash_delta", [value_delta])
+	reputation_label.text = Localization.format_text("ui.reputation_delta", [reputation_delta])
 	var consequence_report: String = GameState.get_current_consequence_report(decision)
 	consequence_report_label.text = consequence_report
 	GameState.record_decision_result(GameState.get_current_item_id(), decision, outcome, consequence_report)
+	consequence_report_label.visible = not GameState.is_run_complete()
 	run_summary_label.visible = GameState.is_run_complete()
 	run_summary_label.text = GameState.get_run_summary() if GameState.is_run_complete() else ""
 
@@ -287,10 +305,10 @@ func _show_bad_ending(event_text: String) -> void:
 	abnormal_event_panel.visible = false
 	bad_ending_background.visible = true
 	bad_ending_card.visible = true
-	ending_body.text = "%s\n\nCash: %d | Reputation: %d" % [
+	ending_body.text = "%s\n\n%s | %s" % [
 		event_text,
-		GameState.cash,
-		GameState.reputation,
+		Localization.format_text("ui.final_cash", [GameState.cash]),
+		Localization.format_text("ui.final_reputation", [GameState.reputation]),
 	]
 
 
@@ -298,6 +316,10 @@ func _set_gameplay_hud_visible(is_visible: bool) -> void:
 	item_name_label.visible = is_visible
 	item_description_label.visible = is_visible
 	back_to_shop_button.visible = is_visible
+	_set_inspection_controls_visible(is_visible)
+
+
+func _set_inspection_controls_visible(is_visible: bool) -> void:
 	tool_panel.visible = is_visible
 	decision_panel.visible = is_visible
 	appraisal_notes_background.visible = is_visible
@@ -318,9 +340,9 @@ func _set_gameplay_hud_visible(is_visible: bool) -> void:
 
 func _update_next_day_button_label() -> void:
 	if GameState.is_run_complete():
-		next_day_button.text = "Return to Menu"
+		next_day_button.text = Localization.text("ui.return_to_menu")
 	else:
-		next_day_button.text = "Next Day"
+		next_day_button.text = Localization.text("ui.next_day")
 
 
 func _get_current_correct_handling() -> String:
@@ -335,14 +357,16 @@ func _get_current_correct_handling() -> String:
 func _get_current_display_name() -> String:
 	if current_item == null:
 		return GameState.get_current_item_id()
+	var item_id: String = str(current_item.get("item_id"))
 	var item_display_name: Variant = current_item.get("display_name")
+	var fallback := GameState.get_current_item_id()
 	if item_display_name is String and not item_display_name.is_empty():
-		return item_display_name
-	return GameState.get_current_item_id()
+		fallback = item_display_name
+	return Localization.item_text(item_id, "display_name", fallback)
 
 
 func _get_current_description() -> String:
-	return _get_current_string_property("description", "")
+	return _get_current_localized_item_property("description", "")
 
 
 func _update_item_labels() -> void:
@@ -351,7 +375,7 @@ func _update_item_labels() -> void:
 
 
 func _update_tool_readouts() -> void:
-	thermometer_readout.text = "Temperature: %.1f C" % _get_current_temperature_c()
+	thermometer_readout.text = Localization.format_text("ui.temperature", [_get_current_temperature_c()])
 	tool_clue_readout.text = _get_current_tool_clue(active_tool)
 
 
@@ -371,10 +395,10 @@ func _remember_tool_clue(tool_name: String) -> void:
 
 
 func _update_appraisal_notes() -> void:
-	var lines := ["Appraisal Notes"]
-	lines.append("- Mag: %s" % _short_note_for_tool(TOOL_MAGNIFIER))
-	lines.append("- UV: %s" % _short_note_for_tool(TOOL_UV_LAMP))
-	lines.append("- Temp: %s" % _short_note_for_tool(TOOL_THERMOMETER))
+	var lines := [Localization.text("ui.appraisal_notes")]
+	lines.append(Localization.format_text("ui.note_mag", [_short_note_for_tool(TOOL_MAGNIFIER)]))
+	lines.append(Localization.format_text("ui.note_uv", [_short_note_for_tool(TOOL_UV_LAMP)]))
+	lines.append(Localization.format_text("ui.note_temp", [_short_note_for_tool(TOOL_THERMOMETER)]))
 	appraisal_notes_label.text = "\n".join(lines)
 
 
@@ -411,7 +435,7 @@ func _get_current_tool_clue(tool_name: String) -> String:
 		property_name = "thermometer_clue"
 	else:
 		return ""
-	return _get_current_string_property(property_name, "")
+	return _get_current_localized_item_property(property_name, "")
 
 
 func _get_current_temperature_c() -> float:
@@ -427,10 +451,18 @@ func _get_current_seal_cost() -> int:
 
 
 func _get_current_wrong_event_text() -> String:
-	return _get_current_string_property(
+	return _get_current_localized_item_property(
 		"wrong_event_text",
-		"%s disturbs the shop after the bad appraisal." % _get_current_display_name()
+		Localization.format_text("fallback.wrong_event", [_get_current_display_name()])
 	)
+
+
+func _get_current_localized_item_property(property_name: String, fallback: String) -> String:
+	if current_item == null:
+		return fallback
+	var item_id: String = str(current_item.get("item_id"))
+	var item_fallback := _get_current_string_property(property_name, fallback)
+	return Localization.item_text(item_id, property_name, item_fallback)
 
 
 func _get_decision_value_delta(decision: String) -> int:

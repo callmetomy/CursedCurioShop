@@ -126,16 +126,16 @@ text = "Press E to inspect the waiting oddity"
 anchors_preset = 0
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 360.0
+offset_right = 376.0
 offset_bottom = 58.0
 text = "Day 1/3 | Cash 100 | Reputation 50"
 
 [node name="ShopLedgerPanel" type="PanelContainer" parent="HUD"]
 anchors_preset = 0
 offset_left = 24.0
-offset_top = 66.0
-offset_right = 360.0
-offset_bottom = 174.0
+offset_top = 72.0
+offset_right = 376.0
+offset_bottom = 238.0
 theme_override_styles/panel = SubResource("StyleBox_customer_brief")
 
 [node name="ShopLedgerContent" type="VBoxContainer" parent="HUD/ShopLedgerPanel"]
@@ -158,10 +158,10 @@ text = "No appraisals filed yet."
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -420.0
+offset_left = -400.0
 offset_top = 24.0
 offset_right = -24.0
-offset_bottom = 178.0
+offset_bottom = 210.0
 theme_override_styles/panel = SubResource("StyleBox_customer_brief")
 
 [node name="CustomerBriefContent" type="VBoxContainer" parent="HUD/CustomerBriefPanel"]
