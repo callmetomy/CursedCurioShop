@@ -171,5 +171,24 @@ class GodotLocalizationTests(unittest.TestCase):
             self.assertIn(f'"{key}"', zh_tw_block)
 
 
+    def test_localization_contains_daily_pressure_summary_text(self):
+        localization = (ROOT / "godot" / "scripts" / "localization.gd").read_text(
+            encoding="utf-8"
+        )
+
+        required_keys = [
+            "daily_pressure.stable",
+            "daily_pressure.strained",
+            "daily_pressure.critical",
+        ]
+        en_block = self._locale_block(localization, "en")
+        zh_tw_block = self._locale_block(localization, "zh_TW")
+        self.assertIn("After: Cash %d / Reputation %d / Pressure: %s", en_block)
+        self.assertIn("壓力：%s", zh_tw_block)
+        for key in required_keys:
+            self.assertIn(f'"{key}"', en_block)
+            self.assertIn(f'"{key}"', zh_tw_block)
+
+
 if __name__ == "__main__":
     unittest.main()

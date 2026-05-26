@@ -352,6 +352,9 @@ func record_decision_result(
 		"consequence_key": consequence_key,
 		"value_delta": value_delta,
 		"reputation_delta": reputation_delta,
+		"cash_after": cash,
+		"reputation_after": reputation,
+		"pressure_key": get_daily_pressure_key(reputation),
 	})
 
 
@@ -395,6 +398,9 @@ func get_result_detail(index: int) -> Dictionary:
 		_get_outcome_note_text(report),
 		value_delta,
 		reputation_delta,
+		int(report.get("cash_after", cash)),
+		int(report.get("reputation_after", reputation)),
+		_get_pressure_text(report),
 		_get_consequence_text(report),
 	])
 	return {
@@ -426,6 +432,14 @@ func get_outcome_note_key(item_id: String, decision: String, outcome_key: String
 	return "outcome_note.%s.%s" % [item_id, decision]
 
 
+func get_daily_pressure_key(reputation_after: int) -> String:
+	if reputation_after <= 35:
+		return "daily_pressure.critical"
+	if reputation_after <= 55:
+		return "daily_pressure.strained"
+	return "daily_pressure.stable"
+
+
 func _get_item_display_name(item_id: String) -> String:
 	return Localization.item_text(item_id, "display_name", item_id)
 
@@ -443,6 +457,14 @@ func _get_outcome_note_text(report: Dictionary) -> String:
 	if note_text == str(report.get("outcome_note_key", "")):
 		return Localization.text("outcome_note.none")
 	return note_text
+
+
+func _get_pressure_text(report: Dictionary) -> String:
+	var pressure_key := str(report.get("pressure_key", get_daily_pressure_key(reputation)))
+	var pressure_text := Localization.text(pressure_key)
+	if pressure_text == pressure_key:
+		return Localization.text("daily_pressure.strained")
+	return pressure_text
 
 
 func _all_onboarding_tools_used() -> bool:

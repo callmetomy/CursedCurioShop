@@ -214,6 +214,10 @@ func _verify_shop_ledger_after_decision(day_number: int) -> void:
 		_label_contains(shop, "HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", "後果"),
 		"Shop result detail should show the localized consequence label"
 	)
+	_assert(
+		_label_contains(shop, "HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", "壓力"),
+		"Shop result detail should show the post-decision pressure summary"
+	)
 	root.remove_child(shop)
 	shop.free()
 
