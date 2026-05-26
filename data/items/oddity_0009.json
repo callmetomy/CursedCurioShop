@@ -14,29 +14,29 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A cracked dressing-room hand mirror whose silver backing has peeled into the shape of a second face.",
+    "description": "A cracked dressing-room hand mirror whose second face stays behind the glass when covered.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "The central crack splits the reflected face before it splits the glass."
+        "result": "The central crack splits the reflected face, but the second face stays behind the glass."
       },
       {
         "tool": "uv_lamp",
-        "result": "UV light shows no maker's mark, only a second eye where the backing has lifted."
+        "result": "UV light shows no maker's mark, only a second eye caught under the lifted backing."
       },
       {
         "tool": "thermometer",
-        "result": "The mirror reaches room temperature only when its face is covered.",
+        "result": "Covering the mirror brings the cold spot back toward room temperature.",
         "temperature_c": 18.9
       }
     ],
-    "correct_handling": "discard",
-    "wrong_handling_consequence": "If kept intact, a second reflection remains after the mirror is covered."
+    "correct_handling": "seal",
+    "wrong_handling_consequence": "If sold or broken loose, a second reflection leaves the glass before its owner does."
   },
   "economy": {
     "base_value": 30,
     "sell_value": 60,
-    "seal_cost": 20
+    "seal_cost": 15
   },
   "generation": {
     "status": "local_prototype",

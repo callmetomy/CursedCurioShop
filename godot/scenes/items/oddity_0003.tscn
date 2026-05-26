@@ -6,12 +6,12 @@
 script = ExtResource("1_script")
 item_id = "oddity_0003"
 display_name = "Ashen Music Box"
-description = "A scorched music box whose cylinder clicks even when the lid is shut."
+description = "A scorched music box whose intact case keeps the tune alive even when the lid is shut."
 model_path = "res://assets/models_processed/oddity_0003.glb"
 correct_handling = "discard"
-magnifier_clue = "Ash is packed inside the comb teeth, but none has fallen onto the desk."
-uv_clue = "UV light shows the words 'play me home' burned into the underside of the lid."
-thermometer_clue = "The music box cools only while the cylinder is turning."
+magnifier_clue = "Ash is packed inside the comb teeth, but none falls loose until a tooth is lifted."
+uv_clue = "UV light shows the words 'break the song' burned into the underside of the lid."
+thermometer_clue = "The music box cools only while the cylinder turns inside the closed case."
 thermometer_c = 13.4
 sell_value = 55
 seal_cost = 25

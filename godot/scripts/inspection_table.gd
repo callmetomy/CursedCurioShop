@@ -23,6 +23,7 @@ extends Node3D
 @onready var progression_panel: PanelContainer = $HUD/DayResultPanel/ProgressionPanel
 @onready var progression_status_label: Label = $HUD/DayResultPanel/ProgressionPanel/ProgressionContent/ProgressionStatusLabel
 @onready var buy_ledger_desk_button: Button = $HUD/DayResultPanel/ProgressionPanel/ProgressionContent/BuyLedgerDeskButton
+@onready var buy_containment_cabinet_button: Button = $HUD/DayResultPanel/ProgressionPanel/ProgressionContent/BuyContainmentCabinetButton
 @onready var next_day_button: Button = $HUD/DayResultPanel/ResultButtonPanel/NextDayButton
 @onready var back_to_shop_button: Button = $HUD/BackToShopButton
 @onready var decision_panel: HBoxContainer = $HUD/DecisionPanel
@@ -86,6 +87,7 @@ func _ready() -> void:
 	discard_button.pressed.connect(_on_discard_pressed)
 	next_day_button.pressed.connect(_on_next_day_pressed)
 	buy_ledger_desk_button.pressed.connect(_on_buy_ledger_desk_pressed)
+	buy_containment_cabinet_button.pressed.connect(_on_buy_containment_cabinet_pressed)
 	back_to_shop_button.pressed.connect(_on_back_to_shop_pressed)
 	return_to_menu_button.pressed.connect(_on_return_to_menu_pressed)
 	_update_tool_readouts()
@@ -220,6 +222,12 @@ func _on_buy_ledger_desk_pressed() -> void:
 	_update_progression_panel()
 
 
+func _on_buy_containment_cabinet_pressed() -> void:
+	if GameState.purchase_containment_cabinet_upgrade():
+		run_summary_label.text = GameState.get_run_summary()
+	_update_progression_panel()
+
+
 func _toggle_tool(tool_name: String) -> void:
 	if bad_ending_card.visible:
 		return
@@ -317,6 +325,8 @@ func _update_progression_panel() -> void:
 	progression_status_label.text = GameState.get_progression_status_text()
 	buy_ledger_desk_button.text = Localization.text("upgrade.ledger_desk.buy")
 	buy_ledger_desk_button.disabled = not GameState.can_purchase_ledger_desk_upgrade()
+	buy_containment_cabinet_button.text = Localization.text("upgrade.containment_cabinet.buy")
+	buy_containment_cabinet_button.disabled = not GameState.can_purchase_containment_cabinet_upgrade()
 
 
 func _show_abnormal_event(event_text: String) -> void:
@@ -475,6 +485,10 @@ func _get_current_sell_value() -> int:
 
 
 func _get_current_seal_cost() -> int:
+	return GameState.get_effective_seal_cost(_get_current_base_seal_cost())
+
+
+func _get_current_base_seal_cost() -> int:
 	return _get_current_int_property("seal_cost", FALLBACK_SEAL_COST)
 
 

@@ -191,7 +191,7 @@ class GodotGameStateTests(unittest.TestCase):
         script = script_path.read_text(encoding="utf-8")
         self.assertIn('load("res://scenes/inspection_table.tscn") as PackedScene', script)
         self.assertIn('const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]', script)
-        self.assertIn('const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "discard", "sell"]', script)
+        self.assertIn('const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "seal", "sell"]', script)
         self.assertIn("_resolve_decision", script)
         self.assertIn("_on_next_day_pressed", script)
         self.assertIn('_game_state().get("current_day")', script)
@@ -202,6 +202,11 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("HUD/BadEndingCard/BadEndingPanel", script)
         self.assertIn("HUD/ResultDetailPanel", script)
         self.assertIn("HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", script)
+        self.assertIn("_verify_upgraded_second_run_economy", script)
+        self.assertIn("Upgraded second run should finish with discounted final cash", script)
+        self.assertIn("Upgraded second run should keep enough cash buffer", script)
+        self.assertIn("== 210", script)
+        self.assertIn(">= 35", script)
         self.assertIn("quit(0)", script)
 
 

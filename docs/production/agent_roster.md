@@ -99,5 +99,9 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Ran the internal ten-day balance pass, fixed the correct-route cash dip, and recorded the balance report in `docs/production/playtests/2026-05-25-ten-day-balance-pass.md`.
 - Done: Refreshed the local Windows export after the ten-day balance pass.
 - Done: Added the first shop progression slice: the Ledger Desk upgrade spends post-run cash, persists into the next run, and adds provenance notes to customer briefs.
-- Next recommended implementation slice: refresh the local Windows export after the Ledger Desk upgrade, then tune only if visual or smoke checks show regressions.
-- Keep tuning inspection readability as issues appear, then decide whether the next milestone is a second shop perk or new oddity content.
+- Done: Ran 3 agent players for the ten-day blind-test pass, then tuned Day 3, Day 4, and Day 9 readability.
+- Done: Added the second shop progression slice: Containment Cabinet spends post-run cash, persists into future runs, and reduces each future Seal cost by 5.
+- Done: Added upgraded second-run smoke validation for Final Cash 210, Final Reputation 100, and minimum cash buffer 35.
+- Done: Ran 3 agent players on the final progression panel and clarified upgrade copy for "each Seal" and future-run persistence.
+- Done: Refreshed Traditional Chinese screenshots and the local Windows export after the progression copy pass.
+- Next recommended slice: commit the current owner-approved demo baseline and keep `docs/production/demo_playtest_checklist.md` plus `docs/production/playtests/2026-05-26-real-player-playtest-kit.md` as optional later QA gates. Do not add another perk or new oddity batch until the baseline is preserved.

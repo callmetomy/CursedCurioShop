@@ -14,19 +14,19 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A scorched music box whose cylinder clicks even when the lid is shut.",
+    "description": "A scorched music box whose intact case keeps the tune alive even when the lid is shut.",
     "clues": [
       {
         "tool": "magnifier",
-        "result": "Ash is packed inside the comb teeth, but none has fallen onto the desk."
+        "result": "Ash is packed inside the comb teeth, but none falls loose until a tooth is lifted."
       },
       {
         "tool": "uv_lamp",
-        "result": "UV light shows the words 'play me home' burned into the underside of the lid."
+        "result": "UV light shows the words 'break the song' burned into the underside of the lid."
       },
       {
         "tool": "thermometer",
-        "result": "The music box cools only while the cylinder is turning.",
+        "result": "The music box cools only while the cylinder turns inside the closed case.",
         "temperature_c": 13.4
       }
     ],

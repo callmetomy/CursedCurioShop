@@ -29,15 +29,13 @@ Single-player 3D oddity appraisal shop game prototype built with Godot and an AI
 
 ## Near-Term Goal
 
-Build an asset factory MVP:
+Maintain a playable ten-day commercial demo slice:
 
-1. Generate an oddity definition.
-2. Generate a concept image.
-3. Generate a 3D model through Meshy.
-4. Process the model through Blender automation.
-5. Import it into Godot.
-6. Render review images.
-7. Approve, regenerate, or reject the asset.
+1. Run the ten-day Sell / Seal / Discard loop from `oddity_0001` through `oddity_0010`.
+2. Keep Traditional Chinese review screenshots current at `1152x648` and `1280x720`.
+3. Verify the final-day shop progression upgrades: Ledger Desk and Containment Cabinet.
+4. Refresh the local Windows export before each handoff.
+5. Record playtest findings under `docs/production/playtests/`.
 
 Do not commit API keys or downloaded private assets unless intentionally cleared for source control.
 
@@ -59,6 +57,24 @@ Run tests:
 
 ```powershell
 python -m unittest discover -s tests
+```
+
+Run the Godot ten-day smoke flow:
+
+```powershell
+godot --headless --path godot --script res://tools/smoke_three_day_flow.gd
+```
+
+Capture Traditional Chinese review screenshots:
+
+```powershell
+godot --path godot --script res://tools/capture_traditional_chinese_review.gd
+```
+
+Refresh the local Windows export:
+
+```powershell
+godot --headless --path godot --export-release "Windows Desktop" ..\exports\windows\CursedCurioShop.exe
 ```
 
 Create a sample oddity definition without calling paid APIs:

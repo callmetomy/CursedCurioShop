@@ -1,7 +1,7 @@
 extends SceneTree
 
 const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]
-const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "discard", "sell"]
+const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "seal", "sell"]
 
 
 func _init() -> void:
@@ -114,14 +114,25 @@ func _verify_correct_demo_flow() -> void:
 			await process_frame
 			_assert(bool(_game_state().get("ledger_desk_upgraded")), "Ledger desk upgrade should be purchased")
 			_assert(int(_game_state().get("cash")) == final_cash - 120, "Ledger desk upgrade should deduct cash")
+			_assert(bool(_game_state().call("can_purchase_containment_cabinet_upgrade")), "Remaining cash should afford the containment cabinet upgrade")
+			table.call("_on_buy_containment_cabinet_pressed")
+			await process_frame
+			_assert(bool(_game_state().get("containment_cabinet_upgraded")), "Containment cabinet upgrade should be purchased")
+			_assert(int(_game_state().get("cash")) == final_cash - 180, "Both shop upgrades should deduct cash")
 			_assert(
 				_label_contains(table, "HUD/DayResultPanel/ProgressionPanel/ProgressionContent/ProgressionStatusLabel", _localized("upgrade.ledger_desk.status_unlocked")),
 				"Progression panel should show the upgraded ledger desk status"
+			)
+			_assert(
+				_label_contains(table, "HUD/DayResultPanel/ProgressionPanel/ProgressionContent/ProgressionStatusLabel", _localized("upgrade.containment_cabinet.status_unlocked")),
+				"Progression panel should show the upgraded containment cabinet status"
 			)
 		table.queue_free()
 		await process_frame
 	_game_state().call("start_new_run")
 	await _verify_upgraded_customer_brief()
+	await _verify_discounted_seal_cost()
+	await _verify_upgraded_second_run_economy()
 
 
 func _verify_shop_ledger_after_decision(day_number: int) -> void:
@@ -168,6 +179,46 @@ func _verify_upgraded_customer_brief() -> void:
 	)
 	root.remove_child(shop)
 	shop.free()
+
+
+func _verify_discounted_seal_cost() -> void:
+	var table := await _instantiate_inspection_table()
+	_assert(int(table.call("_get_current_seal_cost")) == 20, "Containment cabinet should discount the Day 1 seal cost")
+	table.queue_free()
+	await process_frame
+
+
+func _verify_upgraded_second_run_economy() -> void:
+	var game_state := _game_state()
+	game_state.call("start_new_run")
+	_assert(bool(game_state.get("ledger_desk_upgraded")), "Ledger desk should persist into the upgraded second run")
+	_assert(bool(game_state.get("containment_cabinet_upgraded")), "Containment cabinet should persist into the upgraded second run")
+	var lowest_cash := int(game_state.get("cash"))
+
+	for day_index: int in EXPECTED_ITEMS.size():
+		var table := await _instantiate_inspection_table()
+		var expected_item_id: String = EXPECTED_ITEMS[day_index]
+		var expected_decision: String = CORRECT_DECISIONS[day_index]
+
+		_assert(game_state.get("current_day") == day_index + 1, "Upgraded second run should progress through all demo days")
+		_assert(_current_item_id(table) == expected_item_id, "Upgraded second run loaded the wrong oddity")
+		_assert(_current_correct_handling(table) == expected_decision, "Upgraded second run correct handling changed")
+
+		table.call("_resolve_decision", expected_decision)
+		await process_frame
+		lowest_cash = min(lowest_cash, int(game_state.get("cash")))
+
+		if day_index < EXPECTED_ITEMS.size() - 1:
+			table.call("_on_next_day_pressed")
+			await process_frame
+			_assert(game_state.get("current_day") == day_index + 2, "Upgraded second run should advance to the next day")
+
+		table.queue_free()
+		await process_frame
+
+	_assert(int(game_state.get("cash")) == 210, "Upgraded second run should finish with discounted final cash")
+	_assert(int(game_state.get("reputation")) == 100, "Upgraded second run should finish with perfect reputation")
+	_assert(lowest_cash >= 35, "Upgraded second run should keep enough cash buffer")
 
 
 func _instantiate_inspection_table() -> Node:

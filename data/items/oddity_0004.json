@@ -14,7 +14,7 @@
     "scale_meters": 0.35
   },
   "appraisal": {
-    "description": "A brass key with cellar grime packed into the bow and a tooth pattern that never quite repeats.",
+    "description": "A brass key with cellar grime packed into the bow, still pulling at a lock somewhere out of sight.",
     "clues": [
       {
         "tool": "magnifier",
@@ -22,11 +22,11 @@
       },
       {
         "tool": "uv_lamp",
-        "result": "UV light reveals a floor-plan line etched across the bow."
+        "result": "UV light reveals a cellar floor-plan line ending at a locked door."
       },
       {
         "tool": "thermometer",
-        "result": "The bow is colder than the shaft, as if the handle was left outside.",
+        "result": "The bow is colder than the shaft, as if a distant lock is drawing heat through it.",
         "temperature_c": -11.8
       }
     ],

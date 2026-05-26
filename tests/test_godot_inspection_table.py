@@ -196,7 +196,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="AppraisalNotesBackground" type="TextureRect" parent="HUD"]', scene)
         self.assertIn("offset_left = -344.0\noffset_top = 204.0\noffset_right = -24.0\noffset_bottom = 356.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
         self.assertIn('[node name="DayResultBackground" type="TextureRect" parent="HUD"]', scene)
-        self.assertIn("offset_left = -270.0\noffset_top = -190.0\noffset_right = 270.0\noffset_bottom = 190.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
+        self.assertIn("offset_left = -270.0\noffset_top = -220.0\noffset_right = 270.0\noffset_bottom = 160.0\ntexture = ExtResource(\"8_panel_ledger\")\nexpand_mode = 1\nstretch_mode = 0", scene)
 
     def test_inspection_table_scene_has_decision_buttons_and_result_label(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
@@ -258,10 +258,12 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="NextDayButton" type="Button" parent="HUD/DayResultPanel/ResultButtonPanel"]', scene)
         self.assertIn('text = "Next Day"', scene)
         self.assertIn("theme_override_styles/panel = SubResource(\"StyleBox_result_text_panel\")", scene)
-        self.assertIn("theme_override_constants/margin_bottom = 16", scene)
-        self.assertIn("custom_minimum_size = Vector2(420, 170)", scene)
+        self.assertIn("theme_override_constants/margin_bottom = 8", scene)
+        self.assertIn("custom_minimum_size = Vector2(420, 150)", scene)
         self.assertIn("custom_minimum_size = Vector2(400, 44)", scene)
-        self.assertIn("custom_minimum_size = Vector2(400, 72)", scene)
+        self.assertIn("custom_minimum_size = Vector2(400, 60)", scene)
+        self.assertIn("custom_minimum_size = Vector2(420, 96)", scene)
+        self.assertIn("custom_minimum_size = Vector2(400, 30)", scene)
 
     def test_inspection_table_script_updates_day_result_after_decision(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(

@@ -6,12 +6,12 @@
 script = ExtResource("1_script")
 item_id = "oddity_0004"
 display_name = "Cold Brass Key"
-description = "A brass key with cellar grime packed into the bow and a tooth pattern that never quite repeats."
+description = "A brass key with cellar grime packed into the bow, still pulling at a lock somewhere out of sight."
 model_path = "res://assets/models_processed/oddity_0004.glb"
 correct_handling = "seal"
 magnifier_clue = "The key teeth have fresh frost only on the cuts that would enter a lock first."
-uv_clue = "UV light reveals a floor-plan line etched across the bow."
-thermometer_clue = "The bow is colder than the shaft, as if the handle was left outside."
+uv_clue = "UV light reveals a cellar floor-plan line ending at a locked door."
+thermometer_clue = "The bow is colder than the shaft, as if a distant lock is drawing heat through it."
 thermometer_c = -11.8
 sell_value = 80
 seal_cost = 25

@@ -1,52 +1,85 @@
-# Demo 試玩檢查清單
+# Demo 真人盲測檢查清單
 
-本清單用於手動 Windows demo 試玩。請記錄實際觀察，不要記錄未驗證的設計猜測。
+本清單用於 2026-05-26 owner review build 之後的真人 Windows demo 盲測。請記錄實際觀察，不要替玩家解釋規則，也不要在測試中提示正確答案。
 
 ## 測試版本
 
-- Commit:
-- 匯出路徑: `exports/windows/CursedCurioShop.exe`
-- 自動 smoke 測試指令: `godot --headless --path godot --script res://tools/smoke_three_day_flow.gd`
+- Build: `exports/releases/CursedCurioShop-owner-review-2026-05-26-1051.zip`
+- Windows executable: `CursedCurioShop.exe`
+- SHA256: `A8EAF24C901E3B18CE518E745C67E8C2348444DF832A9C6B05BD38A0A42820B7`
 - 測試者:
-- 日期:
+- 測試日期:
+- 測試方式: 現場 / 遠端螢幕分享 / 錄影回放
+- 是否第一次玩本 demo: 是 / 否
 
-## 啟動流程
+## 測試規則
 
-- [ ] 遊戲可從匯出的 Windows 執行檔啟動。
+- [ ] 測試者不知道標準答案與設計意圖。
+- [ ] 測試者可以自由閱讀畫面與操作，但主持人不解釋 Sell / Seal / Discard 的正解。
+- [ ] 測試者遇到卡住時，先記錄卡住點，再決定是否提示。
+- [ ] 主持人記錄玩家口頭推理、誤解、猶豫點與不耐煩點。
+- [ ] 若測試者無法完成十日流程，記錄中止日數與原因。
+
+## 啟動與基本可用性
+
+- [ ] 遊戲可從 Windows 執行檔啟動。
 - [ ] 主選單顯示正常，沒有缺失貼圖、缺失字型或腳本錯誤。
-- [ ] Start 按鈕可進入可遊玩的商店場景。
+- [ ] Start 按鈕可進入商店場景。
+- [ ] 玩家能理解目前是古物鑑定與處置遊戲。
+- [ ] 玩家能找到每日顧客備註、工具線索與決策按鈕。
 
-## 三日流程
+## 十日流程觀察
 
-- [ ] Day 1 以 Cash 100 與 Reputation 50 開始。
-- [ ] 玩家可以從商店進入檢視桌。
-- [ ] 檢視桌會顯示目前異物的名稱與描述。
-- [ ] Magnifier、UV Lamp、Thermometer 都會產生可閱讀的線索文字。
-- [ ] Appraisal Notes 會保留已發現的工具線索。
-- [ ] Sell、Seal、Discard 按鈕可見且可使用。
-- [ ] 做出處置決策後，會開啟結果面板並顯示 cash / reputation 變化。
-- [ ] Back To Shop 可回到商店場景。
-- [ ] 最終日前，Next Day 會推進到下一個每日異物。
-- [ ] 最終日結果按鈕文字為 `Return to Menu`。
-- [ ] Day 3 結束後，Return To Menu 會回到主選單。
+請逐日記錄玩家第一判斷、最終選擇與推理理由。
 
-## 後果與結局
+| Day | Oddity | 玩家第一判斷 | 最終選擇 | 是否正確 | 主要推理 / 誤解 |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Whispering Teacup |  |  |  |  |
+| 2 | Mirror Coin |  |  |  |  |
+| 3 | Ashen Music Box |  |  |  |  |
+| 4 | Cold Brass Key |  |  |  |  |
+| 5 | Glass Eye |  |  |  |  |
+| 6 | Black Wax Candle |  |  |  |  |
+| 7 | Moth-Eaten Doll |  |  |  |  |
+| 8 | Silver Funeral Bell |  |  |  |  |
+| 9 | Cracked Hand Mirror |  |  |  |  |
+| 10 | Red Thread Spool |  |  |  |  |
 
-- [ ] 正確處置會產生比至少一種錯誤處置更好的結果。
-- [ ] 錯誤處置路徑可以觸發異常事件。
-- [ ] 低 reputation 可以進入 bad ending 路徑。
-- [ ] Cash 與 reputation 的變化在場景切換後仍保持可見。
+## 可讀性檢查
 
-## 可讀性紀錄
+- [ ] 顧客備註能讓玩家形成初步假設，但不會直接暴露答案。
+- [ ] Magnifier、UV Lamp、Thermometer 的線索文字可讀。
+- [ ] Appraisal Notes 能幫助玩家回顧已發現線索。
+- [ ] 玩家能理解 Sell / Seal / Discard 的差異。
+- [ ] 結果面板能清楚傳達 cash / reputation 變化。
+- [ ] 玩家能理解哪裡進入下一天。
+- [ ] 最終日能理解 `Return to Menu` 是結束本輪。
 
-每個問題請包含日數、異物 id、操作步驟、預期結果、實際結果，以及是否阻斷 demo 完成。
+## 經濟與升級檢查
 
-| ID | 嚴重度 | 日數 / 異物 | 問題 | 重現步驟 | 預期 | 實際 |
-| --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |  |
+- [ ] 玩家能注意到 Cash 與 Reputation。
+- [ ] 玩家能理解錯誤處置會帶來損失或風險。
+- [ ] 玩家能理解 Ledger Desk 是未來顧客備註加入來源線索。
+- [ ] 玩家能理解 Containment Cabinet 是後續輪次每次 Seal 成本降低 5。
+- [ ] 玩家能理解升級會保留到未來 run。
+- [ ] 最終結果頁沒有文字重疊、按鈕被擋住或資訊過載。
 
-## 通過結果
+## 問題紀錄
 
-- [ ] 通過：demo 可以在沒有阻斷問題的情況下完成。
-- [ ] 條件式通過：demo 可以完成，但分享前應先修正列出的問題。
-- [ ] 失敗：demo 目前無法完成。
+每個問題請包含日數、異物、操作步驟、預期結果、實際結果，以及是否阻斷 demo 完成。
+
+| ID | 嚴重度 | Day / Oddity | 問題 | 重現步驟 | 預期 | 實際 | 是否阻斷 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  |
+
+## 主持人結論
+
+- [ ] 通過：測試者可在沒有阻斷問題的情況下完成十日 demo，且能理解核心 loop。
+- [ ] 條件式通過：測試者可完成 demo，但分享前應先修正列出的可讀性或操作問題。
+- [ ] 失敗：測試者無法完成 demo，或核心規則無法被理解。
+
+## 測試後三問
+
+1. 你覺得這個遊戲主要在玩什麼？
+2. 哪一天或哪個古物最難判斷？為什麼？
+3. 你會不會想再跑一次，看看升級後有什麼差異？為什麼？

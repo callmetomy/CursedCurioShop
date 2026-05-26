@@ -147,7 +147,7 @@ class GodotItemSceneTests(unittest.TestCase):
         )
 
         self.assertIn(
-            'description = "A scorched music box whose cylinder clicks even when the lid is shut."',
+            'description = "A scorched music box whose intact case keeps the tune alive even when the lid is shut."',
             scene,
         )
         self.assertIn("fallback_material_color = Color(0.26, 0.18, 0.14, 1.0)", scene)

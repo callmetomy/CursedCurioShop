@@ -2,6 +2,8 @@ extends Node
 
 const SHOP_LEDGER_TITLE := "Shop Ledger"
 const LEDGER_DESK_UPGRADE_COST := 120
+const CONTAINMENT_CABINET_UPGRADE_COST := 60
+const CONTAINMENT_CABINET_SEAL_DISCOUNT := 5
 const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
@@ -29,12 +31,12 @@ const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0003": {
 		"title": "Customer Note: Estate Executor",
 		"body": "This music box played during the inventory, though no key was wound.",
-		"risk_hint": "Risk hint: self-playing mechanism",
+		"risk_hint": "Risk hint: intact case prolongs the tune",
 	},
 	"oddity_0004": {
 		"title": "Customer Note: Night Porter",
 		"body": "A brass key arrived from a locked cellar door, cold enough to numb the envelope.",
-		"risk_hint": "Risk hint: room-temperature mismatch",
+		"risk_hint": "Risk hint: remote lock movement",
 	},
 	"oddity_0005": {
 		"title": "Customer Note: Retired Surgeon",
@@ -59,7 +61,7 @@ const DAILY_CUSTOMER_BRIEFS := {
 	"oddity_0009": {
 		"title": "Customer Note: Theatre Widow",
 		"body": "A cracked hand mirror was recovered from a dressing room that reflects applause after midnight.",
-		"risk_hint": "Risk hint: split reflection, covered temperature",
+		"risk_hint": "Risk hint: covered glass holds the second face",
 	},
 	"oddity_0010": {
 		"title": "Customer Note: Matchmaker",
@@ -109,9 +111,9 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"discard": "The bell rings from the rubbish crate whenever the shop goes quiet.",
 	},
 	"oddity_0009": {
-		"seal": "The sealed mirror fogs from the inside and keeps showing another room.",
+		"seal": "The sealed mirror fogs once, then the second face stays behind the glass.",
 		"sell": "The buyer reports their reflection leaving the room before they do.",
-		"discard": "The broken mirror darkens and stops reflecting anything after disposal.",
+		"discard": "The broken mirror scatters a second eye across every shard.",
 	},
 	"oddity_0010": {
 		"seal": "The sealed spool keeps tying knots around the latch from inside the case.",
@@ -125,6 +127,7 @@ var max_days := 10
 var cash := 100
 var reputation := 50
 var ledger_desk_upgraded := false
+var containment_cabinet_upgraded := false
 var handled_reports := []
 
 
@@ -182,10 +185,35 @@ func purchase_ledger_desk_upgrade() -> bool:
 	return true
 
 
+func can_purchase_containment_cabinet_upgrade() -> bool:
+	return not containment_cabinet_upgraded and cash >= CONTAINMENT_CABINET_UPGRADE_COST
+
+
+func purchase_containment_cabinet_upgrade() -> bool:
+	if not can_purchase_containment_cabinet_upgrade():
+		return false
+	cash -= CONTAINMENT_CABINET_UPGRADE_COST
+	containment_cabinet_upgraded = true
+	return true
+
+
+func get_effective_seal_cost(base_cost: int) -> int:
+	if containment_cabinet_upgraded:
+		return max(5, base_cost - CONTAINMENT_CABINET_SEAL_DISCOUNT)
+	return base_cost
+
+
 func get_progression_status_text() -> String:
+	var lines: Array[String] = []
 	if ledger_desk_upgraded:
-		return Localization.text("upgrade.ledger_desk.status_unlocked")
-	return Localization.format_text("upgrade.ledger_desk.status_locked", [LEDGER_DESK_UPGRADE_COST])
+		lines.append(Localization.text("upgrade.ledger_desk.status_unlocked"))
+	else:
+		lines.append(Localization.format_text("upgrade.ledger_desk.status_locked", [LEDGER_DESK_UPGRADE_COST]))
+	if containment_cabinet_upgraded:
+		lines.append(Localization.text("upgrade.containment_cabinet.status_unlocked"))
+	else:
+		lines.append(Localization.format_text("upgrade.containment_cabinet.status_locked", [CONTAINMENT_CABINET_UPGRADE_COST, CONTAINMENT_CABINET_SEAL_DISCOUNT]))
+	return "\n".join(lines)
 
 
 func get_current_consequence_report(decision: String) -> String:
