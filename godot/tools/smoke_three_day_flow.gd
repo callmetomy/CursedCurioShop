@@ -20,6 +20,8 @@ func _run() -> void:
 	game_state.call("start_new_run")
 	await _verify_item_specific_wrong_outcome()
 	game_state.call("start_new_run")
+	await _verify_late_game_wrong_outcomes()
+	game_state.call("start_new_run")
 	await _verify_correct_demo_flow()
 
 	print("Ten-day demo smoke flow passed")
@@ -84,6 +86,36 @@ func _verify_item_specific_wrong_outcome() -> void:
 	_assert(int(game_state.get("cash")) == 135, "Day 2 wrong sale should use item-specific cash delta")
 	_assert(int(game_state.get("reputation")) == 38, "Day 2 wrong sale should use item-specific reputation delta")
 	table.queue_free()
+	await process_frame
+
+
+func _verify_late_game_wrong_outcomes() -> void:
+	var game_state := _game_state()
+	game_state.set("current_day", 8)
+	var bell_table := await _instantiate_inspection_table()
+	_assert(_current_item_id(bell_table) == "oddity_0008", "Late-game wrong outcome check should load the funeral bell")
+	bell_table.call("_resolve_decision", "sell")
+	await process_frame
+	_assert(_node_visible(bell_table, "HUD/DayResultPanel"), "Day 8 wrong sale should show the day result panel")
+	_assert(_node_visible(bell_table, "HUD/AbnormalEventPanel"), "Day 8 wrong sale should show an abnormal event")
+	_assert(not _node_visible(bell_table, "HUD/BadEndingCard"), "Day 8 wrong sale should not trigger the bad ending")
+	_assert(int(game_state.get("cash")) == 145, "Day 8 wrong sale should use late-game cash delta")
+	_assert(int(game_state.get("reputation")) == 36, "Day 8 wrong sale should use late-game reputation delta")
+	bell_table.queue_free()
+	await process_frame
+
+	game_state.call("start_new_run")
+	game_state.set("current_day", 10)
+	var thread_table := await _instantiate_inspection_table()
+	_assert(_current_item_id(thread_table) == "oddity_0010", "Late-game wrong outcome check should load the red thread spool")
+	thread_table.call("_resolve_decision", "discard")
+	await process_frame
+	_assert(_node_visible(thread_table, "HUD/DayResultPanel"), "Day 10 wrong discard should show the day result panel")
+	_assert(_node_visible(thread_table, "HUD/AbnormalEventPanel"), "Day 10 wrong discard should show an abnormal event")
+	_assert(not _node_visible(thread_table, "HUD/BadEndingCard"), "Day 10 wrong discard should not trigger the bad ending")
+	_assert(int(game_state.get("cash")) == 85, "Day 10 wrong discard should use late-game cash delta")
+	_assert(int(game_state.get("reputation")) == 38, "Day 10 wrong discard should use late-game reputation delta")
+	thread_table.queue_free()
 	await process_frame
 
 

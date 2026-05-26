@@ -142,6 +142,34 @@ const WRONG_DECISION_OUTCOMES := {
 		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -10, "bad_ending": false},
 		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": false},
 	},
+	"oddity_0004": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -9, "bad_ending": false},
+	},
+	"oddity_0005": {
+		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -20, "reputation_delta": -6, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -10, "reputation_delta": -12, "bad_ending": false},
+	},
+	"oddity_0006": {
+		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -20, "reputation_delta": -14, "bad_ending": false},
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 65, "reputation_delta": -18, "bad_ending": false},
+	},
+	"oddity_0007": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 40, "reputation_delta": -13, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -11, "bad_ending": false},
+	},
+	"oddity_0008": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 45, "reputation_delta": -14, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -10, "bad_ending": false},
+	},
+	"oddity_0009": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 60, "reputation_delta": -16, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -10, "reputation_delta": -13, "bad_ending": false},
+	},
+	"oddity_0010": {
+		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -9, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -15, "reputation_delta": -12, "bad_ending": false},
+	},
 }
 
 var current_day := 1
