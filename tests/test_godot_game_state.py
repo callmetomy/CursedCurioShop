@@ -111,6 +111,37 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('Localization.format_text("ui.final_cash"', game_state)
         self.assertIn('Localization.format_text("ui.final_reputation"', game_state)
 
+    def test_game_state_tracks_first_run_onboarding_without_clearing_upgrades(self):
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("var onboarding_completed := false", game_state)
+        self.assertIn('TOOL_MAGNIFIER: false', game_state)
+        self.assertIn('TOOL_UV_LAMP: false', game_state)
+        self.assertIn('TOOL_THERMOMETER: false', game_state)
+        self.assertIn("func start_new_run() -> void:", game_state)
+        self.assertIn("func _reset_current_run_state() -> void:", game_state)
+        self.assertIn("_reset_current_run_state()", game_state)
+        self.assertNotIn("func start_new_run() -> void:\n\tcurrent_day = 1", game_state)
+        self.assertNotIn("ledger_desk_upgraded = false\n\tcontainment_cabinet_upgraded = false\n\thandled_reports.clear()", game_state)
+
+    def test_game_state_exposes_progress_reset_and_onboarding_hint_api(self):
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("func reset_progress() -> void:", game_state)
+        self.assertIn("ledger_desk_upgraded = false", game_state)
+        self.assertIn("containment_cabinet_upgraded = false", game_state)
+        self.assertIn("onboarding_completed = false", game_state)
+        self.assertIn("func record_onboarding_tool_used(tool_name: String) -> void:", game_state)
+        self.assertIn("func get_onboarding_hint_key() -> String:", game_state)
+        self.assertIn('return "tutorial.inspect_magnifier"', game_state)
+        self.assertIn('return "tutorial.inspect_uv"', game_state)
+        self.assertIn('return "tutorial.inspect_temperature"', game_state)
+        self.assertIn('return "tutorial.choose_handling"', game_state)
+
     def test_game_state_exposes_reviewable_result_details(self):
         game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
             encoding="utf-8"

@@ -17,7 +17,9 @@ class GodotShopProgressionTests(unittest.TestCase):
         self.assertIn("func purchase_ledger_desk_upgrade() -> bool:", game_state)
         self.assertIn("cash -= LEDGER_DESK_UPGRADE_COST", game_state)
         self.assertIn("ledger_desk_upgraded = true", game_state)
-        self.assertNotIn("ledger_desk_upgraded = false", game_state)
+        self.assertIn("func reset_progress() -> void:", game_state)
+        self.assertIn("ledger_desk_upgraded = false", game_state)
+        self.assertIn("func start_new_run() -> void:\n\t_reset_current_run_state()", game_state)
 
     def test_game_state_tracks_containment_cabinet_upgrade_across_new_runs(self):
         game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
@@ -33,7 +35,9 @@ class GodotShopProgressionTests(unittest.TestCase):
         self.assertIn("containment_cabinet_upgraded = true", game_state)
         self.assertIn("func get_effective_seal_cost(base_cost: int) -> int:", game_state)
         self.assertIn("max(5, base_cost - CONTAINMENT_CABINET_SEAL_DISCOUNT)", game_state)
-        self.assertNotIn("containment_cabinet_upgraded = false", game_state)
+        self.assertIn("func reset_progress() -> void:", game_state)
+        self.assertIn("containment_cabinet_upgraded = false", game_state)
+        self.assertIn("func start_new_run() -> void:\n\t_reset_current_run_state()", game_state)
 
     def test_upgraded_ledger_adds_provenance_to_customer_briefs(self):
         game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(

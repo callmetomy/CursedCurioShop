@@ -174,6 +174,22 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('Localization.format_text("ui.note_uv"', script)
         self.assertIn('Localization.format_text("ui.note_temp"', script)
 
+    def test_inspection_table_has_non_blocking_onboarding_panel(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="OnboardingPanel" type="PanelContainer" parent="HUD"]', scene)
+        self.assertIn('[node name="OnboardingHintLabel" type="Label" parent="HUD/OnboardingPanel"]', scene)
+        self.assertIn("onboarding_panel", script)
+        self.assertIn("onboarding_hint_label", script)
+        self.assertIn("GameState.get_onboarding_hint_key()", script)
+        self.assertIn("GameState.record_onboarding_tool_used(tool_name)", script)
+        self.assertIn("_update_onboarding_hint()", script)
+
     def test_appraisal_notes_use_right_side_safe_area(self):
         scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
             encoding="utf-8"

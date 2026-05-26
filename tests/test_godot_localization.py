@@ -106,6 +106,22 @@ class GodotLocalizationTests(unittest.TestCase):
         self.assertIn("Localization.item_text", table_script)
         self.assertIn("Localization.text", game_state)
 
+    def test_localization_contains_demo_completeness_pass_text(self):
+        localization = (ROOT / "godot" / "scripts" / "localization.gd").read_text(
+            encoding="utf-8"
+        )
+
+        required_keys = [
+            "ui.reset_progress",
+            "tutorial.inspect_magnifier",
+            "tutorial.inspect_uv",
+            "tutorial.inspect_temperature",
+            "tutorial.choose_handling",
+        ]
+        for key in required_keys:
+            self.assertIn(f'"{key}"', self._locale_block(localization, "en"))
+            self.assertIn(f'"{key}"', self._locale_block(localization, "zh_TW"))
+
 
 if __name__ == "__main__":
     unittest.main()

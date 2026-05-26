@@ -4,6 +4,9 @@ const SHOP_LEDGER_TITLE := "Shop Ledger"
 const LEDGER_DESK_UPGRADE_COST := 120
 const CONTAINMENT_CABINET_UPGRADE_COST := 60
 const CONTAINMENT_CABINET_SEAL_DISCOUNT := 5
+const TOOL_MAGNIFIER := "magnifier"
+const TOOL_UV_LAMP := "uv_lamp"
+const TOOL_THERMOMETER := "thermometer"
 const DAILY_ITEM_IDS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]
 const DAILY_ITEM_SCENE_PATHS := {
 	"oddity_0001": "res://scenes/items/oddity_0001.tscn",
@@ -128,14 +131,34 @@ var cash := 100
 var reputation := 50
 var ledger_desk_upgraded := false
 var containment_cabinet_upgraded := false
+var onboarding_completed := false
+var onboarding_tools_used := {
+	TOOL_MAGNIFIER: false,
+	TOOL_UV_LAMP: false,
+	TOOL_THERMOMETER: false,
+}
 var handled_reports := []
 
 
 func start_new_run() -> void:
+	_reset_current_run_state()
+
+
+func reset_progress() -> void:
+	ledger_desk_upgraded = false
+	containment_cabinet_upgraded = false
+	onboarding_completed = false
+	_reset_current_run_state()
+
+
+func _reset_current_run_state() -> void:
 	current_day = 1
 	cash = 100
 	reputation = 50
 	handled_reports.clear()
+	onboarding_tools_used[TOOL_MAGNIFIER] = false
+	onboarding_tools_used[TOOL_UV_LAMP] = false
+	onboarding_tools_used[TOOL_THERMOMETER] = false
 
 
 func apply_result(value_delta: int, reputation_delta: int) -> void:
@@ -214,6 +237,30 @@ func get_progression_status_text() -> String:
 	else:
 		lines.append(Localization.format_text("upgrade.containment_cabinet.status_locked", [CONTAINMENT_CABINET_UPGRADE_COST, CONTAINMENT_CABINET_SEAL_DISCOUNT]))
 	return "\n".join(lines)
+
+
+func record_onboarding_tool_used(tool_name: String) -> void:
+	if onboarding_completed:
+		return
+	if onboarding_tools_used.has(tool_name):
+		onboarding_tools_used[tool_name] = true
+
+
+func complete_onboarding() -> void:
+	if not onboarding_completed and _all_onboarding_tools_used():
+		onboarding_completed = true
+
+
+func get_onboarding_hint_key() -> String:
+	if onboarding_completed or current_day != 1:
+		return ""
+	if not onboarding_tools_used[TOOL_MAGNIFIER]:
+		return "tutorial.inspect_magnifier"
+	if not onboarding_tools_used[TOOL_UV_LAMP]:
+		return "tutorial.inspect_uv"
+	if not onboarding_tools_used[TOOL_THERMOMETER]:
+		return "tutorial.inspect_temperature"
+	return "tutorial.choose_handling"
 
 
 func get_current_consequence_report(decision: String) -> String:
@@ -320,6 +367,14 @@ func _get_item_display_name(item_id: String) -> String:
 
 func _get_decision_label(decision: String) -> String:
 	return Localization.text("decision.%s" % decision)
+
+
+func _all_onboarding_tools_used() -> bool:
+	return (
+		onboarding_tools_used[TOOL_MAGNIFIER]
+		and onboarding_tools_used[TOOL_UV_LAMP]
+		and onboarding_tools_used[TOOL_THERMOMETER]
+	)
 
 
 func _get_consequence_text(report: Dictionary) -> String:

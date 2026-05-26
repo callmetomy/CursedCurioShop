@@ -154,6 +154,21 @@ theme_override_styles/normal = SubResource("StyleBox_tool_button")
 theme_override_styles/hover = SubResource("StyleBox_tool_button")
 theme_override_styles/pressed = SubResource("StyleBox_tool_button")
 
+[node name="OnboardingPanel" type="PanelContainer" parent="HUD"]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 84.0
+offset_right = 344.0
+offset_bottom = 154.0
+theme_override_styles/panel = SubResource("StyleBox_result_text_panel")
+
+[node name="OnboardingHintLabel" type="Label" parent="HUD/OnboardingPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text = "Use the Magnifier to inspect close physical marks."
+
 [node name="ToolPanel" type="HBoxContainer" parent="HUD"]
 anchors_preset = 2
 anchor_top = 1.0

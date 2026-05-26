@@ -21,8 +21,10 @@ class GodotMainMenuTests(unittest.TestCase):
         self.assertIn('path="res://assets/ui/button_brass.png"', scene)
         self.assertIn('[node name="Background" type="TextureRect" parent="."]', scene)
         self.assertIn('[node name="StartButton" type="Button" parent="MenuPanel"]', scene)
+        self.assertIn('[node name="ResetProgressButton" type="Button" parent="MenuPanel"]', scene)
         self.assertIn('[node name="QuitButton" type="Button" parent="MenuPanel"]', scene)
         self.assertIn('text = "Start Day"', scene)
+        self.assertIn('text = "Reset Progress"', scene)
         self.assertIn('text = "Quit"', scene)
 
     def test_main_menu_script_starts_shop_or_quits(self):
@@ -32,9 +34,14 @@ class GodotMainMenuTests(unittest.TestCase):
 
         self.assertIn('const shop_scene_path := "res://scenes/shop_prototype.tscn"', script)
         self.assertIn("start_button", script)
+        self.assertIn("reset_progress_button", script)
         self.assertIn("quit_button", script)
         self.assertIn("_on_start_pressed", script)
+        self.assertIn("_on_reset_progress_pressed", script)
         self.assertIn("_on_quit_pressed", script)
+        self.assertIn("reset_progress_button.pressed.connect(_on_reset_progress_pressed)", script)
+        self.assertIn("GameState.reset_progress()", script)
+        self.assertIn('Localization.text("ui.reset_progress")', script)
         self.assertIn("change_scene_to_file", script)
         self.assertIn("get_tree().quit", script)
 

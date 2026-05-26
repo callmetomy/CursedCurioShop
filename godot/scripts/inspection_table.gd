@@ -41,6 +41,8 @@ extends Node3D
 @onready var item_description_label: Label = $HUD/ItemDescriptionLabel
 @onready var appraisal_notes_background: TextureRect = $HUD/AppraisalNotesBackground
 @onready var appraisal_notes_label: Label = $HUD/AppraisalNotesBackground/AppraisalNotesLabel
+@onready var onboarding_panel: PanelContainer = $HUD/OnboardingPanel
+@onready var onboarding_hint_label: Label = $HUD/OnboardingPanel/OnboardingHintLabel
 
 const MIN_CAMERA_Z := 1.8
 const MAX_CAMERA_Z := 4.2
@@ -91,6 +93,7 @@ func _ready() -> void:
 	back_to_shop_button.pressed.connect(_on_back_to_shop_pressed)
 	return_to_menu_button.pressed.connect(_on_return_to_menu_pressed)
 	_update_tool_readouts()
+	_update_onboarding_hint()
 	_update_next_day_button_label()
 	_set_active_tool(TOOL_NONE)
 	day_result_panel.visible = false
@@ -240,6 +243,7 @@ func _toggle_tool(tool_name: String) -> void:
 func _set_active_tool(tool_name: String) -> void:
 	active_tool = tool_name
 	_remember_tool_clue(active_tool)
+	GameState.record_onboarding_tool_used(tool_name)
 	magnifier_button.button_pressed = active_tool == TOOL_MAGNIFIER
 	uv_lamp_button.button_pressed = active_tool == TOOL_UV_LAMP
 	thermometer_button.button_pressed = active_tool == TOOL_THERMOMETER
@@ -250,6 +254,7 @@ func _set_active_tool(tool_name: String) -> void:
 	tool_clue_readout.visible = active_tool != TOOL_NONE
 	_update_tool_readouts()
 	_update_appraisal_notes()
+	_update_onboarding_hint()
 	if active_tool == TOOL_MAGNIFIER:
 		camera.position.z = MAGNIFIER_CAMERA_Z
 		camera.fov = MAGNIFIER_FOV
@@ -271,6 +276,7 @@ func _set_active_tool(tool_name: String) -> void:
 func _resolve_decision(decision: String) -> void:
 	if bad_ending_card.visible:
 		return
+	GameState.complete_onboarding()
 	decision_result.visible = true
 	var correct_handling := _get_current_correct_handling()
 	var display_name := _get_current_display_name()
@@ -297,6 +303,7 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	GameState.apply_result(value_delta, reputation_delta)
 	_set_active_tool(TOOL_NONE)
 	_set_inspection_controls_visible(false)
+	onboarding_panel.visible = false
 	day_result_background.visible = true
 	day_result_panel.visible = true
 	_update_next_day_button_label()
@@ -354,6 +361,7 @@ func _set_gameplay_hud_visible(is_visible: bool) -> void:
 	item_name_label.visible = is_visible
 	item_description_label.visible = is_visible
 	back_to_shop_button.visible = is_visible
+	onboarding_panel.visible = is_visible and GameState.get_onboarding_hint_key() != ""
 	_set_inspection_controls_visible(is_visible)
 
 
@@ -438,6 +446,13 @@ func _update_appraisal_notes() -> void:
 	lines.append(Localization.format_text("ui.note_uv", [_short_note_for_tool(TOOL_UV_LAMP)]))
 	lines.append(Localization.format_text("ui.note_temp", [_short_note_for_tool(TOOL_THERMOMETER)]))
 	appraisal_notes_label.text = "\n".join(lines)
+
+
+func _update_onboarding_hint() -> void:
+	var hint_key := GameState.get_onboarding_hint_key()
+	onboarding_panel.visible = hint_key != ""
+	if hint_key != "":
+		onboarding_hint_label.text = Localization.text(hint_key)
 
 
 func _short_note_for_tool(tool_name: String) -> String:
