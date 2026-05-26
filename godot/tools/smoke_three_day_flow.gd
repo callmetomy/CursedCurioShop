@@ -18,6 +18,8 @@ func _run() -> void:
 	await _verify_shop_customer_brief()
 	await _verify_wrong_teacup_sale_path()
 	game_state.call("start_new_run")
+	await _verify_item_specific_wrong_outcome()
+	game_state.call("start_new_run")
 	await _verify_correct_demo_flow()
 
 	print("Ten-day demo smoke flow passed")
@@ -63,6 +65,24 @@ func _verify_wrong_teacup_sale_path() -> void:
 	_assert(not _node_visible(table, "HUD/AbnormalEventPanel"), "Bad ending should block later decisions")
 	_assert(not _node_visible(table, "HUD/DayResultPanel"), "Bad ending should keep the normal result panel hidden")
 	_assert(_game_state().get("reputation") == 35, "Later decisions should not change bad ending state")
+	table.queue_free()
+	await process_frame
+
+
+func _verify_item_specific_wrong_outcome() -> void:
+	var game_state := _game_state()
+	game_state.set("current_day", 2)
+	var table := await _instantiate_inspection_table()
+	_assert(_current_item_id(table) == "oddity_0002", "Item-specific wrong outcome check should load the mirror coin")
+
+	table.call("_resolve_decision", "sell")
+	await process_frame
+
+	_assert(_node_visible(table, "HUD/DayResultPanel"), "Item-specific wrong sale should show the day result panel")
+	_assert(_node_visible(table, "HUD/AbnormalEventPanel"), "Item-specific wrong sale should show an abnormal event")
+	_assert(not _node_visible(table, "HUD/BadEndingCard"), "Item-specific wrong sale should not trigger the bad ending")
+	_assert(int(game_state.get("cash")) == 135, "Day 2 wrong sale should use item-specific cash delta")
+	_assert(int(game_state.get("reputation")) == 38, "Day 2 wrong sale should use item-specific reputation delta")
 	table.queue_free()
 	await process_frame
 

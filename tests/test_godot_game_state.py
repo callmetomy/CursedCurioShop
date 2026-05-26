@@ -98,6 +98,20 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('"sell": "The buyer complains that frost crept across the receipt"', game_state)
         self.assertIn('"discard": "The music box is removed quietly"', game_state)
 
+    def test_game_state_provides_item_specific_wrong_decision_outcomes(self):
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("const WRONG_DECISION_OUTCOMES", game_state)
+        self.assertIn("func get_current_wrong_decision_outcome(decision: String) -> Dictionary:", game_state)
+        self.assertIn('"oddity_0002": {', game_state)
+        self.assertIn('"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 35, "reputation_delta": -12, "bad_ending": false}', game_state)
+        self.assertIn('"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -7, "bad_ending": false}', game_state)
+        self.assertIn('"oddity_0003": {', game_state)
+        self.assertIn('"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -10, "bad_ending": false}', game_state)
+        self.assertIn('return _duplicate_decision_outcome(item_outcomes[decision])', game_state)
+
     def test_game_state_records_run_summary_for_final_day(self):
         game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
             encoding="utf-8"
@@ -233,6 +247,9 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("HUD/BadEndingCard/BadEndingPanel", script)
         self.assertIn("HUD/ResultDetailPanel", script)
         self.assertIn("HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", script)
+        self.assertIn("_verify_item_specific_wrong_outcome", script)
+        self.assertIn('Day 2 wrong sale should use item-specific cash delta', script)
+        self.assertIn('Day 2 wrong sale should use item-specific reputation delta', script)
         self.assertIn("_verify_upgraded_second_run_economy", script)
         self.assertIn("Upgraded second run should finish with discounted final cash", script)
         self.assertIn("Upgraded second run should keep enough cash buffer", script)

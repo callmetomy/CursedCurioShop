@@ -373,6 +373,19 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_on_return_to_menu_pressed", script)
         self.assertIn("main_menu_scene_path", script)
 
+    def test_inspection_table_script_uses_item_specific_wrong_decision_outcomes(self):
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("var wrong_outcome := GameState.get_current_wrong_decision_outcome(decision)", script)
+        self.assertIn('str(wrong_outcome.get("outcome_key", "outcome.bad_appraisal"))', script)
+        self.assertIn('int(wrong_outcome.get("reputation_delta", -10))', script)
+        self.assertIn('bool(wrong_outcome.get("bad_ending", false))', script)
+        self.assertIn("func _resolve_wrong_outcome_value_delta(wrong_outcome: Dictionary) -> int:", script)
+        self.assertIn('if value_delta is String and value_delta == "sell_value":', script)
+        self.assertIn("_show_day_result(outcome_key, value_delta, reputation_delta, decision)", script)
+
     def test_inspection_table_script_plays_audio_feedback_for_player_actions(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"

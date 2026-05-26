@@ -124,6 +124,25 @@ const DAILY_CONSEQUENCE_REPORTS := {
 		"discard": "The discarded thread knots around the waste bin and will not burn.",
 	},
 }
+const WRONG_DECISION_OUTCOMES := {
+	"default": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 0, "reputation_delta": -10, "bad_ending": false},
+		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -10, "reputation_delta": -8, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": 0, "reputation_delta": -8, "bad_ending": false},
+	},
+	"oddity_0001": {
+		"sell": {"outcome_key": "outcome.cursed_sale", "value_delta": "sell_value", "reputation_delta": -15, "bad_ending": true},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": 0, "reputation_delta": -8, "bad_ending": false},
+	},
+	"oddity_0002": {
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 35, "reputation_delta": -12, "bad_ending": false},
+		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -7, "bad_ending": false},
+	},
+	"oddity_0003": {
+		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -10, "bad_ending": false},
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": false},
+	},
+}
 
 var current_day := 1
 var max_days := 10
@@ -279,6 +298,16 @@ func get_current_consequence_key(decision: String) -> String:
 	return "consequence.%s.%s" % [get_current_item_id(), decision]
 
 
+func get_current_wrong_decision_outcome(decision: String) -> Dictionary:
+	var item_outcomes: Dictionary = WRONG_DECISION_OUTCOMES.get(get_current_item_id(), {})
+	if item_outcomes.has(decision):
+		return _duplicate_decision_outcome(item_outcomes[decision])
+	var default_outcomes: Dictionary = WRONG_DECISION_OUTCOMES["default"]
+	if default_outcomes.has(decision):
+		return _duplicate_decision_outcome(default_outcomes[decision])
+	return _duplicate_decision_outcome(default_outcomes["sell"])
+
+
 func record_decision_result(
 	item_id: String,
 	decision: String,
@@ -367,6 +396,10 @@ func _get_item_display_name(item_id: String) -> String:
 
 func _get_decision_label(decision: String) -> String:
 	return Localization.text("decision.%s" % decision)
+
+
+func _duplicate_decision_outcome(outcome: Dictionary) -> Dictionary:
+	return outcome.duplicate()
 
 
 func _all_onboarding_tools_used() -> bool:

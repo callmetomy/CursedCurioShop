@@ -297,15 +297,16 @@ func _resolve_decision(decision: String) -> void:
 		_play_audio_cue(decision_wrong_audio_player)
 		decision_result.text = Localization.format_text("ui.wrong_result", [display_name, correct_handling, decision])
 		var wrong_event_text := _get_current_wrong_event_text()
-		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
-			_show_day_result("outcome.cursed_sale", _get_current_sell_value(), -15, decision)
+		var wrong_outcome := GameState.get_current_wrong_decision_outcome(decision)
+		var outcome_key := str(wrong_outcome.get("outcome_key", "outcome.bad_appraisal"))
+		var value_delta := _resolve_wrong_outcome_value_delta(wrong_outcome)
+		var reputation_delta := int(wrong_outcome.get("reputation_delta", -10))
+		if bool(wrong_outcome.get("bad_ending", false)):
+			_show_day_result(outcome_key, value_delta, reputation_delta, decision)
 			_show_bad_ending(wrong_event_text)
-		elif decision == "discard":
-			_show_abnormal_event(wrong_event_text)
-			_show_day_result("outcome.uncontained_discard", 0, -8, decision)
 		else:
 			_show_abnormal_event(wrong_event_text)
-			_show_day_result("outcome.bad_appraisal", 0, -10, decision)
+			_show_day_result(outcome_key, value_delta, reputation_delta, decision)
 
 
 func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: int, decision: String) -> void:
@@ -543,6 +544,17 @@ func _get_decision_value_delta(decision: String) -> int:
 		return _get_current_sell_value()
 	if decision == "seal":
 		return -_get_current_seal_cost()
+	return 0
+
+
+func _resolve_wrong_outcome_value_delta(wrong_outcome: Dictionary) -> int:
+	var value_delta: Variant = wrong_outcome.get("value_delta", 0)
+	if value_delta is String and value_delta == "sell_value":
+		return _get_current_sell_value()
+	if value_delta is int:
+		return value_delta
+	if value_delta is float:
+		return int(value_delta)
 	return 0
 
 
