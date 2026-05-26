@@ -46,6 +46,7 @@ class GodotLocalizationTests(unittest.TestCase):
             "ui.result_detail_title",
             "ui.result_detail_empty",
             "ui.result_detail_body",
+            "ui.day_result_after",
             "ui.detail_previous",
             "ui.detail_next",
             "decision.sell",

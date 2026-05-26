@@ -285,6 +285,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("HUD/BadEndingCard/BadEndingPanel", script)
         self.assertIn("HUD/ResultDetailPanel", script)
         self.assertIn("HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", script)
+        self.assertIn("HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel", script)
+        self.assertIn("Day result should show post-decision pressure summary", script)
         self.assertIn("Shop result detail should show the post-decision pressure summary", script)
         self.assertIn("_verify_item_specific_wrong_outcome", script)
         self.assertIn('Day 2 wrong sale should use item-specific cash delta', script)
