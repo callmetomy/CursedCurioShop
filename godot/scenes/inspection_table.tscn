@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://inspection_table_scene"]
+[gd_scene load_steps=21 format=3 uid="uid://inspection_table_scene"]
 
 [ext_resource type="Script" path="res://scripts/inspection_table.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/textures/workbench_walnut.png" id="3_table_texture"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" path="res://assets/ui/tool_thermometer.png" id="6_thermometer_icon"]
 [ext_resource type="Texture2D" path="res://assets/ui/button_brass.png" id="7_button_brass"]
 [ext_resource type="Texture2D" path="res://assets/ui/panel_ledger.png" id="8_panel_ledger"]
+[ext_resource type="AudioStream" path="res://assets/audio/tool_activate.wav" id="9_tool_audio"]
+[ext_resource type="AudioStream" path="res://assets/audio/decision_correct.wav" id="10_decision_correct_audio"]
+[ext_resource type="AudioStream" path="res://assets/audio/decision_wrong.wav" id="11_decision_wrong_audio"]
+[ext_resource type="AudioStream" path="res://assets/audio/abnormal_event.wav" id="12_abnormal_event_audio"]
+[ext_resource type="AudioStream" path="res://assets/audio/bad_ending.wav" id="13_bad_ending_audio"]
 
 [sub_resource type="Environment" id="Environment_table"]
 background_mode = 1
@@ -117,6 +122,21 @@ light_color = Color(0.42, 0.58, 1, 1)
 light_energy = 0.0
 spot_range = 3.0
 spot_angle = 34.0
+
+[node name="ToolAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_tool_audio")
+
+[node name="DecisionCorrectAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_decision_correct_audio")
+
+[node name="DecisionWrongAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_decision_wrong_audio")
+
+[node name="AbnormalEventAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_abnormal_event_audio")
+
+[node name="BadEndingAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_bad_ending_audio")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

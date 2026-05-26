@@ -332,6 +332,27 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('theme_override_styles/panel = SubResource("StyleBox_bad_ending_card")', scene)
         self.assertIn('text = "Return to Menu"', scene)
 
+    def test_inspection_table_scene_has_audio_feedback_players(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('path="res://assets/audio/tool_activate.wav"', scene)
+        self.assertIn('path="res://assets/audio/decision_correct.wav"', scene)
+        self.assertIn('path="res://assets/audio/decision_wrong.wav"', scene)
+        self.assertIn('path="res://assets/audio/abnormal_event.wav"', scene)
+        self.assertIn('path="res://assets/audio/bad_ending.wav"', scene)
+        self.assertIn('[node name="ToolAudioPlayer" type="AudioStreamPlayer" parent="."]', scene)
+        self.assertIn('[node name="DecisionCorrectAudioPlayer" type="AudioStreamPlayer" parent="."]', scene)
+        self.assertIn('[node name="DecisionWrongAudioPlayer" type="AudioStreamPlayer" parent="."]', scene)
+        self.assertIn('[node name="AbnormalEventAudioPlayer" type="AudioStreamPlayer" parent="."]', scene)
+        self.assertIn('[node name="BadEndingAudioPlayer" type="AudioStreamPlayer" parent="."]', scene)
+        self.assertIn('stream = ExtResource("9_tool_audio")', scene)
+        self.assertIn('stream = ExtResource("10_decision_correct_audio")', scene)
+        self.assertIn('stream = ExtResource("11_decision_wrong_audio")', scene)
+        self.assertIn('stream = ExtResource("12_abnormal_event_audio")', scene)
+        self.assertIn('stream = ExtResource("13_bad_ending_audio")', scene)
+
     def test_inspection_table_script_triggers_abnormal_event_and_bad_ending(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"
@@ -351,6 +372,25 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("_show_bad_ending", script)
         self.assertIn("_on_return_to_menu_pressed", script)
         self.assertIn("main_menu_scene_path", script)
+
+    def test_inspection_table_script_plays_audio_feedback_for_player_actions(self):
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("tool_audio_player", script)
+        self.assertIn("decision_correct_audio_player", script)
+        self.assertIn("decision_wrong_audio_player", script)
+        self.assertIn("abnormal_event_audio_player", script)
+        self.assertIn("bad_ending_audio_player", script)
+        self.assertIn("func _play_audio_cue(player: AudioStreamPlayer) -> void:", script)
+        self.assertIn("_play_audio_cue(tool_audio_player)", script)
+        self.assertIn("_play_audio_cue(decision_correct_audio_player)", script)
+        self.assertIn("_play_audio_cue(decision_wrong_audio_player)", script)
+        self.assertIn("_play_audio_cue(abnormal_event_audio_player)", script)
+        self.assertIn("_play_audio_cue(bad_ending_audio_player)", script)
+        self.assertIn("player.stop()", script)
+        self.assertIn("player.play()", script)
 
     def test_bad_ending_uses_exclusive_overlay(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(

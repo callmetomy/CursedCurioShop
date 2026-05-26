@@ -36,6 +36,11 @@ extends Node3D
 @onready var ending_body: Label = $HUD/BadEndingCard/BadEndingPanel/EndingBody
 @onready var return_to_menu_button: Button = $HUD/BadEndingCard/BadEndingPanel/ReturnToMenuButton
 @onready var uv_lamp: SpotLight3D = $UVLamp
+@onready var tool_audio_player: AudioStreamPlayer = $ToolAudioPlayer
+@onready var decision_correct_audio_player: AudioStreamPlayer = $DecisionCorrectAudioPlayer
+@onready var decision_wrong_audio_player: AudioStreamPlayer = $DecisionWrongAudioPlayer
+@onready var abnormal_event_audio_player: AudioStreamPlayer = $AbnormalEventAudioPlayer
+@onready var bad_ending_audio_player: AudioStreamPlayer = $BadEndingAudioPlayer
 @onready var uv_clue_marker: MeshInstance3D = $ItemPivot/UVClueMarker
 @onready var item_name_label: Label = $HUD/ItemNameLabel
 @onready var item_description_label: Label = $HUD/ItemDescriptionLabel
@@ -241,6 +246,8 @@ func _toggle_tool(tool_name: String) -> void:
 
 
 func _set_active_tool(tool_name: String) -> void:
+	if tool_name != TOOL_NONE:
+		_play_audio_cue(tool_audio_player)
 	active_tool = tool_name
 	_remember_tool_clue(active_tool)
 	GameState.record_onboarding_tool_used(tool_name)
@@ -281,11 +288,13 @@ func _resolve_decision(decision: String) -> void:
 	var correct_handling := _get_current_correct_handling()
 	var display_name := _get_current_display_name()
 	if decision == correct_handling:
+		_play_audio_cue(decision_correct_audio_player)
 		decision_result.text = Localization.format_text("ui.correct_result", [display_name])
 		_show_day_result("outcome.correct", _get_decision_value_delta(decision), 5, decision)
 		abnormal_event_panel.visible = false
 		bad_ending_card.visible = false
 	else:
+		_play_audio_cue(decision_wrong_audio_player)
 		decision_result.text = Localization.format_text("ui.wrong_result", [display_name, correct_handling, decision])
 		var wrong_event_text := _get_current_wrong_event_text()
 		if GameState.get_current_item_id() == "oddity_0001" and decision == "sell":
@@ -337,11 +346,13 @@ func _update_progression_panel() -> void:
 
 
 func _show_abnormal_event(event_text: String) -> void:
+	_play_audio_cue(abnormal_event_audio_player)
 	abnormal_event_panel.visible = true
 	event_label.text = event_text
 
 
 func _show_bad_ending(event_text: String) -> void:
+	_play_audio_cue(bad_ending_audio_player)
 	_set_active_tool(TOOL_NONE)
 	_set_gameplay_hud_visible(false)
 	decision_result.visible = false
@@ -453,6 +464,11 @@ func _update_onboarding_hint() -> void:
 	onboarding_panel.visible = hint_key != ""
 	if hint_key != "":
 		onboarding_hint_label.text = Localization.text(hint_key)
+
+
+func _play_audio_cue(player: AudioStreamPlayer) -> void:
+	player.stop()
+	player.play()
 
 
 func _short_note_for_tool(tool_name: String) -> String:
