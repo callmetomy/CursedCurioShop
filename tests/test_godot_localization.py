@@ -139,6 +139,37 @@ class GodotLocalizationTests(unittest.TestCase):
             self.assertIn(f'"{key}"', self._locale_block(localization, "en"))
             self.assertIn(f'"{key}"', self._locale_block(localization, "zh_TW"))
 
+    def test_localization_contains_readable_outcome_note_text(self):
+        localization = (ROOT / "godot" / "scripts" / "localization.gd").read_text(
+            encoding="utf-8"
+        )
+
+        required_keys = [
+            "outcome_note.none",
+            "outcome_note.correct",
+        ]
+        for item_id in [
+            "oddity_0001",
+            "oddity_0002",
+            "oddity_0003",
+            "oddity_0004",
+            "oddity_0005",
+            "oddity_0006",
+            "oddity_0007",
+            "oddity_0008",
+            "oddity_0009",
+            "oddity_0010",
+        ]:
+            for decision in ["sell", "seal", "discard"]:
+                required_keys.append(f"outcome_note.{item_id}.{decision}")
+        en_block = self._locale_block(localization, "en")
+        zh_tw_block = self._locale_block(localization, "zh_TW")
+        self.assertIn("Note: %s", en_block)
+        self.assertIn("判讀：%s", zh_tw_block)
+        for key in required_keys:
+            self.assertIn(f'"{key}"', en_block)
+            self.assertIn(f'"{key}"', zh_tw_block)
+
 
 if __name__ == "__main__":
     unittest.main()

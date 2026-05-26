@@ -348,6 +348,7 @@ func record_decision_result(
 		"item_id": item_id,
 		"decision": decision,
 		"outcome_key": outcome_key,
+		"outcome_note_key": get_outcome_note_key(item_id, decision, outcome_key),
 		"consequence_key": consequence_key,
 		"value_delta": value_delta,
 		"reputation_delta": reputation_delta,
@@ -391,6 +392,7 @@ func get_result_detail(index: int) -> Dictionary:
 		_get_item_display_name(item_id),
 		_get_decision_label(decision),
 		Localization.text(str(report.get("outcome_key", "outcome.bad_appraisal"))),
+		_get_outcome_note_text(report),
 		value_delta,
 		reputation_delta,
 		_get_consequence_text(report),
@@ -418,6 +420,12 @@ func get_shop_ledger() -> String:
 	return "\n".join(lines)
 
 
+func get_outcome_note_key(item_id: String, decision: String, outcome_key: String) -> String:
+	if outcome_key == "outcome.correct":
+		return "outcome_note.correct"
+	return "outcome_note.%s.%s" % [item_id, decision]
+
+
 func _get_item_display_name(item_id: String) -> String:
 	return Localization.item_text(item_id, "display_name", item_id)
 
@@ -428,6 +436,13 @@ func _get_decision_label(decision: String) -> String:
 
 func _duplicate_decision_outcome(outcome: Dictionary) -> Dictionary:
 	return outcome.duplicate()
+
+
+func _get_outcome_note_text(report: Dictionary) -> String:
+	var note_text := Localization.text(str(report.get("outcome_note_key", "outcome_note.none")))
+	if note_text == str(report.get("outcome_note_key", "")):
+		return Localization.text("outcome_note.none")
+	return note_text
 
 
 func _all_onboarding_tools_used() -> bool:

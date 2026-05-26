@@ -101,6 +101,11 @@ func _verify_late_game_wrong_outcomes() -> void:
 	_assert(not _node_visible(bell_table, "HUD/BadEndingCard"), "Day 8 wrong sale should not trigger the bad ending")
 	_assert(int(game_state.get("cash")) == 145, "Day 8 wrong sale should use late-game cash delta")
 	_assert(int(game_state.get("reputation")) == 36, "Day 8 wrong sale should use late-game reputation delta")
+	var bell_detail: Dictionary = game_state.call("get_result_detail", 0)
+	_assert(
+		str(bell_detail.get("body", "")).contains(_localized("outcome_note.oddity_0008.sell")),
+		"Day 8 wrong sale result detail should explain the mistake"
+	)
 	bell_table.queue_free()
 	await process_frame
 
