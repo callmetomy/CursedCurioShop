@@ -16,8 +16,7 @@ extends Node3D
 @onready var day_result_panel: VBoxContainer = $HUD/DayResultPanel
 @onready var day_result_background: TextureRect = $HUD/DayResultBackground
 @onready var outcome_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/OutcomeLabel
-@onready var value_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ValueLabel
-@onready var reputation_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ReputationLabel
+@onready var delta_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/DeltaSummaryLabel
 @onready var pressure_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel
 @onready var consequence_report_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel
 @onready var run_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel
@@ -318,9 +317,8 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	day_result_background.visible = true
 	day_result_panel.visible = true
 	_update_next_day_button_label()
-	outcome_label.text = Localization.text(outcome_key)
-	value_label.text = Localization.format_text("ui.cash_delta", [value_delta])
-	reputation_label.text = Localization.format_text("ui.reputation_delta", [reputation_delta])
+	outcome_label.text = Localization.format_text("ui.day_result_outcome", [Localization.text(outcome_key)])
+	delta_summary_label.text = Localization.format_text("ui.day_result_delta", [value_delta, reputation_delta])
 	pressure_summary_label.text = Localization.format_text("ui.day_result_after", [
 		GameState.cash,
 		GameState.reputation,
@@ -328,7 +326,7 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	])
 	var consequence_key := GameState.get_current_consequence_key(decision)
 	var consequence_report: String = GameState.get_current_consequence_report(decision)
-	consequence_report_label.text = consequence_report
+	consequence_report_label.text = Localization.format_text("ui.day_result_consequence", [consequence_report])
 	GameState.record_decision_result(
 		GameState.get_current_item_id(),
 		decision,

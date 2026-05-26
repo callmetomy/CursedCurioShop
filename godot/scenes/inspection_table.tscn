@@ -370,17 +370,14 @@ theme_override_constants/separation = 4
 [node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
 layout_mode = 2
 horizontal_alignment = 1
-text = "Outcome"
+autowrap_mode = 2
+text = "Outcome: Correct handling"
 
-[node name="ValueLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
+[node name="DeltaSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
 layout_mode = 2
 horizontal_alignment = 1
-text = "Cash: +0"
-
-[node name="ReputationLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
-layout_mode = 2
-horizontal_alignment = 1
-text = "Reputation: +0"
+autowrap_mode = 2
+text = "Delta: Cash +0 / Reputation +0"
 
 [node name="PressureSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
 layout_mode = 2
@@ -394,7 +391,7 @@ layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-text = "Customer report"
+text = "Consequence: Customer report"
 
 [node name="RunSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]
 visible = false

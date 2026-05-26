@@ -147,6 +147,10 @@ func _verify_correct_demo_flow() -> void:
 		await process_frame
 		_assert(_node_visible(table, "HUD/DayResultPanel"), "Correct decision should show day result")
 		_assert(_label_has_text(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel"), "Decision result should show a consequence report")
+		_assert(
+			_label_has_text(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/DeltaSummaryLabel"),
+			"Day result should show segmented delta summary"
+		)
 		var pressure_key := str(_game_state().call("get_daily_pressure_key", int(_game_state().get("reputation"))))
 		_assert(
 			_label_contains(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel", _localized(pressure_key)),
