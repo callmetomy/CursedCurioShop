@@ -104,4 +104,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Added upgraded second-run smoke validation for Final Cash 210, Final Reputation 100, and minimum cash buffer 35.
 - Done: Ran 3 agent players on the final progression panel and clarified upgrade copy for "each Seal" and future-run persistence.
 - Done: Refreshed Traditional Chinese screenshots and the local Windows export after the progression copy pass.
-- Next recommended slice: commit the current owner-approved demo baseline and keep `docs/production/demo_playtest_checklist.md` plus `docs/production/playtests/2026-05-26-real-player-playtest-kit.md` as optional later QA gates. Do not add another perk or new oddity batch until the baseline is preserved.
+- Done: Preserved the owner-approved demo baseline in git as `a666a95` and tagged it as `demo-owner-review-2026-05-26`.
+- Done: Started Steam store prep with `docs/production/steam_store_prep.md` and full-release gap tracking with `docs/production/full_release_roadmap.md`.
+- Next recommended slice: add a 1920x1080 English screenshot capture mode for Steam store screenshots, then capture the Steam shot list under `docs/production/steam/screenshots/`. Do not add another perk or new oddity batch until store readiness work is complete.

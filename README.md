@@ -29,15 +29,22 @@ Single-player 3D oddity appraisal shop game prototype built with Godot and an AI
 
 ## Near-Term Goal
 
-Maintain a playable ten-day commercial demo slice:
+Move the owner-approved ten-day demo baseline toward Steam store readiness:
 
-1. Run the ten-day Sell / Seal / Discard loop from `oddity_0001` through `oddity_0010`.
-2. Keep Traditional Chinese review screenshots current at `1152x648` and `1280x720`.
-3. Verify the final-day shop progression upgrades: Ledger Desk and Containment Cabinet.
-4. Refresh the local Windows export before each handoff.
-5. Record playtest findings under `docs/production/playtests/`.
+1. Preserve the tagged baseline `demo-owner-review-2026-05-26`.
+2. Prepare Steam store copy, screenshots, capsule requirements, and trailer planning.
+3. Capture Steam-ready `1920x1080` screenshots from the current baseline.
+4. Keep release scope honest: do not add another perk or oddity batch before store readiness work is complete.
+5. Track full-release gaps in `docs/production/full_release_roadmap.md`.
 
 Do not commit API keys or downloaded private assets unless intentionally cleared for source control.
+
+Key production docs:
+
+- `docs/production/full_release_roadmap.md`
+- `docs/production/steam_store_prep.md`
+- `docs/production/2026-05-26-demo-baseline-decision.md`
+- `docs/production/2026-05-26-demo-release-audit.md`
 
 ## Local Commands
 
@@ -69,6 +76,12 @@ Capture Traditional Chinese review screenshots:
 
 ```powershell
 godot --path godot --script res://tools/capture_traditional_chinese_review.gd
+```
+
+Steam store prep starts with:
+
+```powershell
+Get-Content docs/production/steam_store_prep.md
 ```
 
 Refresh the local Windows export:
