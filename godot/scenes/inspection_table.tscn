@@ -529,3 +529,11 @@ text = "Return to Menu"
 theme_override_styles/normal = SubResource("StyleBox_tool_button")
 theme_override_styles/hover = SubResource("StyleBox_tool_button_hover")
 theme_override_styles/pressed = SubResource("StyleBox_tool_button_pressed")
+
+[node name="SceneTransitionOverlay" type="ColorRect" parent="HUD"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.34)

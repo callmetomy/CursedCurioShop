@@ -19,6 +19,7 @@ extends CharacterBody3D
 @onready var result_detail_previous_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailPreviousButton"
 @onready var result_detail_next_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailNextButton"
 @onready var shop_ambience_player: AudioStreamPlayer = $"../ShopAmbiencePlayer"
+@onready var scene_transition_overlay: ColorRect = $"../HUD/SceneTransitionOverlay"
 
 var look_pitch := 0.0
 var result_detail_index := 0
@@ -67,6 +68,10 @@ func _get_shop_prompt_text() -> String:
 	return Localization.text("ui.inspect_prompt")
 
 
+func _show_scene_transition() -> void:
+	scene_transition_overlay.visible = true
+
+
 func _update_result_detail_panel() -> void:
 	var detail_count := GameState.get_result_detail_count()
 	result_detail_panel.visible = detail_count > 0
@@ -101,6 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		look_pitch = clamp(look_pitch - event.relative.y * mouse_sensitivity, -1.25, 1.25)
 		camera.rotation.x = look_pitch
 	elif event.is_action_pressed("interact"):
+		_show_scene_transition()
 		get_tree().change_scene_to_file(inspection_scene_path)
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

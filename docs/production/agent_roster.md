@@ -110,4 +110,5 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Added a low-volume looping shop ambience cue to the shop prototype, with tests covering the scene node, loop startup, and local WAV asset.
 - Done: Improved UI transition/state clarity by adding post-appraisal shop prompt text and day-result next-step guidance, with runtime smoke coverage for both.
 - Done: Added distinct brass hover and pressed button feedback across the main menu, inspection tools, decision buttons, upgrade buttons, and result navigation.
-- Next recommended slice: continue Phase B productization polish with a focused transition/safe-area pass between shop, inspection, result, and return-to-shop flows. Do not add another perk or new oddity batch until this polish pass is complete.
+- Done: Added a lightweight scene transition overlay for shop-to-inspection, inspection-to-shop, and return-to-menu navigation, with smoke cleanup updated to avoid resource leaks.
+- Next recommended slice: continue Phase B productization polish with a focused 1152x648 and 1280x720 HUD safe-area visual pass. Do not add another perk or new oddity batch until this polish pass is complete.

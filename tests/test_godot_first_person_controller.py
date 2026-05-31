@@ -42,6 +42,26 @@ class GodotFirstPersonControllerTests(unittest.TestCase):
         self.assertIn('Localization.text("ui.inspect_prompt")', script)
         self.assertIn("prompt_label.text = _get_shop_prompt_text()", script)
 
+    def test_shop_transition_overlay_marks_inspection_scene_change(self):
+        scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "first_person_controller.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="SceneTransitionOverlay" type="ColorRect" parent="HUD"]', scene)
+        self.assertIn("visible = false", scene)
+        self.assertIn("anchors_preset = 15", scene)
+        self.assertIn("mouse_filter = 2", scene)
+        self.assertIn("color = Color(0, 0, 0, 0.34)", scene)
+        self.assertIn("scene_transition_overlay", script)
+        self.assertIn("func _show_scene_transition() -> void:", script)
+        self.assertLess(
+            script.index("_show_scene_transition()"),
+            script.index("get_tree().change_scene_to_file(inspection_scene_path)"),
+        )
+
     def test_shop_prototype_scene_uses_mvp_material_assets(self):
         scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
             encoding="utf-8"

@@ -49,6 +49,7 @@ extends Node3D
 @onready var appraisal_notes_label: Label = $HUD/AppraisalNotesBackground/AppraisalNotesLabel
 @onready var onboarding_panel: PanelContainer = $HUD/OnboardingPanel
 @onready var onboarding_hint_label: Label = $HUD/OnboardingPanel/OnboardingHintLabel
+@onready var scene_transition_overlay: ColorRect = $HUD/SceneTransitionOverlay
 
 const MIN_CAMERA_Z := 1.8
 const MAX_CAMERA_Z := 4.2
@@ -208,6 +209,7 @@ func _on_next_day_pressed() -> void:
 	bad_ending_background.visible = false
 	bad_ending_card.visible = false
 	_set_active_tool(TOOL_NONE)
+	_show_scene_transition()
 	if GameState.is_run_complete():
 		get_tree().change_scene_to_file(main_menu_scene_path)
 	else:
@@ -218,10 +220,12 @@ func _on_next_day_pressed() -> void:
 func _on_back_to_shop_pressed() -> void:
 	if bad_ending_card.visible:
 		return
+	_show_scene_transition()
 	get_tree().change_scene_to_file(shop_scene_path)
 
 
 func _on_return_to_menu_pressed() -> void:
+	_show_scene_transition()
 	get_tree().change_scene_to_file(main_menu_scene_path)
 
 
@@ -414,6 +418,10 @@ func _update_transition_hint() -> void:
 		transition_hint_label.text = Localization.text("ui.day_result_final_hint")
 	else:
 		transition_hint_label.text = Localization.text("ui.day_result_next_hint")
+
+
+func _show_scene_transition() -> void:
+	scene_transition_overlay.visible = true
 
 
 func _get_current_correct_handling() -> String:

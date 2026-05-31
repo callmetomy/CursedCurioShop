@@ -338,7 +338,8 @@ func _cleanup_current_scene() -> void:
 			continue
 		root.remove_child(child)
 		child.queue_free()
-	await process_frame
+	for _frame_index in range(3):
+		await process_frame
 
 
 func _current_item_id(table: Node) -> String:

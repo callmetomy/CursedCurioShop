@@ -248,6 +248,27 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('theme_override_styles/hover = SubResource("StyleBox_tool_button_hover")', scene)
         self.assertIn('theme_override_styles/pressed = SubResource("StyleBox_tool_button_pressed")', scene)
 
+    def test_inspection_transition_overlay_marks_scene_changes(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[node name="SceneTransitionOverlay" type="ColorRect" parent="HUD"]', scene)
+        self.assertIn("visible = false", scene)
+        self.assertIn("anchors_preset = 15", scene)
+        self.assertIn("mouse_filter = 2", scene)
+        self.assertIn("color = Color(0, 0, 0, 0.34)", scene)
+        self.assertIn("scene_transition_overlay", script)
+        self.assertIn("func _show_scene_transition() -> void:", script)
+        self.assertGreaterEqual(script.count("_show_scene_transition()"), 4)
+        self.assertLess(
+            script.index("_show_scene_transition()"),
+            script.index("get_tree().change_scene_to_file(shop_scene_path)"),
+        )
+
     def test_inspection_table_script_scores_item_decisions(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"

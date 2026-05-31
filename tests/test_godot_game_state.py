@@ -307,6 +307,7 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn(">= 35", script)
         self.assertIn("_cleanup_current_scene()", script)
         self.assertIn('if child.name in ["GameState", "Localization"]:', script)
+        self.assertIn("for _frame_index in range(3):", script)
         self.assertIn("quit(0)", script)
 
 
