@@ -101,8 +101,8 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Add one review-facing capture state for a late-game wrong outcome.
-3. Use that evidence to decide whether Phase C is ready for a new oddity batch.
+2. Evaluate a small second oddity batch.
+3. Keep the first new batch narrow and gated by clue readability, wrong-outcome clarity, and Traditional Chinese capture evidence.
 
 Reason:
 
@@ -116,4 +116,6 @@ Reason:
 - Phase C now includes a third bad-ending branch: selling the Cold Brass Key triggers the localized 3:04 Lockout ending and is covered by the headless smoke flow.
 - Phase C now includes a non-ending wrong-outcome detail branch: selling the Black Wax Candle records `outcome.cursed_sale`, keeps the day-result flow, and explains the name-triggered flame in result detail.
 - The Traditional Chinese HUD capture set was rerun after the Black Wax Candle branch; result-detail screenshots were refreshed at `1152x648` and `1280x720`.
-- The next low-risk task is adding one review-facing capture state for a late-game wrong outcome before deciding whether to start a new oddity batch.
+- A late-game wrong-outcome capture state now covers Day 8 Silver Funeral Bell wrong sale at `1152x648` and `1280x720`, with evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
+- The day-result overlay now hides the old decision summary label, preventing overlap with ledger-style result panels in review captures.
+- The next low-risk task is evaluating a small second oddity batch with strict review gates before expanding content volume.

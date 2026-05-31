@@ -320,6 +320,7 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	GameState.apply_result(value_delta, reputation_delta)
 	_set_active_tool(TOOL_NONE)
 	_set_inspection_controls_visible(false)
+	decision_result.visible = false
 	item_name_label.visible = false
 	item_description_label.visible = false
 	back_to_shop_button.visible = false

@@ -20,6 +20,7 @@ func _run() -> void:
 		await _capture_shop_customer_brief(viewport["name"])
 		await _capture_shop_result_detail(viewport["name"])
 		await _capture_day_result(viewport["name"])
+		await _capture_late_wrong_outcome(viewport["name"])
 		await _capture_final_summary(viewport["name"])
 	print("Traditional Chinese review screenshots captured")
 	quit(0)
@@ -56,6 +57,20 @@ func _capture_day_result(viewport_name: String) -> void:
 	table.call("_resolve_decision", "seal")
 	await _settle_frames()
 	await _save_screenshot("day_result", viewport_name)
+	root.remove_child(table)
+	table.free()
+
+
+func _capture_late_wrong_outcome(viewport_name: String) -> void:
+	_clear_runtime_scenes()
+	var game_state := _game_state()
+	game_state.call("start_new_run")
+	game_state.set("current_day", 8)
+	var table := _instantiate_scene("res://scenes/inspection_table.tscn")
+	await _settle_frames()
+	table.call("_resolve_decision", "sell")
+	await _settle_frames()
+	await _save_screenshot("late_wrong_outcome", viewport_name)
 	root.remove_child(table)
 	table.free()
 

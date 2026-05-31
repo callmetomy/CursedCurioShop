@@ -117,4 +117,5 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Continued Phase C with a third bad-ending branch: selling the Cold Brass Key now triggers a localized 3:04 Lockout ending, covered by the headless smoke flow.
 - Done: Added a non-ending wrong-outcome detail branch: selling the Black Wax Candle now records `outcome.cursed_sale`, keeps the day-result flow, and explains the name-triggered flame in result detail.
 - Done: Reran the Traditional Chinese HUD capture set after the Black Wax Candle branch; result-detail screenshots were refreshed at 1152x648 and 1280x720.
-- Next recommended slice: add one more review-facing capture state for a late-game wrong outcome before considering a new oddity batch.
+- Done: Added a late-game wrong-outcome capture state for Day 8 Silver Funeral Bell wrong sale, fixed the day-result overlay so the old decision summary no longer overlaps the ledger panel, and recorded evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
+- Next recommended slice: evaluate a small second oddity batch, keeping the first batch narrow and gated by clue readability, wrong-outcome clarity, and Traditional Chinese capture evidence.

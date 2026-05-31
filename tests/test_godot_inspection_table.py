@@ -342,6 +342,10 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("custom_minimum_size = Vector2(420, 84)", scene)
         self.assertIn("custom_minimum_size = Vector2(400, 28)", scene)
         self.assertIn("custom_minimum_size = Vector2(400, 40)", scene)
+        self.assertIn(
+            "func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: int, decision: String) -> void:\n\tGameState.apply_result(value_delta, reputation_delta)\n\t_set_active_tool(TOOL_NONE)\n\t_set_inspection_controls_visible(false)\n\tdecision_result.visible = false",
+            script,
+        )
         self.assertIn("item_name_label.visible = false", script)
         self.assertIn("item_description_label.visible = false", script)
         self.assertIn("back_to_shop_button.visible = false", script)
