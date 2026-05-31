@@ -96,16 +96,16 @@ Exit criteria:
 
 ## Immediate Next Slice
 
-Proceed with Phase A.
+Owner direction on 2026-05-31: skip Steam store readiness and real-player playtest for now, then continue product-body work.
 
 Recommended next implementation task:
 
-1. Add a 1920x1080 screenshot capture mode for Steam store screenshots.
-2. Capture the current shot list in English.
-3. Store outputs under `docs/production/steam/screenshots/`.
+1. Continue Phase B productization polish.
+2. Improve UI transition and state clarity across the shop, inspection table, day result, and return-to-shop loop.
+3. Keep the work scoped to current content; do not add another perk or new oddity batch in this pass.
 
 Reason:
 
-- Steam screenshots are required.
-- Current screenshots are below required size.
-- This directly improves store readiness without adding gameplay risk.
+- Settings, onboarding, reset behavior, and first audio cues are already present in the current local build.
+- Shop ambience has been added as the next small audio polish slice.
+- UI transition clarity is the remaining low-risk Phase B item before content expansion.

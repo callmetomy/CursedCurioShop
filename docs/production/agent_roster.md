@@ -106,4 +106,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Refreshed Traditional Chinese screenshots and the local Windows export after the progression copy pass.
 - Done: Preserved the owner-approved demo baseline in git as `a666a95` and tagged it as `demo-owner-review-2026-05-26`.
 - Done: Started Steam store prep with `docs/production/steam_store_prep.md` and full-release gap tracking with `docs/production/full_release_roadmap.md`.
-- Next recommended slice: add a 1920x1080 English screenshot capture mode for Steam store screenshots, then capture the Steam shot list under `docs/production/steam/screenshots/`. Do not add another perk or new oddity batch until store readiness work is complete.
+- Done: Owner direction on 2026-05-31 is to ignore Steam store work and real-player playtest for now, then continue product-body work.
+- Done: Added a low-volume looping shop ambience cue to the shop prototype, with tests covering the scene node, loop startup, and local WAV asset.
+- Next recommended slice: continue Phase B productization polish by improving UI transition/state clarity between shop, inspection, result, and return-to-shop flows. Do not add another perk or new oddity batch until this polish pass is complete.

@@ -18,6 +18,7 @@ extends CharacterBody3D
 @onready var result_detail_body: Label = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody"
 @onready var result_detail_previous_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailPreviousButton"
 @onready var result_detail_next_button: Button = $"../HUD/ResultDetailPanel/ResultDetailContent/ResultDetailNav/ResultDetailNextButton"
+@onready var shop_ambience_player: AudioStreamPlayer = $"../ShopAmbiencePlayer"
 
 var look_pitch := 0.0
 var result_detail_index := 0
@@ -26,7 +27,20 @@ var result_detail_index := 0
 func _ready() -> void:
 	result_detail_previous_button.pressed.connect(_on_result_detail_previous_pressed)
 	result_detail_next_button.pressed.connect(_on_result_detail_next_pressed)
+	_start_shop_ambience()
 	_update_shop_hud()
+
+
+func _start_shop_ambience() -> void:
+	if shop_ambience_player.stream is AudioStreamWAV:
+		shop_ambience_player.stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	if not shop_ambience_player.playing:
+		shop_ambience_player.play()
+
+
+func _exit_tree() -> void:
+	if shop_ambience_player.playing:
+		shop_ambience_player.stop()
 
 
 func _update_shop_hud() -> void:
