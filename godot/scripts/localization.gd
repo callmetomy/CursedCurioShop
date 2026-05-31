@@ -235,6 +235,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "The buyer says the red thread quietly guides two lost letters together.",
 		"consequence.oddity_0010.discard": "The discarded thread knots around the waste bin and will not burn.",
 		"ending.frost_sale.title": "Bad Ending: Frost Sale",
+		"ending.music_box.title": "Bad Ending: Empty Nursery Tune",
 	},
 	"ja": {
 		"game.title": "呪われた骨董店",
@@ -417,6 +418,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "購入者は、赤い糸が二通の迷子の手紙を静かに引き合わせたと言う。",
 		"consequence.oddity_0010.discard": "捨てられた糸はゴミ箱に絡まり、燃えようとしない。",
 		"ending.frost_sale.title": "バッドエンド: 霜の販売",
+		"ending.music_box.title": "バッドエンド: 空の子供部屋の曲",
 	},
 	"ko": {
 		"game.title": "저주받은 골동품점",
@@ -599,6 +601,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "구매자는 붉은 실이 잃어버린 편지 두 통을 조용히 만나게 했다고 말한다.",
 		"consequence.oddity_0010.discard": "버려진 실은 쓰레기통에 매듭져 감기고 타지 않는다.",
 		"ending.frost_sale.title": "나쁜 결말: 서리 판매",
+		"ending.music_box.title": "나쁜 결말: 빈 아이 방의 선율",
 	},
 	"es": {
 		"game.title": "Tienda de Curios Malditos",
@@ -781,6 +784,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "El comprador dice que el hilo rojo guia en silencio dos cartas perdidas.",
 		"consequence.oddity_0010.discard": "El hilo desechado se anuda alrededor del cubo y no arde.",
 		"ending.frost_sale.title": "Final malo: venta helada",
+		"ending.music_box.title": "Final malo: canción de guardería vacía",
 	},
 	"pt": {
 		"game.title": "Loja de Curiosidades Amaldicoadas",
@@ -963,6 +967,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "O comprador diz que a linha vermelha guia em silencio duas cartas perdidas.",
 		"consequence.oddity_0010.discard": "A linha descartada da nos ao redor da lixeira e nao queima.",
 		"ending.frost_sale.title": "Final ruim: venda congelada",
+		"ending.music_box.title": "Final ruim: melodia do quarto vazio",
 	},
 	"ru": {
 		"game.title": "Лавка проклятых редкостей",
@@ -1145,6 +1150,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "Покупатель говорит, что красная нить тихо свела два потерянных письма.",
 		"consequence.oddity_0010.discard": "Выброшенная нить обвивает мусорную корзину узлами и не горит.",
 		"ending.frost_sale.title": "Плохая концовка: морозная продажа",
+		"ending.music_box.title": "Плохая концовка: мелодия пустой детской",
 	},
 	"zh_CN": {
 		"game.title": "诅咒古物店",
@@ -1327,6 +1333,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "买家说红线安静地把两封遗失的信牵到一起。",
 		"consequence.oddity_0010.discard": "被丢弃的红线缠住垃圾桶并拒绝燃烧。",
 		"ending.frost_sale.title": "坏结局：霜冻交易",
+		"ending.music_box.title": "坏结局：空婴儿房的曲调",
 	},
 	"zh_TW": {
 		"ui.reset_progress": "重置進度",
@@ -1559,6 +1566,7 @@ const TEXT := {
 		"consequence.oddity_0010.sell": "買家說紅線安靜地把兩封遺失的信牽到一起。",
 		"consequence.oddity_0010.discard": "被丟棄的紅線纏住垃圾桶並拒絕燃燒。",
 		"ending.frost_sale.title": "壞結局：霜凍交易",
+		"ending.music_box.title": "壞結局：空嬰兒房的曲調",
 	},
 }
 

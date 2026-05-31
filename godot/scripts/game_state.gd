@@ -131,7 +131,7 @@ const WRONG_DECISION_OUTCOMES := {
 		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": 0, "reputation_delta": -8, "bad_ending": false},
 	},
 	"oddity_0001": {
-		"sell": {"outcome_key": "outcome.cursed_sale", "value_delta": "sell_value", "reputation_delta": -15, "bad_ending": true},
+		"sell": {"outcome_key": "outcome.cursed_sale", "value_delta": "sell_value", "reputation_delta": -15, "bad_ending": true, "bad_ending_title_key": "ending.frost_sale.title"},
 		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": 0, "reputation_delta": -8, "bad_ending": false},
 	},
 	"oddity_0002": {
@@ -140,7 +140,7 @@ const WRONG_DECISION_OUTCOMES := {
 	},
 	"oddity_0003": {
 		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -10, "bad_ending": false},
-		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": false},
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": true, "bad_ending_title_key": "ending.music_box.title"},
 	},
 	"oddity_0004": {
 		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": false},

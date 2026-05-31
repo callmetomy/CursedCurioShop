@@ -260,7 +260,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("visible = false", scene)
         self.assertIn("anchors_preset = 15", scene)
         self.assertIn("mouse_filter = 2", scene)
-        self.assertIn("color = Color(0, 0, 0, 0.34)", scene)
+        self.assertIn("color = Color(0, 0, 0, 0)", scene)
         self.assertIn("scene_transition_overlay", script)
         self.assertIn("func _show_scene_transition() -> void:", script)
         self.assertGreaterEqual(script.count("_show_scene_transition()"), 4)
@@ -268,6 +268,18 @@ class GodotInspectionTableTests(unittest.TestCase):
             script.index("_show_scene_transition()"),
             script.index("get_tree().change_scene_to_file(shop_scene_path)"),
         )
+
+    def test_inspection_transition_overlay_uses_fade_ready_alpha(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+        script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("color = Color(0, 0, 0, 0)", scene)
+        self.assertIn("const SCENE_TRANSITION_ALPHA := 0.34", script)
+        self.assertIn("scene_transition_overlay.color.a = SCENE_TRANSITION_ALPHA", script)
 
     def test_inspection_table_script_scores_item_decisions(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
@@ -428,6 +440,8 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("func _resolve_wrong_outcome_value_delta(wrong_outcome: Dictionary) -> int:", script)
         self.assertIn('if value_delta is String and value_delta == "sell_value":', script)
         self.assertIn("_show_day_result(outcome_key, value_delta, reputation_delta, decision)", script)
+        self.assertIn('var bad_ending_title_key := str(wrong_outcome.get("bad_ending_title_key", "ending.frost_sale.title"))', script)
+        self.assertIn("_show_bad_ending(wrong_event_text, bad_ending_title_key)", script)
 
     def test_inspection_table_script_plays_audio_feedback_for_player_actions(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
@@ -455,7 +469,7 @@ class GodotInspectionTableTests(unittest.TestCase):
 
         self.assertIn("func _set_gameplay_hud_visible(is_visible: bool) -> void:", script)
         self.assertIn("func _set_inspection_controls_visible(is_visible: bool) -> void:", script)
-        self.assertIn("_show_bad_ending(wrong_event_text)", script)
+        self.assertIn("_show_bad_ending(wrong_event_text, bad_ending_title_key)", script)
         self.assertIn("_set_active_tool(TOOL_NONE)", script)
         self.assertIn("_set_gameplay_hud_visible(false)", script)
         self.assertIn("decision_result.visible = false", script)

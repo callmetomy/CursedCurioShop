@@ -110,6 +110,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -7, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0003": {', game_state)
         self.assertIn('"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -10, "bad_ending": false}', game_state)
+        self.assertIn('"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": true, "bad_ending_title_key": "ending.music_box.title"}', game_state)
+        self.assertIn('"bad_ending_title_key": "ending.frost_sale.title"', game_state)
         self.assertIn('return _duplicate_decision_outcome(item_outcomes[decision])', game_state)
 
     def test_game_state_extends_wrong_decision_outcomes_to_late_demo_days(self):
@@ -296,6 +298,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("_verify_item_specific_wrong_outcome", script)
         self.assertIn('Day 2 wrong sale should use item-specific cash delta', script)
         self.assertIn('Day 2 wrong sale should use item-specific reputation delta', script)
+        self.assertIn("_verify_music_box_sale_bad_ending", script)
+        self.assertIn('ending.music_box.title', script)
         self.assertIn("_verify_late_game_wrong_outcomes", script)
         self.assertIn('Day 8 wrong sale should use late-game cash delta', script)
         self.assertIn('Day 10 wrong discard should use late-game reputation delta', script)
@@ -307,7 +311,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn(">= 35", script)
         self.assertIn("_cleanup_current_scene()", script)
         self.assertIn('if child.name in ["GameState", "Localization"]:', script)
-        self.assertIn("for _frame_index in range(3):", script)
+        self.assertIn("const CLEANUP_PROCESS_FRAMES := 8", script)
+        self.assertIn("for _frame_index in range(CLEANUP_PROCESS_FRAMES):", script)
         self.assertIn("quit(0)", script)
 
 

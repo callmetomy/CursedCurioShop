@@ -111,4 +111,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Improved UI transition/state clarity by adding post-appraisal shop prompt text and day-result next-step guidance, with runtime smoke coverage for both.
 - Done: Added distinct brass hover and pressed button feedback across the main menu, inspection tools, decision buttons, upgrade buttons, and result navigation.
 - Done: Added a lightweight scene transition overlay for shop-to-inspection, inspection-to-shop, and return-to-menu navigation, with smoke cleanup updated to avoid resource leaks.
-- Next recommended slice: continue Phase B productization polish with a focused 1152x648 and 1280x720 HUD safe-area visual pass. Do not add another perk or new oddity batch until this polish pass is complete.
+- Done: Refined the scene transition overlay so it starts transparent and applies the blackout alpha from script before scene changes.
+- Done: Started Phase C content expansion with a second bad-ending branch: selling the Ashen Music Box now triggers a localized Empty Nursery Tune ending.
+- Next recommended slice: run the focused 1152x648 and 1280x720 HUD safe-area visual pass, then continue Phase C with another small wrong-outcome or ending branch.

@@ -71,6 +71,7 @@ const TOOL_NONE := "none"
 const TOOL_MAGNIFIER := "magnifier"
 const TOOL_UV_LAMP := "uv_lamp"
 const TOOL_THERMOMETER := "thermometer"
+const SCENE_TRANSITION_ALPHA := 0.34
 
 var drag_active := false
 var rotation_sensitivity := 0.01
@@ -306,9 +307,10 @@ func _resolve_decision(decision: String) -> void:
 		var outcome_key := str(wrong_outcome.get("outcome_key", "outcome.bad_appraisal"))
 		var value_delta := _resolve_wrong_outcome_value_delta(wrong_outcome)
 		var reputation_delta := int(wrong_outcome.get("reputation_delta", -10))
+		var bad_ending_title_key := str(wrong_outcome.get("bad_ending_title_key", "ending.frost_sale.title"))
 		if bool(wrong_outcome.get("bad_ending", false)):
 			_show_day_result(outcome_key, value_delta, reputation_delta, decision)
-			_show_bad_ending(wrong_event_text)
+			_show_bad_ending(wrong_event_text, bad_ending_title_key)
 		else:
 			_show_abnormal_event(wrong_event_text)
 			_show_day_result(outcome_key, value_delta, reputation_delta, decision)
@@ -362,7 +364,7 @@ func _show_abnormal_event(event_text: String) -> void:
 	event_label.text = event_text
 
 
-func _show_bad_ending(event_text: String) -> void:
+func _show_bad_ending(event_text: String, title_key := "ending.frost_sale.title") -> void:
 	_play_audio_cue(bad_ending_audio_player)
 	_set_active_tool(TOOL_NONE)
 	_set_gameplay_hud_visible(false)
@@ -372,6 +374,7 @@ func _show_bad_ending(event_text: String) -> void:
 	abnormal_event_panel.visible = false
 	bad_ending_background.visible = true
 	bad_ending_card.visible = true
+	ending_title.text = Localization.text(title_key)
 	ending_body.text = "%s\n\n%s | %s" % [
 		event_text,
 		Localization.format_text("ui.final_cash", [GameState.cash]),
@@ -421,6 +424,7 @@ func _update_transition_hint() -> void:
 
 
 func _show_scene_transition() -> void:
+	scene_transition_overlay.color.a = SCENE_TRANSITION_ALPHA
 	scene_transition_overlay.visible = true
 
 

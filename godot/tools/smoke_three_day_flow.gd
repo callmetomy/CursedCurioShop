@@ -2,6 +2,7 @@ extends SceneTree
 
 const EXPECTED_ITEMS := ["oddity_0001", "oddity_0002", "oddity_0003", "oddity_0004", "oddity_0005", "oddity_0006", "oddity_0007", "oddity_0008", "oddity_0009", "oddity_0010"]
 const CORRECT_DECISIONS := ["seal", "seal", "discard", "seal", "sell", "discard", "seal", "seal", "seal", "sell"]
+const CLEANUP_PROCESS_FRAMES := 8
 
 
 func _init() -> void:
@@ -19,6 +20,8 @@ func _run() -> void:
 	await _verify_wrong_teacup_sale_path()
 	game_state.call("start_new_run")
 	await _verify_item_specific_wrong_outcome()
+	game_state.call("start_new_run")
+	await _verify_music_box_sale_bad_ending()
 	game_state.call("start_new_run")
 	await _verify_late_game_wrong_outcomes()
 	game_state.call("start_new_run")
@@ -86,6 +89,31 @@ func _verify_item_specific_wrong_outcome() -> void:
 	_assert(not _node_visible(table, "HUD/BadEndingCard"), "Item-specific wrong sale should not trigger the bad ending")
 	_assert(int(game_state.get("cash")) == 135, "Day 2 wrong sale should use item-specific cash delta")
 	_assert(int(game_state.get("reputation")) == 38, "Day 2 wrong sale should use item-specific reputation delta")
+	table.queue_free()
+	await process_frame
+
+
+func _verify_music_box_sale_bad_ending() -> void:
+	var game_state := _game_state()
+	game_state.set("current_day", 3)
+	var table := await _instantiate_inspection_table()
+	_assert(_current_item_id(table) == "oddity_0003", "Music box bad ending check should load the ashen music box")
+
+	table.call("_resolve_decision", "sell")
+	await process_frame
+
+	_assert(not _node_visible(table, "HUD/DayResultPanel"), "Music box sale bad ending should hide the normal day result panel")
+	_assert(_node_visible(table, "HUD/BadEndingCard"), "Music box sale should trigger a bad ending")
+	_assert(
+		_label_contains(table, "HUD/BadEndingCard/BadEndingPanel/EndingTitle", _localized("ending.music_box.title")),
+		"Music box sale bad ending should show its specific title"
+	)
+	_assert(
+		_label_contains(table, "HUD/BadEndingCard/BadEndingPanel/EndingBody", "空嬰兒房"),
+		"Music box sale bad ending should use the localized music box event"
+	)
+	_assert(int(game_state.get("cash")) == 155, "Music box sale bad ending should still apply the sale cash delta")
+	_assert(int(game_state.get("reputation")) == 34, "Music box sale bad ending should apply the reputation penalty")
 	table.queue_free()
 	await process_frame
 
@@ -338,7 +366,7 @@ func _cleanup_current_scene() -> void:
 			continue
 		root.remove_child(child)
 		child.queue_free()
-	for _frame_index in range(3):
+	for _frame_index in range(CLEANUP_PROCESS_FRAMES):
 		await process_frame
 
 

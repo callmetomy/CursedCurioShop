@@ -21,6 +21,8 @@ extends CharacterBody3D
 @onready var shop_ambience_player: AudioStreamPlayer = $"../ShopAmbiencePlayer"
 @onready var scene_transition_overlay: ColorRect = $"../HUD/SceneTransitionOverlay"
 
+const SCENE_TRANSITION_ALPHA := 0.34
+
 var look_pitch := 0.0
 var result_detail_index := 0
 
@@ -69,6 +71,7 @@ func _get_shop_prompt_text() -> String:
 
 
 func _show_scene_transition() -> void:
+	scene_transition_overlay.color.a = SCENE_TRANSITION_ALPHA
 	scene_transition_overlay.visible = true
 
 
