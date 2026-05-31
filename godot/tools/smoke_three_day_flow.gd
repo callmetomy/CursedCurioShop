@@ -25,6 +25,8 @@ func _run() -> void:
 	game_state.call("start_new_run")
 	await _verify_key_sale_bad_ending()
 	game_state.call("start_new_run")
+	await _verify_black_candle_wrong_sale_detail()
+	game_state.call("start_new_run")
 	await _verify_late_game_wrong_outcomes()
 	game_state.call("start_new_run")
 	await _verify_correct_demo_flow()
@@ -141,6 +143,33 @@ func _verify_key_sale_bad_ending() -> void:
 	)
 	_assert(int(game_state.get("cash")) == 180, "Cold key sale bad ending should still apply the sale cash delta")
 	_assert(int(game_state.get("reputation")) == 32, "Cold key sale bad ending should apply the reputation penalty")
+	table.queue_free()
+	await process_frame
+
+
+func _verify_black_candle_wrong_sale_detail() -> void:
+	var game_state := _game_state()
+	game_state.set("current_day", 6)
+	var table := await _instantiate_inspection_table()
+	_assert(_current_item_id(table) == "oddity_0006", "Black candle wrong sale check should load the black wax candle")
+
+	table.call("_resolve_decision", "sell")
+	await process_frame
+
+	_assert(_node_visible(table, "HUD/DayResultPanel"), "Black candle wrong sale should stay in non-ending day result flow")
+	_assert(_node_visible(table, "HUD/AbnormalEventPanel"), "Black candle wrong sale should show an abnormal event")
+	_assert(not _node_visible(table, "HUD/BadEndingCard"), "Black candle wrong sale should not trigger the bad ending")
+	_assert(int(game_state.get("cash")) == 165, "Black candle wrong sale should use item-specific cash delta")
+	_assert(int(game_state.get("reputation")) == 32, "Black candle wrong sale should apply the reputation penalty")
+	var detail: Dictionary = game_state.call("get_result_detail", 0)
+	_assert(
+		str(detail.get("body", "")).contains(_localized("outcome.cursed_sale")),
+		"Black candle wrong sale result detail should mark the outcome as cursed sale"
+	)
+	_assert(
+		str(detail.get("body", "")).contains(_localized("outcome_note.oddity_0006.sell")),
+		"Black candle wrong sale result detail should explain the name-triggered flame"
+	)
 	table.queue_free()
 	await process_frame
 

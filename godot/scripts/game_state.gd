@@ -152,7 +152,7 @@ const WRONG_DECISION_OUTCOMES := {
 	},
 	"oddity_0006": {
 		"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -20, "reputation_delta": -14, "bad_ending": false},
-		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 65, "reputation_delta": -18, "bad_ending": false},
+		"sell": {"outcome_key": "outcome.cursed_sale", "value_delta": 65, "reputation_delta": -18, "bad_ending": false},
 	},
 	"oddity_0007": {
 		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 40, "reputation_delta": -13, "bad_ending": false},

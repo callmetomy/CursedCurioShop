@@ -115,4 +115,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Started Phase C content expansion with a second bad-ending branch: selling the Ashen Music Box now triggers a localized Empty Nursery Tune ending.
 - Done: Ran the focused 1152x648 and 1280x720 HUD safe-area visual pass, fixed the final-summary return button clipping, and recorded evidence in `docs/production/playtests/2026-05-31-hud-safe-area-pass.md`.
 - Done: Continued Phase C with a third bad-ending branch: selling the Cold Brass Key now triggers a localized 3:04 Lockout ending, covered by the headless smoke flow.
-- Next recommended slice: add one more non-ending wrong-outcome detail branch, then run the Traditional Chinese HUD capture set before considering a new oddity batch.
+- Done: Added a non-ending wrong-outcome detail branch: selling the Black Wax Candle now records `outcome.cursed_sale`, keeps the day-result flow, and explains the name-triggered flame in result detail.
+- Done: Reran the Traditional Chinese HUD capture set after the Black Wax Candle branch; result-detail screenshots were refreshed at 1152x648 and 1280x720.
+- Next recommended slice: add one more review-facing capture state for a late-game wrong outcome before considering a new oddity batch.

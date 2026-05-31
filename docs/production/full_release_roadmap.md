@@ -101,8 +101,8 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Add one more non-ending wrong-outcome detail branch before adding a new oddity batch.
-3. Run the Traditional Chinese HUD capture set after the next content branch.
+2. Add one review-facing capture state for a late-game wrong outcome.
+3. Use that evidence to decide whether Phase C is ready for a new oddity batch.
 
 Reason:
 
@@ -114,4 +114,6 @@ Reason:
 - Phase C has started with a second bad-ending branch for the Ashen Music Box wrong sale path.
 - The 2026-05-31 HUD safe-area pass fixed the final-summary return button clipping at `1152x648` and refreshed the Traditional Chinese screenshots.
 - Phase C now includes a third bad-ending branch: selling the Cold Brass Key triggers the localized 3:04 Lockout ending and is covered by the headless smoke flow.
-- The next low-risk content task is one more non-ending wrong-outcome detail branch, followed by the Traditional Chinese HUD capture set before a new oddity batch.
+- Phase C now includes a non-ending wrong-outcome detail branch: selling the Black Wax Candle records `outcome.cursed_sale`, keeps the day-result flow, and explains the name-triggered flame in result detail.
+- The Traditional Chinese HUD capture set was rerun after the Black Wax Candle branch; result-detail screenshots were refreshed at `1152x648` and `1280x720`.
+- The next low-risk task is adding one review-facing capture state for a late-game wrong outcome before deciding whether to start a new oddity batch.
