@@ -23,6 +23,8 @@ func _run() -> void:
 	game_state.call("start_new_run")
 	await _verify_music_box_sale_bad_ending()
 	game_state.call("start_new_run")
+	await _verify_key_sale_bad_ending()
+	game_state.call("start_new_run")
 	await _verify_late_game_wrong_outcomes()
 	game_state.call("start_new_run")
 	await _verify_correct_demo_flow()
@@ -114,6 +116,31 @@ func _verify_music_box_sale_bad_ending() -> void:
 	)
 	_assert(int(game_state.get("cash")) == 155, "Music box sale bad ending should still apply the sale cash delta")
 	_assert(int(game_state.get("reputation")) == 34, "Music box sale bad ending should apply the reputation penalty")
+	table.queue_free()
+	await process_frame
+
+
+func _verify_key_sale_bad_ending() -> void:
+	var game_state := _game_state()
+	game_state.set("current_day", 4)
+	var table := await _instantiate_inspection_table()
+	_assert(_current_item_id(table) == "oddity_0004", "Cold key bad ending check should load the cold brass key")
+
+	table.call("_resolve_decision", "sell")
+	await process_frame
+
+	_assert(not _node_visible(table, "HUD/DayResultPanel"), "Cold key sale bad ending should hide the normal day result panel")
+	_assert(_node_visible(table, "HUD/BadEndingCard"), "Cold key sale should trigger a bad ending")
+	_assert(
+		_label_contains(table, "HUD/BadEndingCard/BadEndingPanel/EndingTitle", _localized("ending.lockout.title")),
+		"Cold key sale bad ending should show its specific title"
+	)
+	_assert(
+		_label_contains(table, "HUD/BadEndingCard/BadEndingPanel/EndingBody", "3:04"),
+		"Cold key sale bad ending should mention the lockout time"
+	)
+	_assert(int(game_state.get("cash")) == 180, "Cold key sale bad ending should still apply the sale cash delta")
+	_assert(int(game_state.get("reputation")) == 32, "Cold key sale bad ending should apply the reputation penalty")
 	table.queue_free()
 	await process_frame
 

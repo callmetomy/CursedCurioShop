@@ -143,7 +143,7 @@ const WRONG_DECISION_OUTCOMES := {
 		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 55, "reputation_delta": -16, "bad_ending": true, "bad_ending_title_key": "ending.music_box.title"},
 	},
 	"oddity_0004": {
-		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": false},
+		"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": true, "bad_ending_title_key": "ending.lockout.title"},
 		"discard": {"outcome_key": "outcome.uncontained_discard", "value_delta": -5, "reputation_delta": -9, "bad_ending": false},
 	},
 	"oddity_0005": {

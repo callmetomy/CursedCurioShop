@@ -129,13 +129,24 @@ class GodotGameStateTests(unittest.TestCase):
             "oddity_0010",
         ]:
             self.assertIn(f'"{item_id}": {{', game_state)
-        self.assertIn('"oddity_0004": {\n\t\t"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": false}', game_state)
+        self.assertIn('"oddity_0004": {\n\t\t"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": true, "bad_ending_title_key": "ending.lockout.title"}', game_state)
         self.assertIn('"oddity_0005": {\n\t\t"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -20, "reputation_delta": -6, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0006": {\n\t\t"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -20, "reputation_delta": -14, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0007": {\n\t\t"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 40, "reputation_delta": -13, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0008": {\n\t\t"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 45, "reputation_delta": -14, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0009": {\n\t\t"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 60, "reputation_delta": -16, "bad_ending": false}', game_state)
         self.assertIn('"oddity_0010": {\n\t\t"seal": {"outcome_key": "outcome.bad_appraisal", "value_delta": -25, "reputation_delta": -9, "bad_ending": false}', game_state)
+
+    def test_game_state_adds_cold_key_sale_bad_ending_branch(self):
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('"oddity_0004": {', game_state)
+        self.assertIn(
+            '"sell": {"outcome_key": "outcome.bad_appraisal", "value_delta": 80, "reputation_delta": -18, "bad_ending": true, "bad_ending_title_key": "ending.lockout.title"}',
+            game_state,
+        )
 
     def test_game_state_records_run_summary_for_final_day(self):
         game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
@@ -300,6 +311,9 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn('Day 2 wrong sale should use item-specific reputation delta', script)
         self.assertIn("_verify_music_box_sale_bad_ending", script)
         self.assertIn('ending.music_box.title', script)
+        self.assertIn("_verify_key_sale_bad_ending", script)
+        self.assertIn('ending.lockout.title', script)
+        self.assertIn('Cold key sale bad ending should apply the reputation penalty', script)
         self.assertIn("_verify_late_game_wrong_outcomes", script)
         self.assertIn('Day 8 wrong sale should use late-game cash delta', script)
         self.assertIn('Day 10 wrong discard should use late-game reputation delta', script)

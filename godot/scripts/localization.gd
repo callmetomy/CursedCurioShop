@@ -236,6 +236,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "The discarded thread knots around the waste bin and will not burn.",
 		"ending.frost_sale.title": "Bad Ending: Frost Sale",
 		"ending.music_box.title": "Bad Ending: Empty Nursery Tune",
+		"ending.lockout.title": "Bad Ending: 3:04 Lockout",
 	},
 	"ja": {
 		"game.title": "呪われた骨董店",
@@ -419,6 +420,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "捨てられた糸はゴミ箱に絡まり、燃えようとしない。",
 		"ending.frost_sale.title": "バッドエンド: 霜の販売",
 		"ending.music_box.title": "バッドエンド: 空の子供部屋の曲",
+		"ending.lockout.title": "バッドエンド: 3:04の閉め出し",
 	},
 	"ko": {
 		"game.title": "저주받은 골동품점",
@@ -602,6 +604,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "버려진 실은 쓰레기통에 매듭져 감기고 타지 않는다.",
 		"ending.frost_sale.title": "나쁜 결말: 서리 판매",
 		"ending.music_box.title": "나쁜 결말: 빈 아이 방의 선율",
+		"ending.lockout.title": "나쁜 결말: 3:04 잠김",
 	},
 	"es": {
 		"game.title": "Tienda de Curios Malditos",
@@ -785,6 +788,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "El hilo desechado se anuda alrededor del cubo y no arde.",
 		"ending.frost_sale.title": "Final malo: venta helada",
 		"ending.music_box.title": "Final malo: canción de guardería vacía",
+		"ending.lockout.title": "Final malo: encierro de las 3:04",
 	},
 	"pt": {
 		"game.title": "Loja de Curiosidades Amaldicoadas",
@@ -968,6 +972,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "A linha descartada da nos ao redor da lixeira e nao queima.",
 		"ending.frost_sale.title": "Final ruim: venda congelada",
 		"ending.music_box.title": "Final ruim: melodia do quarto vazio",
+		"ending.lockout.title": "Final ruim: bloqueio das 3:04",
 	},
 	"ru": {
 		"game.title": "Лавка проклятых редкостей",
@@ -1151,6 +1156,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "Выброшенная нить обвивает мусорную корзину узлами и не горит.",
 		"ending.frost_sale.title": "Плохая концовка: морозная продажа",
 		"ending.music_box.title": "Плохая концовка: мелодия пустой детской",
+		"ending.lockout.title": "Плохая концовка: заперто в 3:04",
 	},
 	"zh_CN": {
 		"game.title": "诅咒古物店",
@@ -1334,6 +1340,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "被丢弃的红线缠住垃圾桶并拒绝燃烧。",
 		"ending.frost_sale.title": "坏结局：霜冻交易",
 		"ending.music_box.title": "坏结局：空婴儿房的曲调",
+		"ending.lockout.title": "坏结局：3:04 锁闭",
 	},
 	"zh_TW": {
 		"ui.reset_progress": "重置進度",
@@ -1567,6 +1574,7 @@ const TEXT := {
 		"consequence.oddity_0010.discard": "被丟棄的紅線纏住垃圾桶並拒絕燃燒。",
 		"ending.frost_sale.title": "壞結局：霜凍交易",
 		"ending.music_box.title": "壞結局：空嬰兒房的曲調",
+		"ending.lockout.title": "壞結局：3:04 鎖閉",
 	},
 }
 

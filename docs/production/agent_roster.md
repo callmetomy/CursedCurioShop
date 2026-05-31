@@ -114,4 +114,5 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Refined the scene transition overlay so it starts transparent and applies the blackout alpha from script before scene changes.
 - Done: Started Phase C content expansion with a second bad-ending branch: selling the Ashen Music Box now triggers a localized Empty Nursery Tune ending.
 - Done: Ran the focused 1152x648 and 1280x720 HUD safe-area visual pass, fixed the final-summary return button clipping, and recorded evidence in `docs/production/playtests/2026-05-31-hud-safe-area-pass.md`.
-- Next recommended slice: continue Phase C with another small wrong-outcome or ending branch before adding a new oddity batch.
+- Done: Continued Phase C with a third bad-ending branch: selling the Cold Brass Key now triggers a localized 3:04 Lockout ending, covered by the headless smoke flow.
+- Next recommended slice: add one more non-ending wrong-outcome detail branch, then run the Traditional Chinese HUD capture set before considering a new oddity batch.
