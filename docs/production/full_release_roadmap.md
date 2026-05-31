@@ -101,8 +101,8 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Run a focused HUD safe-area visual pass at `1152x648` and `1280x720` across the shop, inspection table, day result, and return-to-shop loop.
-3. Continue Phase C with small wrong-outcome or ending branches before adding a new oddity batch.
+2. Continue Phase C with small wrong-outcome or ending branches before adding a new oddity batch.
+3. Keep each content branch covered by smoke validation and the Traditional Chinese HUD capture set.
 
 Reason:
 
@@ -112,4 +112,5 @@ Reason:
 - Distinct hover and pressed button states now cover the main menu, inspection, decision, upgrade, and result navigation buttons.
 - A lightweight scene transition overlay now marks shop-to-inspection, inspection-to-shop, and return-to-menu navigation, with fade-ready alpha applied from script.
 - Phase C has started with a second bad-ending branch for the Ashen Music Box wrong sale path.
-- Final HUD safe-area visual checks remain the next low-risk Phase B item while content expansion continues in small branches.
+- The 2026-05-31 HUD safe-area pass fixed the final-summary return button clipping at `1152x648` and refreshed the Traditional Chinese screenshots.
+- The next low-risk content task is another small wrong-outcome or ending branch before a new oddity batch.
