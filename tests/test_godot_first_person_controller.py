@@ -31,6 +31,17 @@ class GodotFirstPersonControllerTests(unittest.TestCase):
         self.assertIn('[node name="InspectionTableProxy" type="StaticBody3D" parent="."]', scene)
         self.assertIn('[node name="Prompt" type="Label" parent="HUD"]', scene)
 
+    def test_shop_prompt_changes_after_returning_from_an_appraisal(self):
+        script = (ROOT / "godot" / "scripts" / "first_person_controller.gd").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("func _get_shop_prompt_text() -> String:", script)
+        self.assertIn("GameState.get_result_detail_count() > 0", script)
+        self.assertIn('Localization.text("ui.inspect_prompt_after_appraisal")', script)
+        self.assertIn('Localization.text("ui.inspect_prompt")', script)
+        self.assertIn("prompt_label.text = _get_shop_prompt_text()", script)
+
     def test_shop_prototype_scene_uses_mvp_material_assets(self):
         scene = (ROOT / "godot" / "scenes" / "shop_prototype.tscn").read_text(
             encoding="utf-8"

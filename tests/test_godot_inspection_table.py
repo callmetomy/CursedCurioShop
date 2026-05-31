@@ -236,6 +236,18 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="BackToShopButton" type="Button" parent="HUD"]', scene)
         self.assertIn('text = "Back to Shop"', scene)
 
+    def test_inspection_table_buttons_have_hover_and_pressed_feedback(self):
+        scene = (ROOT / "godot" / "scenes" / "inspection_table.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[sub_resource type="StyleBoxTexture" id="StyleBox_tool_button_hover"]', scene)
+        self.assertIn('[sub_resource type="StyleBoxTexture" id="StyleBox_tool_button_pressed"]', scene)
+        self.assertIn("modulate_color = Color(0.95, 0.86, 0.56, 1)", scene)
+        self.assertIn("modulate_color = Color(0.72, 0.56, 0.32, 1)", scene)
+        self.assertIn('theme_override_styles/hover = SubResource("StyleBox_tool_button_hover")', scene)
+        self.assertIn('theme_override_styles/pressed = SubResource("StyleBox_tool_button_pressed")', scene)
+
     def test_inspection_table_script_scores_item_decisions(self):
         script = (ROOT / "godot" / "scripts" / "inspection_table.gd").read_text(
             encoding="utf-8"
@@ -268,6 +280,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('[node name="OutcomeLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
         self.assertIn('[node name="DeltaSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
         self.assertIn('[node name="PressureSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
+        self.assertIn('[node name="TransitionHintLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
         self.assertIn('[node name="ConsequenceReportLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
         self.assertIn('[node name="RunSummaryLabel" type="Label" parent="HUD/DayResultPanel/ResultTextPanel/ResultTextContent"]', scene)
         self.assertIn('[node name="ResultButtonPanel" type="MarginContainer" parent="HUD/DayResultPanel"]', scene)
@@ -291,6 +304,7 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn("outcome_label", script)
         self.assertIn("delta_summary_label", script)
         self.assertIn("pressure_summary_label", script)
+        self.assertIn("transition_hint_label", script)
         self.assertIn("consequence_report_label", script)
         self.assertIn("run_summary_label", script)
         self.assertIn("next_day_button", script)
@@ -305,6 +319,9 @@ class GodotInspectionTableTests(unittest.TestCase):
         self.assertIn('Localization.format_text("ui.day_result_outcome"', script)
         self.assertIn('Localization.format_text("ui.day_result_delta"', script)
         self.assertIn('Localization.format_text("ui.day_result_after"', script)
+        self.assertIn("_update_transition_hint()", script)
+        self.assertIn('Localization.text("ui.day_result_final_hint")', script)
+        self.assertIn('Localization.text("ui.day_result_next_hint")', script)
         self.assertIn('Localization.format_text("ui.day_result_consequence"', script)
         self.assertIn("GameState.get_daily_pressure_key(GameState.reputation)", script)
         self.assertIn("GameState.get_run_summary", script)

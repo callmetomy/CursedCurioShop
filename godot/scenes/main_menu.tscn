@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://main_menu_scene"]
+[gd_scene load_steps=9 format=3 uid="uid://main_menu_scene"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/main_menu_background.png" id="2_background"]
@@ -6,6 +6,22 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBox_button"]
 texture = ExtResource("3_button_brass")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_button_hover"]
+texture = ExtResource("3_button_brass")
+modulate_color = Color(0.95, 0.86, 0.56, 1)
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_button_pressed"]
+texture = ExtResource("3_button_brass")
+modulate_color = Color(0.72, 0.56, 0.32, 1)
 texture_margin_left = 18.0
 texture_margin_top = 18.0
 texture_margin_right = 18.0
@@ -66,32 +82,32 @@ custom_minimum_size = Vector2(280, 48)
 layout_mode = 2
 text = "Start Day"
 theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
 
 [node name="ResetProgressButton" type="Button" parent="MenuPanel"]
 custom_minimum_size = Vector2(280, 48)
 layout_mode = 2
 text = "Reset Progress"
 theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
 
 [node name="SettingsButton" type="Button" parent="MenuPanel"]
 custom_minimum_size = Vector2(280, 48)
 layout_mode = 2
 text = "Settings"
 theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
 
 [node name="QuitButton" type="Button" parent="MenuPanel"]
 custom_minimum_size = Vector2(280, 48)
 layout_mode = 2
 text = "Quit"
 theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")
 
 [node name="SettingsPanel" type="VBoxContainer" parent="."]
 visible = false
@@ -143,5 +159,5 @@ custom_minimum_size = Vector2(280, 48)
 layout_mode = 2
 text = "Back"
 theme_override_styles/normal = SubResource("StyleBox_button")
-theme_override_styles/hover = SubResource("StyleBox_button")
-theme_override_styles/pressed = SubResource("StyleBox_button")
+theme_override_styles/hover = SubResource("StyleBox_button_hover")
+theme_override_styles/pressed = SubResource("StyleBox_button_pressed")

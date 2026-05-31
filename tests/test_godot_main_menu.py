@@ -29,6 +29,18 @@ class GodotMainMenuTests(unittest.TestCase):
         self.assertIn('text = "Settings"', scene)
         self.assertIn('text = "Quit"', scene)
 
+    def test_main_menu_buttons_have_hover_and_pressed_feedback(self):
+        scene = (ROOT / "godot" / "scenes" / "main_menu.tscn").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('[sub_resource type="StyleBoxTexture" id="StyleBox_button_hover"]', scene)
+        self.assertIn('[sub_resource type="StyleBoxTexture" id="StyleBox_button_pressed"]', scene)
+        self.assertIn("modulate_color = Color(0.95, 0.86, 0.56, 1)", scene)
+        self.assertIn("modulate_color = Color(0.72, 0.56, 0.32, 1)", scene)
+        self.assertIn('theme_override_styles/hover = SubResource("StyleBox_button_hover")', scene)
+        self.assertIn('theme_override_styles/pressed = SubResource("StyleBox_button_pressed")', scene)
+
     def test_main_menu_scene_has_settings_panel_controls(self):
         scene = (ROOT / "godot" / "scenes" / "main_menu.tscn").read_text(
             encoding="utf-8"

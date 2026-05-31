@@ -108,4 +108,6 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Started Steam store prep with `docs/production/steam_store_prep.md` and full-release gap tracking with `docs/production/full_release_roadmap.md`.
 - Done: Owner direction on 2026-05-31 is to ignore Steam store work and real-player playtest for now, then continue product-body work.
 - Done: Added a low-volume looping shop ambience cue to the shop prototype, with tests covering the scene node, loop startup, and local WAV asset.
-- Next recommended slice: continue Phase B productization polish by improving UI transition/state clarity between shop, inspection, result, and return-to-shop flows. Do not add another perk or new oddity batch until this polish pass is complete.
+- Done: Improved UI transition/state clarity by adding post-appraisal shop prompt text and day-result next-step guidance, with runtime smoke coverage for both.
+- Done: Added distinct brass hover and pressed button feedback across the main menu, inspection tools, decision buttons, upgrade buttons, and result navigation.
+- Next recommended slice: continue Phase B productization polish with a focused transition/safe-area pass between shop, inspection, result, and return-to-shop flows. Do not add another perk or new oddity batch until this polish pass is complete.

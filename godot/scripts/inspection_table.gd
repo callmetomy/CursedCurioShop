@@ -18,6 +18,7 @@ extends Node3D
 @onready var outcome_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/OutcomeLabel
 @onready var delta_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/DeltaSummaryLabel
 @onready var pressure_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel
+@onready var transition_hint_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/TransitionHintLabel
 @onready var consequence_report_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/ConsequenceReportLabel
 @onready var run_summary_label: Label = $HUD/DayResultPanel/ResultTextPanel/ResultTextContent/RunSummaryLabel
 @onready var progression_panel: PanelContainer = $HUD/DayResultPanel/ProgressionPanel
@@ -317,6 +318,7 @@ func _show_day_result(outcome_key: String, value_delta: int, reputation_delta: i
 	day_result_background.visible = true
 	day_result_panel.visible = true
 	_update_next_day_button_label()
+	_update_transition_hint()
 	outcome_label.text = Localization.format_text("ui.day_result_outcome", [Localization.text(outcome_key)])
 	delta_summary_label.text = Localization.format_text("ui.day_result_delta", [value_delta, reputation_delta])
 	pressure_summary_label.text = Localization.format_text("ui.day_result_after", [
@@ -405,6 +407,13 @@ func _update_next_day_button_label() -> void:
 		next_day_button.text = Localization.text("ui.return_to_menu")
 	else:
 		next_day_button.text = Localization.text("ui.next_day")
+
+
+func _update_transition_hint() -> void:
+	if GameState.is_run_complete():
+		transition_hint_label.text = Localization.text("ui.day_result_final_hint")
+	else:
+		transition_hint_label.text = Localization.text("ui.day_result_next_hint")
 
 
 func _get_current_correct_handling() -> String:

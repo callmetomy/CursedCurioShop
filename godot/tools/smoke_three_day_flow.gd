@@ -24,6 +24,7 @@ func _run() -> void:
 	game_state.call("start_new_run")
 	await _verify_correct_demo_flow()
 
+	await _cleanup_current_scene()
 	print("Ten-day demo smoke flow passed")
 	quit(0)
 
@@ -156,6 +157,10 @@ func _verify_correct_demo_flow() -> void:
 			_label_contains(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel", _localized(pressure_key)),
 			"Day result should show post-decision pressure summary"
 		)
+		_assert(
+			_label_contains(table, "HUD/DayResultPanel/ResultTextPanel/ResultTextContent/TransitionHintLabel", _localized("ui.day_result_next_hint") if day_index < EXPECTED_ITEMS.size() - 1 else _localized("ui.day_result_final_hint")),
+			"Day result should show next-step transition guidance"
+		)
 		_assert(not _node_visible(table, "HUD/AbnormalEventPanel"), "Correct decision should not show abnormal event")
 		_assert(not _node_visible(table, "HUD/AppraisalNotesBackground"), "Day result should hide appraisal notes")
 		_assert(not _node_visible(table, "HUD/DecisionPanel"), "Day result should hide decision buttons")
@@ -215,6 +220,10 @@ func _verify_shop_ledger_after_decision(day_number: int) -> void:
 		"Shop ledger should show the localized completed day"
 	)
 	_assert(_node_visible(shop, "HUD/ResultDetailPanel"), "Shop should show result detail panel after a completed appraisal")
+	_assert(
+		_label_contains(shop, "HUD/Prompt", _localized("ui.inspect_prompt_after_appraisal")),
+		"Shop prompt should explain returning flow after an appraisal"
+	)
 	_assert(
 		_label_contains(shop, "HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", "決策"),
 		"Shop result detail should show the localized decision label"
@@ -320,6 +329,16 @@ func _localized(key: String) -> String:
 	var node := root.get_node_or_null("Localization")
 	_assert(node != null, "Localization autoload is not available")
 	return str(node.call("text", key))
+
+
+func _cleanup_current_scene() -> void:
+	current_scene = null
+	for child in root.get_children():
+		if child.name in ["GameState", "Localization"]:
+			continue
+		root.remove_child(child)
+		child.queue_free()
+	await process_frame
 
 
 func _current_item_id(table: Node) -> String:

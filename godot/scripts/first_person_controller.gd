@@ -44,7 +44,7 @@ func _exit_tree() -> void:
 
 
 func _update_shop_hud() -> void:
-	prompt_label.text = Localization.text("ui.inspect_prompt")
+	prompt_label.text = _get_shop_prompt_text()
 	run_status.text = Localization.format_text("ui.run_status", [
 		GameState.current_day,
 		GameState.max_days,
@@ -59,6 +59,12 @@ func _update_shop_hud() -> void:
 	shop_ledger_body.text = GameState.get_shop_ledger()
 	progression_status.text = GameState.get_progression_status_text()
 	_update_result_detail_panel()
+
+
+func _get_shop_prompt_text() -> String:
+	if GameState.get_result_detail_count() > 0:
+		return Localization.text("ui.inspect_prompt_after_appraisal")
+	return Localization.text("ui.inspect_prompt")
 
 
 func _update_result_detail_panel() -> void:

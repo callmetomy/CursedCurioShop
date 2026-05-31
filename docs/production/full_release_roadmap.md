@@ -101,11 +101,13 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Improve UI transition and state clarity across the shop, inspection table, day result, and return-to-shop loop.
+2. Tighten scene transition readability and HUD safe areas across the shop, inspection table, day result, and return-to-shop loop.
 3. Keep the work scoped to current content; do not add another perk or new oddity batch in this pass.
 
 Reason:
 
 - Settings, onboarding, reset behavior, and first audio cues are already present in the current local build.
 - Shop ambience has been added as the next small audio polish slice.
-- UI transition clarity is the remaining low-risk Phase B item before content expansion.
+- Post-appraisal shop prompt text and day-result next-step guidance are now covered by tests and the Godot smoke flow.
+- Distinct hover and pressed button states now cover the main menu, inspection, decision, upgrade, and result navigation buttons.
+- Scene transition readability and final safe-area polish remain the next low-risk Phase B items before content expansion.

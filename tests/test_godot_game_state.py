@@ -287,6 +287,9 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("HUD/ResultDetailPanel/ResultDetailContent/ResultDetailBody", script)
         self.assertIn("HUD/DayResultPanel/ResultTextPanel/ResultTextContent/DeltaSummaryLabel", script)
         self.assertIn("HUD/DayResultPanel/ResultTextPanel/ResultTextContent/PressureSummaryLabel", script)
+        self.assertIn("HUD/DayResultPanel/ResultTextPanel/ResultTextContent/TransitionHintLabel", script)
+        self.assertIn("Day result should show next-step transition guidance", script)
+        self.assertIn("Shop prompt should explain returning flow after an appraisal", script)
         self.assertIn("Day result should show segmented delta summary", script)
         self.assertIn("Day result should show post-decision pressure summary", script)
         self.assertIn("Shop result detail should show the post-decision pressure summary", script)
@@ -302,6 +305,8 @@ class GodotGameStateTests(unittest.TestCase):
         self.assertIn("Upgraded second run should keep enough cash buffer", script)
         self.assertIn("== 210", script)
         self.assertIn(">= 35", script)
+        self.assertIn("_cleanup_current_scene()", script)
+        self.assertIn('if child.name in ["GameState", "Localization"]:', script)
         self.assertIn("quit(0)", script)
 
 
