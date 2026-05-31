@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import unittest
 
 
@@ -22,6 +23,29 @@ class SecondOddityBatchPlanTests(unittest.TestCase):
             "Traditional Chinese capture gate",
         ]:
             self.assertIn(gate, plan)
+
+    def test_oddity_0011_candidate_json_is_drafted_but_not_playable(self):
+        item_path = ROOT / "data" / "items" / "oddity_0011.json"
+        self.assertTrue(item_path.exists())
+
+        item = json.loads(item_path.read_text(encoding="utf-8"))
+        self.assertEqual(item["id"], "oddity_0011")
+        self.assertEqual(item["display_name"], "Cracked Apothecary Scale")
+        self.assertEqual(item["appraisal"]["correct_handling"], "seal")
+        self.assertEqual(item["generation"]["status"], "draft")
+        self.assertIs(item["generation"]["approved"], False)
+        self.assertGreaterEqual(item["danger_level"], 2)
+        self.assertEqual(
+            {clue["tool"] for clue in item["appraisal"]["clues"]},
+            {"magnifier", "uv_lamp", "thermometer"},
+        )
+        self.assertIn("undercounting", item["appraisal"]["wrong_handling_consequence"])
+
+        game_state = (ROOT / "godot" / "scripts" / "game_state.gd").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn('"oddity_0011"', game_state)
+        self.assertFalse((ROOT / "godot" / "scenes" / "items" / "oddity_0011.tscn").exists())
 
 
 if __name__ == "__main__":

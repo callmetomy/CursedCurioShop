@@ -24,6 +24,7 @@ class ProjectStatusTests(unittest.TestCase):
                 concept_prompt="A mirror coin concept.",
                 model_prompt="A mirror coin model.",
             )
+            item["generation"]["approved"] = True
             save_item_definition(item, root / "data" / "items")
             (root / "data" / "items" / "item_schema.json").write_text(
                 '{"id": "oddity_example", "display_name": "Schema Example"}\n',
@@ -53,6 +54,7 @@ class ProjectStatusTests(unittest.TestCase):
                 concept_prompt="An ashen music box concept.",
                 model_prompt="An ashen music box model.",
             )
+            item["generation"]["approved"] = True
             save_item_definition(item, root / "data" / "items")
 
             status = build_project_status(
@@ -71,6 +73,39 @@ class ProjectStatusTests(unittest.TestCase):
             self.assertEqual(status["asset_totals"]["items"], 1)
             self.assertEqual(status["asset_totals"]["ready_outputs"], 0)
             self.assertEqual(status["asset_totals"]["total_outputs"], 4)
+
+    def test_build_project_status_excludes_unapproved_draft_candidates(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            approved_item = build_item_definition(
+                item_id="oddity_0005",
+                display_name="Glass Eye",
+                concept_prompt="A glass eye concept.",
+                model_prompt="A glass eye model.",
+            )
+            approved_item["generation"]["approved"] = True
+            draft_item = build_item_definition(
+                item_id="oddity_0011",
+                display_name="Cracked Apothecary Scale",
+                concept_prompt="A cracked apothecary scale concept.",
+                model_prompt="A cracked apothecary scale model.",
+            )
+            save_item_definition(approved_item, root / "data" / "items")
+            save_item_definition(draft_item, root / "data" / "items")
+
+            status = build_project_status(
+                root=root,
+                git_info={
+                    "branch": "master",
+                    "is_dirty": False,
+                    "changes": [],
+                    "recent_commits": [],
+                },
+                test_info={"ran": True, "passed": True, "summary": "Ran 10 tests"},
+            )
+
+            self.assertEqual(status["asset_totals"]["items"], 1)
+            self.assertEqual([item["item_id"] for item in status["items"]], ["oddity_0005"])
 
     def test_render_project_status_markdown_is_a_compact_dashboard(self):
         status = {

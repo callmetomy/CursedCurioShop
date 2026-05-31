@@ -10,10 +10,12 @@ ROOT = Path(__file__).resolve().parents[1]
 class CommercialDemoDesignTests(unittest.TestCase):
     def _items(self) -> list[dict]:
         item_paths = sorted((ROOT / "data" / "items").glob("oddity_*.json"))
-        return [
-            json.loads(path.read_text(encoding="utf-8"))
-            for path in item_paths
-        ]
+        items = []
+        for path in item_paths:
+            item = json.loads(path.read_text(encoding="utf-8"))
+            if item["generation"]["approved"]:
+                items.append(item)
+        return items
 
     def _locale_block(self, locale: str) -> str:
         localization = (ROOT / "godot" / "scripts" / "localization.gd").read_text(

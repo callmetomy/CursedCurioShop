@@ -14,6 +14,8 @@ def summarize_item_assets(root: Path) -> list[dict[str, Any]]:
 
     for item_path in sorted(items_dir.glob("oddity_*.json")):
         status = build_asset_status(root=root, item_id=item_path.stem)
+        if not status["approved"]:
+            continue
         ready_outputs = sum(1 for asset in status["assets"] if asset["exists"])
         summaries.append(
             {

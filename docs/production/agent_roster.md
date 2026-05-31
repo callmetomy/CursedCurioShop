@@ -119,4 +119,5 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Reran the Traditional Chinese HUD capture set after the Black Wax Candle branch; result-detail screenshots were refreshed at 1152x648 and 1280x720.
 - Done: Added a late-game wrong-outcome capture state for Day 8 Silver Funeral Bell wrong sale, fixed the day-result overlay so the old decision summary no longer overlaps the ledger panel, and recorded evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
 - Done: Evaluated the first small second-oddity batch candidate gate in `docs/production/second_oddity_batch_eval.md`, limiting the first slice to `oddity_0011` through `oddity_0013`.
-- Next recommended slice: draft `oddity_0011` as item JSON only, without adding it to `GameState.DAILY_ITEM_IDS` or the playable schedule until its local asset and Traditional Chinese capture gates are ready.
+- Done: Drafted `oddity_0011` as item JSON only, kept it out of `GameState.DAILY_ITEM_IDS`, and excluded unapproved draft candidates from asset-ready totals.
+- Next recommended slice: create the local prototype asset and Godot item scene for `oddity_0011`, then run clue readability and Traditional Chinese capture gates before adding it to the playable schedule.

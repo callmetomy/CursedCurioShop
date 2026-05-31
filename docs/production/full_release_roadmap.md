@@ -101,8 +101,8 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Draft `oddity_0011` as item JSON only.
-3. Keep it out of the playable schedule until local asset readability and Traditional Chinese capture gates are ready.
+2. Create the local prototype asset and Godot item scene for `oddity_0011`.
+3. Run clue readability, wrong-outcome clarity, and Traditional Chinese capture gates before adding it to the playable schedule.
 
 Reason:
 
@@ -119,4 +119,5 @@ Reason:
 - A late-game wrong-outcome capture state now covers Day 8 Silver Funeral Bell wrong sale at `1152x648` and `1280x720`, with evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
 - The day-result overlay now hides the old decision summary label, preventing overlap with ledger-style result panels in review captures.
 - The first small second-oddity batch has been evaluated in `docs/production/second_oddity_batch_eval.md`, limited to `oddity_0011` through `oddity_0013`.
-- The next low-risk task is drafting `oddity_0011` as item JSON only, without adding it to the playable schedule until its local asset and Traditional Chinese capture gates are ready.
+- `oddity_0011` has been drafted as item JSON only, remains outside the playable schedule, and stays excluded from asset-ready totals while unapproved.
+- The next low-risk task is creating the `oddity_0011` local prototype asset and Godot item scene, then reviewing clue readability before adding it to the playable schedule.

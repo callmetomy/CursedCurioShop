@@ -1,0 +1,50 @@
+{
+  "id": "oddity_0011",
+  "display_name": "Cracked Apothecary Scale",
+  "rarity": "common",
+  "danger_level": 2,
+  "visual_theme": [
+    "antique",
+    "cursed",
+    "shop_prop",
+    "brass",
+    "apothecary"
+  ],
+  "model": {
+    "raw_path": "assets/models_raw/oddity_0011.glb",
+    "processed_path": "assets/models_processed/oddity_0011.glb",
+    "scale_meters": 0.4
+  },
+  "appraisal": {
+    "description": "A cracked brass apothecary scale whose empty pan hangs level with the weighted side.",
+    "clues": [
+      {
+        "tool": "magnifier",
+        "result": "Fine tally scratches cover one pan while the matching pan is smooth."
+      },
+      {
+        "tool": "uv_lamp",
+        "result": "UV light reveals old fingerprints under the empty pan, as if something invisible was weighed there."
+      },
+      {
+        "tool": "thermometer",
+        "result": "The empty pan is colder than the weighted pan.",
+        "temperature_c": -3.6
+      }
+    ],
+    "correct_handling": "seal",
+    "wrong_handling_consequence": "If sold or thrown out, the scale keeps undercounting every debt by one coin until the shop is blamed."
+  },
+  "economy": {
+    "base_value": 70,
+    "sell_value": 110,
+    "seal_cost": 35
+  },
+  "generation": {
+    "status": "draft",
+    "concept_prompt": "A cracked brass apothecary balance scale for a cursed antique shop game, one empty pan hanging level with a weighted pan, tally scratches, old pharmacy wear, readable silhouette, no text.",
+    "model_prompt": "Small antique brass apothecary balance scale game prop, cracked central beam, one empty pan subtly lower, tarnished metal, worn pharmacy base, clear readable silhouette, no text, no logo.",
+    "attempts": 0,
+    "approved": false
+  }
+}
