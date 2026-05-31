@@ -118,4 +118,5 @@ Add after the asset factory can reliably produce at least one approved object.
 - Done: Added a non-ending wrong-outcome detail branch: selling the Black Wax Candle now records `outcome.cursed_sale`, keeps the day-result flow, and explains the name-triggered flame in result detail.
 - Done: Reran the Traditional Chinese HUD capture set after the Black Wax Candle branch; result-detail screenshots were refreshed at 1152x648 and 1280x720.
 - Done: Added a late-game wrong-outcome capture state for Day 8 Silver Funeral Bell wrong sale, fixed the day-result overlay so the old decision summary no longer overlaps the ledger panel, and recorded evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
-- Next recommended slice: evaluate a small second oddity batch, keeping the first batch narrow and gated by clue readability, wrong-outcome clarity, and Traditional Chinese capture evidence.
+- Done: Evaluated the first small second-oddity batch candidate gate in `docs/production/second_oddity_batch_eval.md`, limiting the first slice to `oddity_0011` through `oddity_0013`.
+- Next recommended slice: draft `oddity_0011` as item JSON only, without adding it to `GameState.DAILY_ITEM_IDS` or the playable schedule until its local asset and Traditional Chinese capture gates are ready.

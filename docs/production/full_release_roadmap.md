@@ -101,8 +101,8 @@ Owner direction on 2026-05-31: skip Steam store readiness and real-player playte
 Recommended next implementation task:
 
 1. Continue Phase B productization polish.
-2. Evaluate a small second oddity batch.
-3. Keep the first new batch narrow and gated by clue readability, wrong-outcome clarity, and Traditional Chinese capture evidence.
+2. Draft `oddity_0011` as item JSON only.
+3. Keep it out of the playable schedule until local asset readability and Traditional Chinese capture gates are ready.
 
 Reason:
 
@@ -118,4 +118,5 @@ Reason:
 - The Traditional Chinese HUD capture set was rerun after the Black Wax Candle branch; result-detail screenshots were refreshed at `1152x648` and `1280x720`.
 - A late-game wrong-outcome capture state now covers Day 8 Silver Funeral Bell wrong sale at `1152x648` and `1280x720`, with evidence in `docs/production/playtests/2026-05-31-late-wrong-outcome-capture.md`.
 - The day-result overlay now hides the old decision summary label, preventing overlap with ledger-style result panels in review captures.
-- The next low-risk task is evaluating a small second oddity batch with strict review gates before expanding content volume.
+- The first small second-oddity batch has been evaluated in `docs/production/second_oddity_batch_eval.md`, limited to `oddity_0011` through `oddity_0013`.
+- The next low-risk task is drafting `oddity_0011` as item JSON only, without adding it to the playable schedule until its local asset and Traditional Chinese capture gates are ready.
